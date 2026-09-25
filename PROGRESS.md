@@ -2,7 +2,7 @@
 
 > **Dlaczego ten plik istnieje:** sesja może stracić kontekst. Ten plik mówi,
 > na czym stoimy, co jest gotowe, co jest w toku i co robić dalej.
-> Aktualizuj go KAŻDEGO RAZU po istotnym kroku. Ostatnia aktualizacja: 2026-09-25 16:40.
+> Aktualizuj go KAŻDEGO RAZU po istotnym kroku. Ostatnia aktualizacja: 2026-09-25 16:05.
 
 ## 0. Orientacja w 30 sekund
 
@@ -31,7 +31,9 @@
 |---|---|---|
 | `engine_v1.py` | **ZAMROŻONY** | sezon 1 UKOŃCZONY (winner Cordovia). Nie ruszać. |
 | `engine2.py` | archiwalny | v2 (alianse, found) — nieużywany w live. |
-| `engine3.py` | **LIVE (sezon 2)** | v3. Kontrakt ten sam: `new_state/apply_action/apply_turn/seal_hash`. |
+| `engine3.py` | **LIVE (sezon 2)** | v3. Kontrakt ten sam: `new_state/apply_action/apply_turn/seal_hash`.
+| `engine4.py` | DEV (sezon 3) | v4: rządy (demokracja/dyktatura/oligarchia), podatki, realna wojna (`attack` + trybut 25% przy podboju), pakty nieagresji 10 dni (betrayal -25 tr), traktaty handlowe +1 surowca/dzień (max 2). +FIX: głosy zapisywane do logu (w v3 replay utracił wybory).
+| `test_engine4.py` | zielone | determinizm, replay, tamper, rządy, podatki, wojna+trybut, pakt+betrayal, traktaty, backwards-compat z v3. `python3 test_engine4.py`. | |
 | `bots3.py` | LIVE | boty v3 (rynek, budynki, szpiegostwo, tytuły). |
 | `test_engine3.py` | zielone | determinizm, replay, tamper, testy feature. `python3 test_engine3.py`. |
 | `server.py` | v3 live | `EREP_ENGINE=engine3` w unit systemd. Route'y `/demo3/*`. |
@@ -54,8 +56,7 @@
 | `erepublik-tunnel` | quick cloudflared → `tunnel-url.txt`. |
 
 Token GitHub: `credentials/github-ejajmonster.md` (ghp_...) — **nigdy nie w chacie/logach**.
-Remote repo ma osłabiony token (złe uwierzytelnienie) — do pusha używać:
-`git push "https://ejajmonster:$TOK@github.com/..." HEAD:main` z TOK z credentials.
+Repo pushuje bez problemu: `git push "https://ejajmonster:$TOK@github.com/..." HEAD:main` z TOK z credentials (uruchomione: git woli inline-URL credów od remote z baked tokenem, który jest osłabiony). Ostatni push 2026-09-25 16:05: main = 89a22e4.
 
 ## 3. Co jest ZROBIONE (stan na 2026-09-25 ~14:5x)
 
@@ -64,22 +65,20 @@ Remote repo ma osłabiony token (złe uwierzytelnienie) — do pusha używać:
 - [x] Strona v3 pchnięta na Pages: tema e-republika, taby, ranking mocy, rynek, budynki, intel.
   Potwierdzone live: navy theme + "The Realm" w CSS/HTML na Pages.
 - [x] Repo scalone: historia strona+kod w jednej gałęzi `main`, struktura root=site, `code/`=kod.
-- [x] Mój ruch t9 (`culture`) w kolejce — turn zamyka się 16:00 CEST.
+- [x] Repo pushuje znowu (push 16:05: `git push https://ejajmonster:$TOK@... HEAD:main` działa — git woli inline-URL credów).
+- [x] **Engine v4 (kandydat na sezon 3)** — `engine4.py` + `test_engine4.py` zielone (determinizm/replay/tamper + testy feature). Sezon 2 NIE ruszony (engine3, verify od genesis). Pełny sezon (80 tur) domyka do winnera w testach.
 
 ## 4. Co jest W TOKU / DO ZRZEBRANIA (kolejność = priorytet)
 
 1. **Sezon 2 trwa** (start 25.09 15:4x CEST, engine v3, seed 20260925). Najbliższe:
    turn 0 zamyka się 24:00 UTC (22:00 CEST) — play-turn dogra botów o ~21:50 (timer 21:50/09:50 CEST),
    head polecia o ~22:03. **Mój ruch t0: research (queued).** Dalej: obserwować, grać świadomie.
-2. **Kompletność v3 jak e-republika** — Piotr: "niech wygląda jak e-republika". Lista
-   kandydatów do v3.1 (do uzgodnienia; UWAGA: zmiany engine3 w trakcie sezonu 2 = NIE —
-   season 2 musi dobiec do końca na obecnym kodzie, żeby verify działał. v3.1 = sezon 3):
-   - **dyplomacja głębsza:** traktaty (wymiana surowców), pakt nieagresji vs sojusz, misja dyplomatyczna;
-   - **wojna realna:** atak na kafelek, oblężenie (culture/tech zmienia wynik), okup po wojnie;
-   - **ekonomia głębsza:** handel między narodami, podatki (lider stawia stawkę), handel wewnętrzny;
+2. **Kompletność v3 jak e-republika** — Piotr: "niech wygląda jak e-republika". **Rozwiązane w engine4 (sezon 3):**
+   wojna realna (attack + trybut), rządy + podatki, pakty nieagresji, traktaty handlowe, fix wyborów
+   (głosy w logu). Zostało do v4.1/sezon 3+:
    - **kultura/infra:** landmarky, święta narodowe, muzea (obrona przed banditami);
-   - **cykle rządowe:** typy rządu (demokracja/dyktatura/oligarchia), kandydaci na lidera;
-   - **UI:** profil narodu, historia wojen, wykresy siły (SVG), feed na żywo (poll co 30s).
+   - **UI:** profil narodu, historia wojen, wykresy siły (SVG), feed na żywo (poll co 30s),
+     zakładki Gov/Tax/War/Treaties na stronie.
 3. **Tunel stały:** quick tunnel = URL pływający. Stały Cloudflare tunnel wymaga logina
    Piotra (account) — dostęp przez host (nie w chacie). Wtedy named tunnel `erepublik`.
 4. **Boty v3 lepsze** (sezon 3): persony (merchant kupuje tanio/sprzedaje drogo, militarist
