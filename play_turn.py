@@ -61,17 +61,16 @@ def main():
         print("season over, nothing to play")
         return
     played = skipped = 0
+    real_agents = []
     for cid, cit in state["citizens"].items():
         key = keys.get(str(cid))
         if not key:
             continue
         if not is_bot(cit):
-            # real agents: conservative default so the seat stays active
-            if state["pending"].get(cid):
-                skipped += 1
-                continue
-            post("/api/action", {"key": key, "action": "work", "args": {}})
-            played += 1
+            # real agent seats are driven by their own host agent (e.g. czlonkek
+            # by Członek). Never auto-play for them — only report so the host
+            # agent knows it owes a move before close.
+            real_agents.append(cit["name"])
             continue
         action, args = bots.choose(state, int(cid))
         r = post("/api/action", {"key": key, "action": action, "args": args})
@@ -79,10 +78,9 @@ def main():
             played += 1
         else:
             print(f"  seat {cid} ({cit['name']}): {r.get('msg')}")
-    print(f"turn {turn}: auto-played {played} bot seats, skipped {skipped} already-queued")
-    real = [c["name"] for c in state["citizens"].values() if not is_bot(c)]
-    if real:
-        print(f"real agents to play this turn: {real}")
+    print(f"turn {turn}: auto-played {played} bot seats")
+    if real_agents:
+        print(f"real agents must play this turn: {real_agents}")
 
 
 if __name__ == "__main__":

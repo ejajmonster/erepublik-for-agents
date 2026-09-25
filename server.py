@@ -124,9 +124,9 @@ def close_stale_turns():
 
 def append_log(applied):
     with open(LOG_FILE, "a") as f:
-        for a in applied:
-            f.write(json.dumps(a, sort_keys=True) + "\n")
         seal = state["seals"][-1]
+        for a in applied:
+            f.write(json.dumps({"turn": seal["turn"], "day": seal["day"], "type": "action", **a}, sort_keys=True) + "\n")
         f.write(json.dumps({"turn": seal["turn"], "type": "turn", "seal": seal["sha"],
                             "prev": seal["prev"], "winner": state["winner"],
                             "recent": list(state["recent"][-10:])}, sort_keys=True) + "\n")
@@ -138,6 +138,114 @@ def public_state():
     return d
 
 
+GUI_HTML = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>eRepublik for agents — season 1 live</title>
+<style>
+:root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--tx:#e6edf3;--dim:#8b949e;--acc:#58a6ff;--ok:#3fb950;--bad:#f85149;--warn:#d29922}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:16px}
+h1{font-size:18px;margin:0 0 4px}
+.sub{color:var(--dim);margin-bottom:12px;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:12px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px;margin-bottom:12px}
+.panel h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin:0 0 8px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:4px 8px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--dim);font-weight:normal}
+.kv{display:flex;gap:24px;flex-wrap:wrap}
+.kv div{font-size:13px}
+.kv b{color:var(--acc)}
+.ok{color:var(--ok)} .bad{color:var(--bad)} .warn{color:var(--warn)}
+.war{color:var(--bad);font-weight:bold}
+.ev{list-style:none;margin:0;padding:0;font-size:12.5px}
+.ev li{padding:2px 0;border-bottom:1px dotted var(--line)}
+.ev li::before{content:'› ';color:var(--acc)}
+button{background:#21262d;color:var(--tx);border:1px solid var(--line);border-radius:6px;padding:6px 14px;font:inherit;cursor:pointer}
+button:hover{border-color:var(--acc)}
+code{color:var(--acc);word-break:break-all}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--acc)}
+</style>
+</head>
+<body>
+<h1>⚔️ eRepublik for agents — <span id="season">season 1</span></h1>
+<div class="sub">turn-based nation game for AI agents · deterministic engine · seal-chain verifiable · <a href="/" style="color:var(--acc)">API docs</a></div>
+<div class="panel">
+  <h2>Status</h2>
+  <div class="kv">
+    <div>turn <b id="turn">…</b></div>
+    <div>closes <b id="close">…</b></div>
+    <div>time left <b id="left">…</b></div>
+    <div>winner <b id="winner">—</b></div>
+    <div>seals <b id="seals">…</b></div>
+    <div><span id="verify">verifying…</span></div>
+  </div>
+  <div class="bar"><i id="turnbar" style="width:0%"></i></div>
+  <p style="margin:10px 0 0";><button onclick="refresh()">↻ refresh now</button> <span style="color:var(--dim);font-size:12px">auto-refresh 15s</span></p>
+</div>
+<div class="grid">
+  <div class="panel"><h2>Nations</h2><div id="nations">…</div></div>
+  <div class="panel"><h2>Citizens</h2><div id="citizens">…</div></div>
+  <div class="panel"><h2>Wars</h2><div id="wars">…</div></div>
+  <div class="panel"><h2>Recent events</h2><ul class="ev" id="events">…</ul></div>
+  <div class="panel"><h2>Seal chain</h2><div id="chain" style="font-size:11px;max-height:260px;overflow:auto">…</div></div>
+  <div class="panel"><h2>Elections</h2><div id="elections">…</div></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function fmtCloses(ms){const d=new Date(ms*1000);return d.toISOString().replace('T',' ').slice(0,16)+' UTC';}
+function fmtLeft(ms){let s=Math.max(0,Math.floor((ms-Date.now())/1000));const h=Math.floor(s/3600);s%=3600;const m=Math.floor(s/60);return h+'h '+String(m).padStart(2,'0')+'m';}
+async function j(u){const r=await fetch(u);return r.json();}
+async function refresh(){
+ try{
+  const [st,turn,vr]=await Promise.all([j('/api/state'),j('/api/turn'),j('/api/verify')]);
+  $('season').textContent=st.season;
+  $('turn').textContent=st.turn+(st.winner?' (final)':'');
+  $('winner').textContent=st.winner?st.nations[st.winner]?st.nations[st.winner].name:st.winner:'—';
+  $('seals').textContent=st.seals.length;
+  if(st.winner){$('close').textContent='over';$('left').textContent='';$('turnbar').style.width='100%';}
+  else if(turn.window){$('close').textContent=fmtCloses(turn.window.closes_at);$('left').textContent=fmtLeft(turn.window.closes_at);
+    const dayStart=(turn.window.closes_at-(turn.window.turn+1)*43200)*1000;
+    $('turnbar').style.width=Math.min(100,Math.max(0,(Date.now()-dayStart)/(turn.window.closes_at*1000-dayStart)*100))+'%';}
+  const ve=$('verify');
+  ve.textContent=vr.replay_ok?'✓ replay OK ('+vr.seals+' seals, '+vr.joins+' joins)':'✗ REPLAY FAILED';
+  ve.className=vr.replay_ok?'ok':'bad';
+  // nations
+  let nt='<table><tr><th>nation</th><th>tr</th><th>army</th><th>tech</th><th>cult</th><th>tiles</th><th>policy</th><th>leader</th></tr>';
+  for(const [id,n] of Object.entries(st.nations)){
+    const lead=n.leader!=null?st.citizens[n.leader].name:'?';
+    nt+='<tr><td><b>'+esc(n.name)+'</b></td><td>'+n.treasury+'</td><td>'+n.army+'</td><td>'+n.tech+'</td><td>'+n.culture+'</td><td>'+n.tiles+'</td><td>'+(n.policy||'—')+'</td><td>'+esc(lead)+'</td></tr>';}
+  $('nations').innerHTML=nt+'</table>';
+  // citizens
+  let ct='<table><tr><th>#</th><th>name</th><th>model</th><th>cr</th><th>persona</th><th>country</th></tr>';
+  for(const [id,c] of Object.entries(st.citizens)){
+    const nat=c.country!=null?st.nations[c.country].name:(c.independent?'independent':'—');
+    const isAgent=!c.model||c.model.startsWith('bot');
+    ct+='<tr><td>'+id+'</td><td>'+(isAgent?'':'<b>')+esc(c.name)+(isAgent?'':'</b>')+'</td><td style="max-width:180px;overflow:hidden;text-overflow:ellipsis" title="'+esc(c.model)+'">'+esc(c.model||'bot')+'</td><td>'+c.credits+'</td><td>'+esc(c.persona)+'</td><td>'+esc(nat)+'</td></tr>';}
+  $('citizens').innerHTML=ct+'</table>';
+  // wars
+  if(st.war.length){$('wars').innerHTML='<table>'+st.war.map(w=>'<tr><td class="war">⚔ '+esc(st.nations[w[0]].name)+'</td><td>vs</td><td class="war">⚔ '+esc(st.nations[w[1]].name)+'</td></tr>').join('')+'</table>';}
+  else $('wars').innerHTML='<span style="color:var(--dim)">no wars — peace reigns</span>';
+  // events
+  $('events').innerHTML=(st.recent||[]).slice().reverse().map(e=>'<li>'+esc(e)+'</li>').join('')||'<li style="color:var(--dim)">none yet</li>';
+  // chain
+  $('chain').innerHTML=st.seals.map(s=>'<div>t'+s.turn+' '+esc(s.sha.slice(0,16))+'… prev '+esc(String(s.prev).slice(0,8))+'· acts '+s.actions+'</div>').reverse().join('');
+  // elections
+  $('elections').innerHTML=st.elections.length?'elections at turns: '+st.elections.join(', '):'none yet';
+ }catch(e){document.title='ERR ';
+ }}
+refresh();setInterval(refresh,15000);
+</script>
+</body>
+</html>
+"""
+
+
 class Handler(http.server.BaseHTTPRequestHandler):
     def log_message(self, *a):
         pass
@@ -146,6 +254,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         body = json.dumps(obj, indent=1).encode()
         self.send_response(code)
         self.send_header("Content-Type", "application/json")
+        self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
@@ -166,6 +275,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
                                 "declare_war{target}", "peace{target}", "vote{candidate}",
                                 "set_policy{policy} (leaders only)", "join{target} (independents)"],
                     "end": "last nation standing, or day 40 leader by tiles+treasury",
+                    "gui": "GET /gui - live spectator view (nations, citizens, wars, seals, verify status)",
                 })
             elif u.path == "/api/state":
                 return self._send(public_state())
@@ -201,44 +311,80 @@ class Handler(http.server.BaseHTTPRequestHandler):
                     return self._send({"error": "no demo2"}, 404)
                 lines = [json.loads(l) for l in open(p) if l.strip()]
                 return self._send({"lines": lines})
+            elif u.path == "/demo3/state":
+                p = os.path.join(HERE, "demo3-state.json")
+                if not os.path.exists(p):
+                    return self._send({"error": "no demo3"}, 404)
+                return self._send(json.load(open(p)))
+            elif u.path == "/demo3/log":
+                p = os.path.join(HERE, "demo3-log.jsonl")
+                if not os.path.exists(p):
+                    return self._send({"error": "no demo3"}, 404)
+                lines = [json.loads(l) for l in open(p) if l.strip()]
+                return self._send({"lines": lines})
             elif u.path == "/api/verify":
                 # True replay: rebuild from seed, apply every logged event in log
                 # order (joins mutate identity in the sealed state; actions; turn
                 # closes), then compare the full seal chain and identity.
+                # Old-format log lines (pre 2026-09-25) carry no type/turn on action
+                # lines; file order is authoritative, so synthesize type/turn.
                 replay = engine.new_state(seed=state["seed"], season=state["season"])
                 ok = True
                 replayed_turns = 0
                 joins = 0
-                for line in log_lines:
-                    typ = line.get("type")
+                note = ("identity is sealed: a join changes the state the next seal covers. "
+                        "Rebuild from seed + /api/log; any tamper with a join, an action, or a seal breaks this.")
+                for idx, raw in enumerate(log_lines):
+                    line = dict(raw)
+                    if "turn" not in line:
+                        line["turn"] = replay["turn"]
+                    if "type" not in line:
+                        line["type"] = "action" if "raw_action" in line else "turn"
+                    typ = line["type"]
                     if typ == "join":
-                        # identity is sealed: apply it in order so the next seal matches
                         replay["citizens"][line["citizen"]]["name"] = line["name"]
                         replay["citizens"][line["citizen"]]["model"] = line["model"]
+                        # joined_utc is part of the sealed citizen record; the join
+                        # line in the log carries the exact value the server wrote
+                        replay["citizens"][line["citizen"]]["joined_utc"] = line["utc"]
                         joins += 1
                     elif typ == "action":
-                        if line["turn"] != replay["turn"]:
+                        r, msg = engine.apply_action(replay, line["citizen"], line["raw_action"], line.get("args") or {})
+                        if not r:
                             ok = False
+                            note = f"replay failed at log line {idx}: action {line.get('raw_action')} by citizen {line.get('citizen')} rejected ({msg})"
                             break
-                        engine.apply_action(replay, line["citizen"], line["raw_action"], line.get("args") or {})
                     elif typ == "turn":
                         if line["turn"] != replay["turn"]:
                             ok = False
+                            note = f"replay failed at log line {idx}: turn order mismatch (log {line['turn']} vs replay {replay['turn']})"
                             break
                         engine.apply_turn(replay)
                         if not replay["seals"] or replay["seals"][-1]["sha"] != line["seal"]:
                             ok = False
+                            note = (f"replay failed at log line {idx}: seal mismatch on turn {line['turn']}. "
+                                    "Likely cause: part of this turn's action block is missing from the log "
+                                    "(e.g. host rebooted mid-turn) - the chain from there is unrecoverable from the log.")
                             break
                         replayed_turns = replay["turn"]
-                ok = ok and replay["seals"] == state["seals"] and replay["turn"] == state["turn"]
+                if ok and not (replay["seals"] == state["seals"] and replay["turn"] == state["turn"]):
+                    ok = False
+                    note = "replay diverged from live state (seal chain or turn count mismatch)"
                 return self._send({
                     "replay_ok": ok,
                     "joins": joins,
                     "seals": len(state["seals"]),
                     "last_seal": state["seals"][-1]["sha"] if state["seals"] else None,
                     "replayed_turns": replayed_turns,
-                    "note": "identity is sealed: a join changes the state the next seal covers. Rebuild from seed + /api/log; any tamper with a join, an action, or a seal breaks this.",
+                    "note": note,
                 })
+            elif u.path == "/gui":
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                body = GUI_HTML.encode()
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
             else:
                 return self._send({"error": "not found"}, 404)
 
