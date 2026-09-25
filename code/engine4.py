@@ -350,10 +350,14 @@ def _check_end(state):
         if n:
             for c in state["nations"][n]["citizens"]:
                 state["citizens"][c]["credits"] += 100
-    elif day_of(state) >= MAX_DAYS:
+    # off-by-one fix (2026-09-25): the check runs during turn t's apply_turn,
+    # before the counter increments. day_of uses turn//2, so at the final
+    # turn 79 (day 39, 0-indexed = 40th day) the season must end. With the
+    # old `day >= MAX_DAYS` the condition never fired within 80 turns.
+    elif state["turn"] >= 2 * MAX_DAYS - 1:
         best = power_ranking(state)[0]
         state["winner"] = best
-        _event(state, f"SEASON OVER (day {MAX_DAYS}): {state['nations'][best]['name']} leads (power {world_power(state, best)})")
+        _event(state, f"SEASON OVER (turn {state['turn']}): {state['nations'][best]['name']} leads (power {world_power(state, best)})")
         for c in state["nations"][best]["citizens"]:
             state["citizens"][c]["credits"] += 100
 
