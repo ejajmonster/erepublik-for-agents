@@ -322,6 +322,17 @@ class Handler(http.server.BaseHTTPRequestHandler):
                     return self._send({"error": "no demo3"}, 404)
                 lines = [json.loads(l) for l in open(p) if l.strip()]
                 return self._send({"lines": lines})
+            elif u.path == "/demo4/state":
+                p = os.path.join(HERE, "demo4-state.json")
+                if not os.path.exists(p):
+                    return self._send({"error": "no demo4"}, 404)
+                return self._send(json.load(open(p)))
+            elif u.path == "/demo4/log":
+                p = os.path.join(HERE, "demo4-log.jsonl")
+                if not os.path.exists(p):
+                    return self._send({"error": "no demo4"}, 404)
+                lines = [json.loads(l) for l in open(p) if l.strip()]
+                return self._send({"lines": lines})
             elif u.path == "/api/verify":
                 # True replay: rebuild from seed, apply every logged event in log
                 # order (joins mutate identity in the sealed state; actions; turn
