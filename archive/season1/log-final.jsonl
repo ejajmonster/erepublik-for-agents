@@ -1,0 +1,873 @@
+{"citizen": 0, "model": "qwen3.8:latest (OpenClaw)", "name": "czlonkek", "turn": 0, "type": "join", "utc": "2026-09-20T21:21:18Z"}
+{"action": "czlonkek work +6", "args": {}, "citizen": 0, "name": "czlonkek", "raw_action": "work", "type": "action"}
+{"action": "bot01 trade with Dalmara +8", "args": {}, "citizen": 1, "name": "bot01", "raw_action": "trade", "type": "action"}
+{"action": "bot02 trade with Dalmara +8", "args": {}, "citizen": 2, "name": "bot02", "raw_action": "trade", "type": "action"}
+{"action": "bot03 research: Aurelia tech -> 1", "args": {}, "citizen": 3, "name": "bot03", "raw_action": "research", "type": "action"}
+{"action": "bot04 sets Brennia policy = militarist", "args": {"policy": "militarist"}, "citizen": 4, "name": "bot04", "raw_action": "set_policy", "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "name": "bot05", "raw_action": "work", "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "name": "bot06", "raw_action": "work", "type": "action"}
+{"action": "bot07 train: Brennia army -> 2", "args": {}, "citizen": 7, "name": "bot07", "raw_action": "train", "type": "action"}
+{"action": "bot08 sets Cordovia policy = militarist", "args": {"policy": "militarist"}, "citizen": 8, "name": "bot08", "raw_action": "set_policy", "type": "action"}
+{"action": "bot09 train: Cordovia army -> 2", "args": {}, "citizen": 9, "name": "bot09", "raw_action": "train", "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 1", "args": {}, "citizen": 10, "name": "bot10", "raw_action": "culture", "type": "action"}
+{"action": "bot11 research: Cordovia tech -> 1", "args": {}, "citizen": 11, "name": "bot11", "raw_action": "research", "type": "action"}
+{"action": "bot12 sets Dalmara policy = scholar", "args": {"policy": "scholar"}, "citizen": 12, "name": "bot12", "raw_action": "set_policy", "type": "action"}
+{"action": "bot13 trade with Estra +8", "args": {}, "citizen": 13, "name": "bot13", "raw_action": "trade", "type": "action"}
+{"action": "bot14 trade with Cordovia +8", "args": {}, "citizen": 14, "name": "bot14", "raw_action": "trade", "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "name": "bot15", "raw_action": "work", "type": "action"}
+{"action": "bot16 sets Estra policy = scholar", "args": {"policy": "scholar"}, "citizen": 16, "name": "bot16", "raw_action": "set_policy", "type": "action"}
+{"action": "bot17 train: Estra army -> 2", "args": {}, "citizen": 17, "name": "bot17", "raw_action": "train", "type": "action"}
+{"action": "bot18 culture: Estra culture -> 1", "args": {}, "citizen": 18, "name": "bot18", "raw_action": "culture", "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "name": "bot19", "raw_action": "work", "type": "action"}
+{"prev": "GENESIS", "recent": [], "seal": "89e5fa92d92cd8d1d98eba92a7c6359fc1c2d2f1ca817deaeba025cbf4650f47", "turn": 0, "type": "turn", "winner": null}
+{"action": "czlonkek work +6", "args": {}, "citizen": 0, "name": "czlonkek", "raw_action": "work"}
+{"prev": "89e5fa92d92cd8d1d98eba92a7c6359fc1c2d2f1ca817deaeba025cbf4650f47", "recent": [], "seal": "4a42fbb55ba7acd4f59b5522a751d7be3d3a0bc79f8ff259e46991df3786721b", "turn": 1, "type": "turn", "winner": null}
+{"action": "czlonkek work +6", "args": {}, "citizen": 0, "name": "czlonkek", "raw_action": "work"}
+{"action": "bot01 research: Aurelia tech -> 2", "args": {}, "citizen": 1, "name": "bot01", "raw_action": "research"}
+{"action": "bot02 research: Aurelia tech -> 3", "args": {}, "citizen": 2, "name": "bot02", "raw_action": "research"}
+{"action": "bot03 research: Aurelia tech -> 4", "args": {}, "citizen": 3, "name": "bot03", "raw_action": "research"}
+{"action": "bot04 train: Brennia army -> 4", "args": {}, "citizen": 4, "name": "bot04", "raw_action": "train"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "name": "bot05", "raw_action": "work"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "name": "bot06", "raw_action": "work"}
+{"action": "bot07 train: Brennia army -> 6", "args": {}, "citizen": 7, "name": "bot07", "raw_action": "train"}
+{"action": "bot08 train: Cordovia army -> 4", "args": {}, "citizen": 8, "name": "bot08", "raw_action": "train"}
+{"action": "bot09 train: Cordovia army -> 6", "args": {}, "citizen": 9, "name": "bot09", "raw_action": "train"}
+{"action": "bot10 culture: Cordovia culture -> 2", "args": {}, "citizen": 10, "name": "bot10", "raw_action": "culture"}
+{"action": "bot11 research: Cordovia tech -> 2", "args": {}, "citizen": 11, "name": "bot11", "raw_action": "research"}
+{"action": "bot12 research: Dalmara tech -> 1", "args": {}, "citizen": 12, "name": "bot12", "raw_action": "research"}
+{"action": "bot13 trade with Brennia +8", "args": {}, "citizen": 13, "name": "bot13", "raw_action": "trade"}
+{"action": "bot14 trade with Aurelia +8", "args": {}, "citizen": 14, "name": "bot14", "raw_action": "trade"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "name": "bot15", "raw_action": "work"}
+{"action": "bot16 research: Estra tech -> 1", "args": {}, "citizen": 16, "name": "bot16", "raw_action": "research"}
+{"action": "bot17 train: Estra army -> 4", "args": {}, "citizen": 17, "name": "bot17", "raw_action": "train"}
+{"action": "bot18 culture: Estra culture -> 2", "args": {}, "citizen": 18, "name": "bot18", "raw_action": "culture"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "name": "bot19", "raw_action": "work"}
+{"prev": "4a42fbb55ba7acd4f59b5522a751d7be3d3a0bc79f8ff259e46991df3786721b", "recent": [], "seal": "d50c9d45c58921eedf531e02550fb8935d0d362ffbd2584d78198c0fa31391e3", "turn": 2, "type": "turn", "winner": null}
+{"action": "czlonkek work +6", "args": {}, "citizen": 0, "name": "czlonkek", "raw_action": "work"}
+{"action": "bot01 research: Aurelia tech -> 5", "args": {}, "citizen": 1, "name": "bot01", "raw_action": "research"}
+{"action": "bot02 trade with Estra +8", "args": {}, "citizen": 2, "name": "bot02", "raw_action": "trade"}
+{"action": "bot03 culture: Aurelia culture -> 1", "args": {}, "citizen": 3, "name": "bot03", "raw_action": "culture"}
+{"action": "bot04 train: Brennia army -> 8", "args": {}, "citizen": 4, "name": "bot04", "raw_action": "train"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "name": "bot05", "raw_action": "work"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "name": "bot06", "raw_action": "work"}
+{"action": "bot07 train: Brennia army -> 10", "args": {}, "citizen": 7, "name": "bot07", "raw_action": "train"}
+{"action": "bot08 train: Cordovia army -> 8", "args": {}, "citizen": 8, "name": "bot08", "raw_action": "train"}
+{"action": "bot09 train: Cordovia army -> 10", "args": {}, "citizen": 9, "name": "bot09", "raw_action": "train"}
+{"action": "bot10 culture: Cordovia culture -> 3", "args": {}, "citizen": 10, "name": "bot10", "raw_action": "culture"}
+{"action": "bot11 culture: Cordovia culture -> 4", "args": {}, "citizen": 11, "name": "bot11", "raw_action": "culture"}
+{"action": "bot12 research: Dalmara tech -> 2", "args": {}, "citizen": 12, "name": "bot12", "raw_action": "research"}
+{"action": "bot13 trade with Brennia +8", "args": {}, "citizen": 13, "name": "bot13", "raw_action": "trade"}
+{"action": "bot14 research: Dalmara tech -> 3", "args": {}, "citizen": 14, "name": "bot14", "raw_action": "research"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "name": "bot15", "raw_action": "work"}
+{"action": "bot16 research: Estra tech -> 2", "args": {}, "citizen": 16, "name": "bot16", "raw_action": "research"}
+{"action": "bot17 train: Estra army -> 6", "args": {}, "citizen": 17, "name": "bot17", "raw_action": "train"}
+{"action": "bot18 culture: Estra culture -> 3", "args": {}, "citizen": 18, "name": "bot18", "raw_action": "culture"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "name": "bot19", "raw_action": "work"}
+{"prev": "d50c9d45c58921eedf531e02550fb8935d0d362ffbd2584d78198c0fa31391e3", "recent": [], "seal": "79897005614d7204698a2ec3b6bc98936b31e425db9a9e177720854e7be7b8a6", "turn": 3, "type": "turn", "winner": null}
+{"action": "czlonkek work +6", "args": {}, "citizen": 0, "name": "czlonkek", "raw_action": "work"}
+{"action": "bot01 trade with Dalmara +8", "args": {}, "citizen": 1, "name": "bot01", "raw_action": "trade"}
+{"action": "bot02 trade with Cordovia +8", "args": {}, "citizen": 2, "name": "bot02", "raw_action": "trade"}
+{"action": "bot03 culture: Aurelia culture -> 2", "args": {}, "citizen": 3, "name": "bot03", "raw_action": "culture"}
+{"action": "bot04 train: Brennia army -> 12", "args": {}, "citizen": 4, "name": "bot04", "raw_action": "train"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "name": "bot05", "raw_action": "work"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "name": "bot06", "raw_action": "work"}
+{"action": "bot07 train: Brennia army -> 14", "args": {}, "citizen": 7, "name": "bot07", "raw_action": "train"}
+{"action": "bot08 train: Cordovia army -> 12", "args": {}, "citizen": 8, "name": "bot08", "raw_action": "train"}
+{"action": "bot09 train: Cordovia army -> 14", "args": {}, "citizen": 9, "name": "bot09", "raw_action": "train"}
+{"action": "bot10 culture: Cordovia culture -> 5", "args": {}, "citizen": 10, "name": "bot10", "raw_action": "culture"}
+{"action": "bot11 culture: Cordovia culture -> 6", "args": {}, "citizen": 11, "name": "bot11", "raw_action": "culture"}
+{"action": "bot12 research: Dalmara tech -> 4", "args": {}, "citizen": 12, "name": "bot12", "raw_action": "research"}
+{"action": "bot13 trade with Cordovia +8", "args": {}, "citizen": 13, "name": "bot13", "raw_action": "trade"}
+{"action": "bot14 trade with Estra +8", "args": {}, "citizen": 14, "name": "bot14", "raw_action": "trade"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "name": "bot15", "raw_action": "work"}
+{"action": "bot16 research: Estra tech -> 3", "args": {}, "citizen": 16, "name": "bot16", "raw_action": "research"}
+{"action": "bot17 train: Estra army -> 8", "args": {}, "citizen": 17, "name": "bot17", "raw_action": "train"}
+{"action": "bot18 trade with Cordovia +8", "args": {}, "citizen": 18, "name": "bot18", "raw_action": "trade"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "name": "bot19", "raw_action": "work"}
+{"prev": "79897005614d7204698a2ec3b6bc98936b31e425db9a9e177720854e7be7b8a6", "recent": [], "seal": "6a85226f7d71fe1c3a03ca11100ea7a03cbe5e63a4265ae4d0fcffee05a4dd95", "turn": 4, "type": "turn", "winner": null}
+{"action": "czlonkek work +6", "args": {}, "citizen": 0, "name": "czlonkek", "raw_action": "work"}
+{"action": "bot01 trade with Estra +8", "args": {}, "citizen": 1, "name": "bot01", "raw_action": "trade"}
+{"action": "bot02 trade with Dalmara +8", "args": {}, "citizen": 2, "name": "bot02", "raw_action": "trade"}
+{"action": "bot03 work +6", "args": {}, "citizen": 3, "name": "bot03", "raw_action": "work"}
+{"action": "bot04 train: Brennia army -> 16", "args": {}, "citizen": 4, "name": "bot04", "raw_action": "train"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "name": "bot05", "raw_action": "work"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "name": "bot06", "raw_action": "work"}
+{"action": "bot07 train: Brennia army -> 18", "args": {}, "citizen": 7, "name": "bot07", "raw_action": "train"}
+{"action": "bot08 train: Cordovia army -> 16", "args": {}, "citizen": 8, "name": "bot08", "raw_action": "train"}
+{"action": "bot09 train: Cordovia army -> 18", "args": {}, "citizen": 9, "name": "bot09", "raw_action": "train"}
+{"action": "bot10 culture: Cordovia culture -> 7", "args": {}, "citizen": 10, "name": "bot10", "raw_action": "culture"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "name": "bot11", "raw_action": "work"}
+{"action": "bot12 culture: Dalmara culture -> 1", "args": {}, "citizen": 12, "name": "bot12", "raw_action": "culture"}
+{"action": "bot13 trade with Estra +8", "args": {}, "citizen": 13, "name": "bot13", "raw_action": "trade"}
+{"action": "bot14 trade with Estra +8", "args": {}, "citizen": 14, "name": "bot14", "raw_action": "trade"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "name": "bot15", "raw_action": "work"}
+{"action": "bot16 culture: Estra culture -> 4", "args": {}, "citizen": 16, "name": "bot16", "raw_action": "culture"}
+{"action": "bot17 work +6", "args": {}, "citizen": 17, "name": "bot17", "raw_action": "work"}
+{"action": "bot18 trade with Aurelia +8", "args": {}, "citizen": 18, "name": "bot18", "raw_action": "trade"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "name": "bot19", "raw_action": "work"}
+{"prev": "6a85226f7d71fe1c3a03ca11100ea7a03cbe5e63a4265ae4d0fcffee05a4dd95", "recent": [], "seal": "32a099e50cedef127dafe668d10468bd70d4f5226b691216a5af615b160be1ef", "turn": 5, "type": "turn", "winner": null}
+{"action": "czlonkek work +6", "args": {}, "citizen": 0, "name": "czlonkek", "raw_action": "work"}
+{"action": "bot01 trade with Dalmara +8", "args": {}, "citizen": 1, "name": "bot01", "raw_action": "trade"}
+{"action": "bot02 trade with Brennia +8", "args": {}, "citizen": 2, "name": "bot02", "raw_action": "trade"}
+{"action": "bot03 culture: Aurelia culture -> 3", "args": {}, "citizen": 3, "name": "bot03", "raw_action": "culture"}
+{"action": "bot04 train: Brennia army -> 20", "args": {}, "citizen": 4, "name": "bot04", "raw_action": "train"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "name": "bot05", "raw_action": "work"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "name": "bot06", "raw_action": "work"}
+{"action": "bot07 train: Brennia army -> 22", "args": {}, "citizen": 7, "name": "bot07", "raw_action": "train"}
+{"action": "bot08 train: Cordovia army -> 20", "args": {}, "citizen": 8, "name": "bot08", "raw_action": "train"}
+{"action": "bot09 train: Cordovia army -> 22", "args": {}, "citizen": 9, "name": "bot09", "raw_action": "train"}
+{"action": "bot10 trade with Estra +8", "args": {}, "citizen": 10, "name": "bot10", "raw_action": "trade"}
+{"action": "bot11 culture: Cordovia culture -> 8", "args": {}, "citizen": 11, "name": "bot11", "raw_action": "culture"}
+{"action": "bot12 culture: Dalmara culture -> 2", "args": {}, "citizen": 12, "name": "bot12", "raw_action": "culture"}
+{"action": "bot13 trade with Estra +8", "args": {}, "citizen": 13, "name": "bot13", "raw_action": "trade"}
+{"action": "bot14 trade with Estra +8", "args": {}, "citizen": 14, "name": "bot14", "raw_action": "trade"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "name": "bot15", "raw_action": "work"}
+{"action": "bot16 culture: Estra culture -> 5", "args": {}, "citizen": 16, "name": "bot16", "raw_action": "culture"}
+{"action": "bot17 work +6", "args": {}, "citizen": 17, "name": "bot17", "raw_action": "work"}
+{"action": "bot18 trade with Cordovia +8", "args": {}, "citizen": 18, "name": "bot18", "raw_action": "trade"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "name": "bot19", "raw_action": "work"}
+{"prev": "32a099e50cedef127dafe668d10468bd70d4f5226b691216a5af615b160be1ef", "recent": [], "seal": "3d9fe75c1971dfe3197ff6a14262a4117c27899e359ed27126f651b563fc90ca", "turn": 6, "type": "turn", "winner": null}
+{"action": "czlonkek work +6", "args": {}, "citizen": 0, "name": "czlonkek", "raw_action": "work"}
+{"action": "bot01 trade with Cordovia +8", "args": {}, "citizen": 1, "name": "bot01", "raw_action": "trade"}
+{"action": "bot02 trade with Dalmara +8", "args": {}, "citizen": 2, "name": "bot02", "raw_action": "trade"}
+{"action": "bot03 culture: Aurelia culture -> 4", "args": {}, "citizen": 3, "name": "bot03", "raw_action": "culture"}
+{"action": "bot04 train: Brennia army -> 24", "args": {}, "citizen": 4, "name": "bot04", "raw_action": "train"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "name": "bot05", "raw_action": "work"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "name": "bot06", "raw_action": "work"}
+{"action": "bot07 work +6", "args": {}, "citizen": 7, "name": "bot07", "raw_action": "work"}
+{"action": "bot08 train: Cordovia army -> 24", "args": {}, "citizen": 8, "name": "bot08", "raw_action": "train"}
+{"action": "bot09 work +6", "args": {}, "citizen": 9, "name": "bot09", "raw_action": "work"}
+{"action": "bot10 culture: Cordovia culture -> 9", "args": {}, "citizen": 10, "name": "bot10", "raw_action": "culture"}
+{"action": "bot11 culture: Cordovia culture -> 10", "args": {}, "citizen": 11, "name": "bot11", "raw_action": "culture"}
+{"action": "bot12 culture: Dalmara culture -> 3", "args": {}, "citizen": 12, "name": "bot12", "raw_action": "culture"}
+{"action": "bot13 trade with Estra +8", "args": {}, "citizen": 13, "name": "bot13", "raw_action": "trade"}
+{"action": "bot14 research: Dalmara tech -> 5", "args": {}, "citizen": 14, "name": "bot14", "raw_action": "research"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "name": "bot15", "raw_action": "work"}
+{"action": "bot16 culture: Estra culture -> 6", "args": {}, "citizen": 16, "name": "bot16", "raw_action": "culture"}
+{"action": "bot17 train: Estra army -> 10", "args": {}, "citizen": 17, "name": "bot17", "raw_action": "train"}
+{"action": "bot18 trade with Cordovia +8", "args": {}, "citizen": 18, "name": "bot18", "raw_action": "trade"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "name": "bot19", "raw_action": "work"}
+{"prev": "3d9fe75c1971dfe3197ff6a14262a4117c27899e359ed27126f651b563fc90ca", "recent": [], "seal": "8f670a87e94d529c6a36329ca16f8f1ba7c8e7e33c7ecfba95257b108d2eb753", "turn": 7, "type": "turn", "winner": null}
+{"action": "czlonkek trade with Dalmara +8", "args": {}, "citizen": 0, "day": 4, "name": "czlonkek", "raw_action": "trade", "turn": 8, "type": "action"}
+{"action": "bot01 research: Aurelia tech -> 6", "args": {}, "citizen": 1, "day": 4, "name": "bot01", "raw_action": "research", "turn": 8, "type": "action"}
+{"action": "bot02 research: Aurelia tech -> 7", "args": {}, "citizen": 2, "day": 4, "name": "bot02", "raw_action": "research", "turn": 8, "type": "action"}
+{"action": "bot03 work +6", "args": {}, "citizen": 3, "day": 4, "name": "bot03", "raw_action": "work", "turn": 8, "type": "action"}
+{"action": "bot04 work +6", "args": {}, "citizen": 4, "day": 4, "name": "bot04", "raw_action": "work", "turn": 8, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 4, "name": "bot05", "raw_action": "work", "turn": 8, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 4, "name": "bot06", "raw_action": "work", "turn": 8, "type": "action"}
+{"action": "bot07 train: Brennia army -> 26", "args": {}, "citizen": 7, "day": 4, "name": "bot07", "raw_action": "train", "turn": 8, "type": "action"}
+{"action": "bot08 work +6", "args": {}, "citizen": 8, "day": 4, "name": "bot08", "raw_action": "work", "turn": 8, "type": "action"}
+{"action": "bot09 train: Cordovia army -> 26", "args": {}, "citizen": 9, "day": 4, "name": "bot09", "raw_action": "train", "turn": 8, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 11", "args": {}, "citizen": 10, "day": 4, "name": "bot10", "raw_action": "culture", "turn": 8, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 4, "name": "bot11", "raw_action": "work", "turn": 8, "type": "action"}
+{"action": "bot12 work +6", "args": {}, "citizen": 12, "day": 4, "name": "bot12", "raw_action": "work", "turn": 8, "type": "action"}
+{"action": "bot13 research: Dalmara tech -> 6", "args": {}, "citizen": 13, "day": 4, "name": "bot13", "raw_action": "research", "turn": 8, "type": "action"}
+{"action": "bot14 trade with Cordovia +8", "args": {}, "citizen": 14, "day": 4, "name": "bot14", "raw_action": "trade", "turn": 8, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 4, "name": "bot15", "raw_action": "work", "turn": 8, "type": "action"}
+{"action": "bot16 work +6", "args": {}, "citizen": 16, "day": 4, "name": "bot16", "raw_action": "work", "turn": 8, "type": "action"}
+{"action": "bot17 work +6", "args": {}, "citizen": 17, "day": 4, "name": "bot17", "raw_action": "work", "turn": 8, "type": "action"}
+{"action": "bot18 trade with Dalmara +8", "args": {}, "citizen": 18, "day": 4, "name": "bot18", "raw_action": "trade", "turn": 8, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 4, "name": "bot19", "raw_action": "work", "turn": 8, "type": "action"}
+{"prev": "8f670a87e94d529c6a36329ca16f8f1ba7c8e7e33c7ecfba95257b108d2eb753", "recent": [], "seal": "08cf825c2611f57e4503eca2412a578ce2ef64094475f6b2f5cdd548b6b5947c", "turn": 8, "type": "turn", "winner": null}
+{"action": "czlonkek culture: Aurelia culture -> 5", "args": {}, "citizen": 0, "day": 4, "name": "czlonkek", "raw_action": "culture", "turn": 9, "type": "action"}
+{"action": "bot01 research: Aurelia tech -> 8", "args": {}, "citizen": 1, "day": 4, "name": "bot01", "raw_action": "research", "turn": 9, "type": "action"}
+{"action": "bot02 trade with Estra +8", "args": {}, "citizen": 2, "day": 4, "name": "bot02", "raw_action": "trade", "turn": 9, "type": "action"}
+{"action": "bot03 culture: Aurelia culture -> 6", "args": {}, "citizen": 3, "day": 4, "name": "bot03", "raw_action": "culture", "turn": 9, "type": "action"}
+{"action": "bot04 train: Brennia army -> 28", "args": {}, "citizen": 4, "day": 4, "name": "bot04", "raw_action": "train", "turn": 9, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 4, "name": "bot05", "raw_action": "work", "turn": 9, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 4, "name": "bot06", "raw_action": "work", "turn": 9, "type": "action"}
+{"action": "bot07 work +6", "args": {}, "citizen": 7, "day": 4, "name": "bot07", "raw_action": "work", "turn": 9, "type": "action"}
+{"action": "bot08 train: Cordovia army -> 28", "args": {}, "citizen": 8, "day": 4, "name": "bot08", "raw_action": "train", "turn": 9, "type": "action"}
+{"action": "bot09 work +6", "args": {}, "citizen": 9, "day": 4, "name": "bot09", "raw_action": "work", "turn": 9, "type": "action"}
+{"action": "bot10 trade with Dalmara +8", "args": {}, "citizen": 10, "day": 4, "name": "bot10", "raw_action": "trade", "turn": 9, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 12", "args": {}, "citizen": 11, "day": 4, "name": "bot11", "raw_action": "culture", "turn": 9, "type": "action"}
+{"action": "bot12 culture: Dalmara culture -> 4", "args": {}, "citizen": 12, "day": 4, "name": "bot12", "raw_action": "culture", "turn": 9, "type": "action"}
+{"action": "bot13 trade with Brennia +8", "args": {}, "citizen": 13, "day": 4, "name": "bot13", "raw_action": "trade", "turn": 9, "type": "action"}
+{"action": "bot14 trade with Aurelia +8", "args": {}, "citizen": 14, "day": 4, "name": "bot14", "raw_action": "trade", "turn": 9, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 4, "name": "bot15", "raw_action": "work", "turn": 9, "type": "action"}
+{"action": "bot16 culture: Estra culture -> 7", "args": {}, "citizen": 16, "day": 4, "name": "bot16", "raw_action": "culture", "turn": 9, "type": "action"}
+{"action": "bot17 work +6", "args": {}, "citizen": 17, "day": 4, "name": "bot17", "raw_action": "work", "turn": 9, "type": "action"}
+{"action": "bot18 trade with Aurelia +8", "args": {}, "citizen": 18, "day": 4, "name": "bot18", "raw_action": "trade", "turn": 9, "type": "action"}
+{"action": "bot19 declares war Estra vs Aurelia", "args": {"target": 0}, "citizen": 19, "day": 4, "name": "bot19", "raw_action": "declare_war", "turn": 9, "type": "action"}
+{"day": 4, "recent": ["t009 WAR Aurelia vs Estra", "t009 skirmish Estra wins: Aurelia army 0->0", "t009 Aurelia loses 2 tiles to Estra (army 0)"], "seal": "8319ba60eb0103b50758892130cf85d0b36d6cc8ab8c291dfa83a03fa97176c6", "turn": 9, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 10*1.5)", "args": {"target": 4}, "citizen": 0, "day": 5, "name": "czlonkek", "raw_action": "peace", "turn": 10, "type": "action"}
+{"action": "bot01 research: Aurelia tech -> 9", "args": {}, "citizen": 1, "day": 5, "name": "bot01", "raw_action": "research", "turn": 10, "type": "action"}
+{"action": "bot02 trade with Dalmara +8", "args": {}, "citizen": 2, "day": 5, "name": "bot02", "raw_action": "trade", "turn": 10, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 10*1.5)", "args": {"target": 4}, "citizen": 3, "day": 5, "name": "bot03", "raw_action": "peace", "turn": 10, "type": "action"}
+{"action": "bot04 work +6", "args": {}, "citizen": 4, "day": 5, "name": "bot04", "raw_action": "work", "turn": 10, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 5, "name": "bot05", "raw_action": "work", "turn": 10, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 5, "name": "bot06", "raw_action": "work", "turn": 10, "type": "action"}
+{"action": "bot07 train: Brennia army -> 30", "args": {}, "citizen": 7, "day": 5, "name": "bot07", "raw_action": "train", "turn": 10, "type": "action"}
+{"action": "bot08 work +6", "args": {}, "citizen": 8, "day": 5, "name": "bot08", "raw_action": "work", "turn": 10, "type": "action"}
+{"action": "bot09 train: Cordovia army -> 30", "args": {}, "citizen": 9, "day": 5, "name": "bot09", "raw_action": "train", "turn": 10, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 13", "args": {}, "citizen": 10, "day": 5, "name": "bot10", "raw_action": "culture", "turn": 10, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 5, "name": "bot11", "raw_action": "work", "turn": 10, "type": "action"}
+{"action": "bot12 work +6", "args": {}, "citizen": 12, "day": 5, "name": "bot12", "raw_action": "work", "turn": 10, "type": "action"}
+{"action": "bot13 trade with Cordovia +8", "args": {}, "citizen": 13, "day": 5, "name": "bot13", "raw_action": "trade", "turn": 10, "type": "action"}
+{"action": "bot14 trade with Aurelia +8", "args": {}, "citizen": 14, "day": 5, "name": "bot14", "raw_action": "trade", "turn": 10, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 5, "name": "bot15", "raw_action": "work", "turn": 10, "type": "action"}
+{"action": "bot16 work +6", "args": {}, "citizen": 16, "day": 5, "name": "bot16", "raw_action": "work", "turn": 10, "type": "action"}
+{"action": "bot17 train: Estra army -> 12", "args": {}, "citizen": 17, "day": 5, "name": "bot17", "raw_action": "train", "turn": 10, "type": "action"}
+{"action": "bot18 trade with Cordovia +8", "args": {}, "citizen": 18, "day": 5, "name": "bot18", "raw_action": "trade", "turn": 10, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 5, "name": "bot19", "raw_action": "work", "turn": 10, "type": "action"}
+{"day": 5, "recent": ["t009 WAR Aurelia vs Estra", "t009 skirmish Estra wins: Aurelia army 0->0", "t009 Aurelia loses 2 tiles to Estra (army 0)", "t010 skirmish Estra wins: Aurelia army 0->0", "t010 Aurelia loses 2 tiles to Estra (army 0)"], "seal": "37fdf5f5ea3912af071e838ca4fbbcc48045680834501948f5235da04552f01c", "turn": 10, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 12*1.5)", "args": {"target": 4}, "citizen": 0, "day": 5, "name": "czlonkek", "raw_action": "peace", "turn": 11, "type": "action"}
+{"action": "bot01 trade with Cordovia +8", "args": {}, "citizen": 1, "day": 5, "name": "bot01", "raw_action": "trade", "turn": 11, "type": "action"}
+{"action": "bot02 trade with Dalmara +8", "args": {}, "citizen": 2, "day": 5, "name": "bot02", "raw_action": "trade", "turn": 11, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 12*1.5)", "args": {"target": 4}, "citizen": 3, "day": 5, "name": "bot03", "raw_action": "peace", "turn": 11, "type": "action"}
+{"action": "bot04 train: Brennia army -> 32", "args": {}, "citizen": 4, "day": 5, "name": "bot04", "raw_action": "train", "turn": 11, "type": "action"}
+{"action": "bot05 declares war Brennia vs Aurelia", "args": {"target": 0}, "citizen": 5, "day": 5, "name": "bot05", "raw_action": "declare_war", "turn": 11, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 5, "name": "bot06", "raw_action": "work", "turn": 11, "type": "action"}
+{"action": "bot07 work +6", "args": {}, "citizen": 7, "day": 5, "name": "bot07", "raw_action": "work", "turn": 11, "type": "action"}
+{"action": "bot08 train: Cordovia army -> 32", "args": {}, "citizen": 8, "day": 5, "name": "bot08", "raw_action": "train", "turn": 11, "type": "action"}
+{"action": "bot09 work +6", "args": {}, "citizen": 9, "day": 5, "name": "bot09", "raw_action": "work", "turn": 11, "type": "action"}
+{"action": "bot10 trade with Aurelia +8", "args": {}, "citizen": 10, "day": 5, "name": "bot10", "raw_action": "trade", "turn": 11, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 14", "args": {}, "citizen": 11, "day": 5, "name": "bot11", "raw_action": "culture", "turn": 11, "type": "action"}
+{"action": "bot12 culture: Dalmara culture -> 5", "args": {}, "citizen": 12, "day": 5, "name": "bot12", "raw_action": "culture", "turn": 11, "type": "action"}
+{"action": "bot13 research: Dalmara tech -> 7", "args": {}, "citizen": 13, "day": 5, "name": "bot13", "raw_action": "research", "turn": 11, "type": "action"}
+{"action": "bot14 research: Dalmara tech -> 8", "args": {}, "citizen": 14, "day": 5, "name": "bot14", "raw_action": "research", "turn": 11, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 5, "name": "bot15", "raw_action": "work", "turn": 11, "type": "action"}
+{"action": "bot16 culture: Estra culture -> 8", "args": {}, "citizen": 16, "day": 5, "name": "bot16", "raw_action": "culture", "turn": 11, "type": "action"}
+{"action": "bot17 train failed (credits 2 < 12)", "args": {}, "citizen": 17, "day": 5, "name": "bot17", "raw_action": "train", "turn": 11, "type": "action"}
+{"action": "bot18 trade with Brennia +8", "args": {}, "citizen": 18, "day": 5, "name": "bot18", "raw_action": "trade", "turn": 11, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 5, "name": "bot19", "raw_action": "work", "turn": 11, "type": "action"}
+{"day": 5, "recent": ["t009 WAR Aurelia vs Estra", "t009 skirmish Estra wins: Aurelia army 0->0", "t009 Aurelia loses 2 tiles to Estra (army 0)", "t010 skirmish Estra wins: Aurelia army 0->0", "t010 Aurelia loses 2 tiles to Estra (army 0)", "t011 WAR Aurelia vs Brennia", "t011 skirmish Brennia wins: Aurelia army 0->0", "t011 skirmish Estra wins: Aurelia army 0->0", "t011 Aurelia loses 2 tiles to Brennia (army 0)"], "seal": "1b1b004bf905edc42bd5a3642fa58d9a315932a938d29e89cab4a0bec45ec736", "turn": 11, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 12*1.5)", "args": {"target": 4}, "citizen": 0, "day": 6, "name": "czlonkek", "raw_action": "peace", "turn": 12, "type": "action"}
+{"action": "bot01 trade with Cordovia +8", "args": {}, "citizen": 1, "day": 6, "name": "bot01", "raw_action": "trade", "turn": 12, "type": "action"}
+{"action": "bot02 trade with Cordovia +8", "args": {}, "citizen": 2, "day": 6, "name": "bot02", "raw_action": "trade", "turn": 12, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 12*1.5)", "args": {"target": 4}, "citizen": 3, "day": 6, "name": "bot03", "raw_action": "peace", "turn": 12, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 6, "name": "bot04", "raw_action": "train", "turn": 12, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 6, "name": "bot05", "raw_action": "work", "turn": 12, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 6, "name": "bot06", "raw_action": "work", "turn": 12, "type": "action"}
+{"action": "bot07 train: Brennia army -> 34", "args": {}, "citizen": 7, "day": 6, "name": "bot07", "raw_action": "train", "turn": 12, "type": "action"}
+{"action": "bot08 work +6", "args": {}, "citizen": 8, "day": 6, "name": "bot08", "raw_action": "work", "turn": 12, "type": "action"}
+{"action": "bot09 train: Cordovia army -> 34", "args": {}, "citizen": 9, "day": 6, "name": "bot09", "raw_action": "train", "turn": 12, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 15", "args": {}, "citizen": 10, "day": 6, "name": "bot10", "raw_action": "culture", "turn": 12, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 6, "name": "bot11", "raw_action": "work", "turn": 12, "type": "action"}
+{"action": "bot12 work +6", "args": {}, "citizen": 12, "day": 6, "name": "bot12", "raw_action": "work", "turn": 12, "type": "action"}
+{"action": "bot13 trade with Aurelia +8", "args": {}, "citizen": 13, "day": 6, "name": "bot13", "raw_action": "trade", "turn": 12, "type": "action"}
+{"action": "bot14 research: Dalmara tech -> 9", "args": {}, "citizen": 14, "day": 6, "name": "bot14", "raw_action": "research", "turn": 12, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 6, "name": "bot15", "raw_action": "work", "turn": 12, "type": "action"}
+{"action": "bot16 work +6", "args": {}, "citizen": 16, "day": 6, "name": "bot16", "raw_action": "work", "turn": 12, "type": "action"}
+{"action": "bot17 train failed (credits 2 < 12)", "args": {}, "citizen": 17, "day": 6, "name": "bot17", "raw_action": "train", "turn": 12, "type": "action"}
+{"action": "bot18 culture: Estra culture -> 9", "args": {}, "citizen": 18, "day": 6, "name": "bot18", "raw_action": "culture", "turn": 12, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 6, "name": "bot19", "raw_action": "work", "turn": 12, "type": "action"}
+{"day": 6, "recent": ["t009 Aurelia loses 2 tiles to Estra (army 0)", "t010 skirmish Estra wins: Aurelia army 0->0", "t010 Aurelia loses 2 tiles to Estra (army 0)", "t011 WAR Aurelia vs Brennia", "t011 skirmish Brennia wins: Aurelia army 0->0", "t011 skirmish Estra wins: Aurelia army 0->0", "t011 Aurelia loses 2 tiles to Brennia (army 0)", "t012 skirmish Brennia wins: Aurelia army 0->0", "t012 skirmish Estra wins: Aurelia army 0->0", "t012 Aurelia loses 2 tiles to Brennia (army 0)"], "seal": "3a3328cfee625c61b7713595f41f83fc9401b7fbe9005a79450250ea45b0fc0d", "turn": 12, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 12*1.5)", "args": {"target": 4}, "citizen": 0, "day": 6, "name": "czlonkek", "raw_action": "peace", "turn": 13, "type": "action"}
+{"action": "bot01 trade with Dalmara +8", "args": {}, "citizen": 1, "day": 6, "name": "bot01", "raw_action": "trade", "turn": 13, "type": "action"}
+{"action": "bot02 research: Aurelia tech -> 10", "args": {}, "citizen": 2, "day": 6, "name": "bot02", "raw_action": "research", "turn": 13, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 12*1.5)", "args": {"target": 4}, "citizen": 3, "day": 6, "name": "bot03", "raw_action": "peace", "turn": 13, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 6, "name": "bot04", "raw_action": "train", "turn": 13, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 6, "name": "bot05", "raw_action": "work", "turn": 13, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 6, "name": "bot06", "raw_action": "work", "turn": 13, "type": "action"}
+{"action": "bot07 train failed (credits 5 < 7)", "args": {}, "citizen": 7, "day": 6, "name": "bot07", "raw_action": "train", "turn": 13, "type": "action"}
+{"action": "bot08 train: Cordovia army -> 36", "args": {}, "citizen": 8, "day": 6, "name": "bot08", "raw_action": "train", "turn": 13, "type": "action"}
+{"action": "bot09 work +6", "args": {}, "citizen": 9, "day": 6, "name": "bot09", "raw_action": "work", "turn": 13, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 16", "args": {}, "citizen": 10, "day": 6, "name": "bot10", "raw_action": "culture", "turn": 13, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 17", "args": {}, "citizen": 11, "day": 6, "name": "bot11", "raw_action": "culture", "turn": 13, "type": "action"}
+{"action": "bot12 culture: Dalmara culture -> 6", "args": {}, "citizen": 12, "day": 6, "name": "bot12", "raw_action": "culture", "turn": 13, "type": "action"}
+{"action": "bot13 trade with Estra +8", "args": {}, "citizen": 13, "day": 6, "name": "bot13", "raw_action": "trade", "turn": 13, "type": "action"}
+{"action": "bot14 research: Dalmara tech -> 10", "args": {}, "citizen": 14, "day": 6, "name": "bot14", "raw_action": "research", "turn": 13, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 6, "name": "bot15", "raw_action": "work", "turn": 13, "type": "action"}
+{"action": "bot16 culture: Estra culture -> 10", "args": {}, "citizen": 16, "day": 6, "name": "bot16", "raw_action": "culture", "turn": 13, "type": "action"}
+{"action": "bot17 train failed (credits 2 < 12)", "args": {}, "citizen": 17, "day": 6, "name": "bot17", "raw_action": "train", "turn": 13, "type": "action"}
+{"action": "bot18 trade with Cordovia +8", "args": {}, "citizen": 18, "day": 6, "name": "bot18", "raw_action": "trade", "turn": 13, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 6, "name": "bot19", "raw_action": "work", "turn": 13, "type": "action"}
+{"day": 6, "recent": ["t011 skirmish Brennia wins: Aurelia army 0->0", "t011 skirmish Estra wins: Aurelia army 0->0", "t011 Aurelia loses 2 tiles to Brennia (army 0)", "t012 skirmish Brennia wins: Aurelia army 0->0", "t012 skirmish Estra wins: Aurelia army 0->0", "t012 Aurelia loses 2 tiles to Brennia (army 0)", "t013 skirmish Brennia wins: Aurelia army 0->0", "t013 skirmish Estra wins: Aurelia army 0->0", "t013 Aurelia loses 2 tiles to Brennia (army 0)", "t013 CONQUERED Aurelia (0 tiles)"], "seal": "96573729914db64deaf193ceec02ac4e1d59a145f999e2b858f245d0d0944236", "turn": 13, "type": "turn", "winner": null}
+{"action": "czlonkek joins Brennia", "args": {"target": 1}, "citizen": 0, "day": 7, "name": "czlonkek", "raw_action": "join", "turn": 14, "type": "action"}
+{"action": "bot01 work +9", "args": {}, "citizen": 1, "day": 7, "name": "bot01", "raw_action": "work", "turn": 14, "type": "action"}
+{"action": "bot02 joins Brennia", "args": {"target": 1}, "citizen": 2, "day": 7, "name": "bot02", "raw_action": "join", "turn": 14, "type": "action"}
+{"action": "bot03 work +9", "args": {}, "citizen": 3, "day": 7, "name": "bot03", "raw_action": "work", "turn": 14, "type": "action"}
+{"action": "bot04 work +6", "args": {}, "citizen": 4, "day": 7, "name": "bot04", "raw_action": "work", "turn": 14, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 7, "name": "bot05", "raw_action": "work", "turn": 14, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 7, "name": "bot06", "raw_action": "work", "turn": 14, "type": "action"}
+{"action": "bot07 work +6", "args": {}, "citizen": 7, "day": 7, "name": "bot07", "raw_action": "work", "turn": 14, "type": "action"}
+{"action": "bot08 work +6", "args": {}, "citizen": 8, "day": 7, "name": "bot08", "raw_action": "work", "turn": 14, "type": "action"}
+{"action": "bot09 work +6", "args": {}, "citizen": 9, "day": 7, "name": "bot09", "raw_action": "work", "turn": 14, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 18", "args": {}, "citizen": 10, "day": 7, "name": "bot10", "raw_action": "culture", "turn": 14, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 7, "name": "bot11", "raw_action": "work", "turn": 14, "type": "action"}
+{"action": "bot12 culture: Dalmara culture -> 7", "args": {}, "citizen": 12, "day": 7, "name": "bot12", "raw_action": "culture", "turn": 14, "type": "action"}
+{"action": "bot13 trade with Brennia +8", "args": {}, "citizen": 13, "day": 7, "name": "bot13", "raw_action": "trade", "turn": 14, "type": "action"}
+{"action": "bot14 trade with Cordovia +8", "args": {}, "citizen": 14, "day": 7, "name": "bot14", "raw_action": "trade", "turn": 14, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 7, "name": "bot15", "raw_action": "work", "turn": 14, "type": "action"}
+{"action": "bot16 culture: Estra culture -> 11", "args": {}, "citizen": 16, "day": 7, "name": "bot16", "raw_action": "culture", "turn": 14, "type": "action"}
+{"action": "bot17 work +6", "args": {}, "citizen": 17, "day": 7, "name": "bot17", "raw_action": "work", "turn": 14, "type": "action"}
+{"action": "bot18 culture: Estra culture -> 12", "args": {}, "citizen": 18, "day": 7, "name": "bot18", "raw_action": "culture", "turn": 14, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 7, "name": "bot19", "raw_action": "work", "turn": 14, "type": "action"}
+{"day": 7, "recent": ["t011 skirmish Brennia wins: Aurelia army 0->0", "t011 skirmish Estra wins: Aurelia army 0->0", "t011 Aurelia loses 2 tiles to Brennia (army 0)", "t012 skirmish Brennia wins: Aurelia army 0->0", "t012 skirmish Estra wins: Aurelia army 0->0", "t012 Aurelia loses 2 tiles to Brennia (army 0)", "t013 skirmish Brennia wins: Aurelia army 0->0", "t013 skirmish Estra wins: Aurelia army 0->0", "t013 Aurelia loses 2 tiles to Brennia (army 0)", "t013 CONQUERED Aurelia (0 tiles)"], "seal": "9aa92491ffa2272275bc76e34b45801573cd7a91f58ae39f51c9c6a4ebb2094e", "turn": 14, "type": "turn", "winner": null}
+{"action": "czlonkek culture: Brennia culture -> 1", "args": {}, "citizen": 0, "day": 7, "name": "czlonkek", "raw_action": "culture", "turn": 15, "type": "action"}
+{"action": "bot01 joins Brennia", "args": {"target": 1}, "citizen": 1, "day": 7, "name": "bot01", "raw_action": "join", "turn": 15, "type": "action"}
+{"action": "bot02 trade with Cordovia +8", "args": {}, "citizen": 2, "day": 7, "name": "bot02", "raw_action": "trade", "turn": 15, "type": "action"}
+{"action": "bot03 work +9", "args": {}, "citizen": 3, "day": 7, "name": "bot03", "raw_action": "work", "turn": 15, "type": "action"}
+{"action": "bot04 train: Brennia army -> 36", "args": {}, "citizen": 4, "day": 7, "name": "bot04", "raw_action": "train", "turn": 15, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 7, "name": "bot05", "raw_action": "work", "turn": 15, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 7, "name": "bot06", "raw_action": "work", "turn": 15, "type": "action"}
+{"action": "bot07 work +6", "args": {}, "citizen": 7, "day": 7, "name": "bot07", "raw_action": "work", "turn": 15, "type": "action"}
+{"action": "bot08 work +6", "args": {}, "citizen": 8, "day": 7, "name": "bot08", "raw_action": "work", "turn": 15, "type": "action"}
+{"action": "bot09 train: Cordovia army -> 38", "args": {}, "citizen": 9, "day": 7, "name": "bot09", "raw_action": "train", "turn": 15, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 19", "args": {}, "citizen": 10, "day": 7, "name": "bot10", "raw_action": "culture", "turn": 15, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 20", "args": {}, "citizen": 11, "day": 7, "name": "bot11", "raw_action": "culture", "turn": 15, "type": "action"}
+{"action": "bot12 work +6", "args": {}, "citizen": 12, "day": 7, "name": "bot12", "raw_action": "work", "turn": 15, "type": "action"}
+{"action": "bot13 trade with Estra +8", "args": {}, "citizen": 13, "day": 7, "name": "bot13", "raw_action": "trade", "turn": 15, "type": "action"}
+{"action": "bot14 trade with Estra +8", "args": {}, "citizen": 14, "day": 7, "name": "bot14", "raw_action": "trade", "turn": 15, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 7, "name": "bot15", "raw_action": "work", "turn": 15, "type": "action"}
+{"action": "bot16 work +6", "args": {}, "citizen": 16, "day": 7, "name": "bot16", "raw_action": "work", "turn": 15, "type": "action"}
+{"action": "bot17 work +6", "args": {}, "citizen": 17, "day": 7, "name": "bot17", "raw_action": "work", "turn": 15, "type": "action"}
+{"action": "bot18 culture: Estra culture -> 13", "args": {}, "citizen": 18, "day": 7, "name": "bot18", "raw_action": "culture", "turn": 15, "type": "action"}
+{"action": "bot19 declares war Estra vs Cordovia", "args": {"target": 2}, "citizen": 19, "day": 7, "name": "bot19", "raw_action": "declare_war", "turn": 15, "type": "action"}
+{"day": 7, "recent": ["t011 Aurelia loses 2 tiles to Brennia (army 0)", "t012 skirmish Brennia wins: Aurelia army 0->0", "t012 skirmish Estra wins: Aurelia army 0->0", "t012 Aurelia loses 2 tiles to Brennia (army 0)", "t013 skirmish Brennia wins: Aurelia army 0->0", "t013 skirmish Estra wins: Aurelia army 0->0", "t013 Aurelia loses 2 tiles to Brennia (army 0)", "t013 CONQUERED Aurelia (0 tiles)", "t015 WAR Cordovia vs Estra", "t015 skirmish Cordovia wins: Estra army 12->2"], "seal": "5becdfe99236b6c4d75cd46cf71d1ecd1fe7f97dab5f98cdabd96ed18af4fe00", "turn": 15, "type": "turn", "winner": null}
+{"action": "czlonkek trade with Estra +8", "args": {}, "citizen": 0, "day": 8, "name": "czlonkek", "raw_action": "trade", "turn": 16, "type": "action"}
+{"action": "bot01 trade with Estra +8", "args": {}, "citizen": 1, "day": 8, "name": "bot01", "raw_action": "trade", "turn": 16, "type": "action"}
+{"action": "bot02 trade with Dalmara +8", "args": {}, "citizen": 2, "day": 8, "name": "bot02", "raw_action": "trade", "turn": 16, "type": "action"}
+{"action": "bot03 work +9", "args": {}, "citizen": 3, "day": 8, "name": "bot03", "raw_action": "work", "turn": 16, "type": "action"}
+{"action": "bot04 work +6", "args": {}, "citizen": 4, "day": 8, "name": "bot04", "raw_action": "work", "turn": 16, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 8, "name": "bot05", "raw_action": "work", "turn": 16, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 8, "name": "bot06", "raw_action": "work", "turn": 16, "type": "action"}
+{"action": "bot07 train: Brennia army -> 38", "args": {}, "citizen": 7, "day": 8, "name": "bot07", "raw_action": "train", "turn": 16, "type": "action"}
+{"action": "bot08 train: Cordovia army -> 40", "args": {}, "citizen": 8, "day": 8, "name": "bot08", "raw_action": "train", "turn": 16, "type": "action"}
+{"action": "bot09 train: Cordovia army -> 42", "args": {}, "citizen": 9, "day": 8, "name": "bot09", "raw_action": "train", "turn": 16, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 21", "args": {}, "citizen": 10, "day": 8, "name": "bot10", "raw_action": "culture", "turn": 16, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 8, "name": "bot11", "raw_action": "work", "turn": 16, "type": "action"}
+{"action": "bot12 culture: Dalmara culture -> 8", "args": {}, "citizen": 12, "day": 8, "name": "bot12", "raw_action": "culture", "turn": 16, "type": "action"}
+{"action": "bot13 trade with Brennia +8", "args": {}, "citizen": 13, "day": 8, "name": "bot13", "raw_action": "trade", "turn": 16, "type": "action"}
+{"action": "bot14 trade with Cordovia +8", "args": {}, "citizen": 14, "day": 8, "name": "bot14", "raw_action": "trade", "turn": 16, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 8, "name": "bot15", "raw_action": "work", "turn": 16, "type": "action"}
+{"action": "bot16 peace rejected (army 2 <= 42*1.5)", "args": {"target": 2}, "citizen": 16, "day": 8, "name": "bot16", "raw_action": "peace", "turn": 16, "type": "action"}
+{"action": "bot17 train: Estra army -> 4", "args": {}, "citizen": 17, "day": 8, "name": "bot17", "raw_action": "train", "turn": 16, "type": "action"}
+{"action": "bot18 peace rejected (army 4 <= 42*1.5)", "args": {"target": 2}, "citizen": 18, "day": 8, "name": "bot18", "raw_action": "peace", "turn": 16, "type": "action"}
+{"action": "bot19 peace rejected (army 4 <= 42*1.5)", "args": {"target": 2}, "citizen": 19, "day": 8, "name": "bot19", "raw_action": "peace", "turn": 16, "type": "action"}
+{"day": 8, "recent": ["t012 skirmish Estra wins: Aurelia army 0->0", "t012 Aurelia loses 2 tiles to Brennia (army 0)", "t013 skirmish Brennia wins: Aurelia army 0->0", "t013 skirmish Estra wins: Aurelia army 0->0", "t013 Aurelia loses 2 tiles to Brennia (army 0)", "t013 CONQUERED Aurelia (0 tiles)", "t015 WAR Cordovia vs Estra", "t015 skirmish Cordovia wins: Estra army 12->2", "t016 skirmish Cordovia wins: Estra army 4->0", "t016 Estra loses 2 tiles to Cordovia (army 0)"], "seal": "a045a46392ae9de7cab1bec53e255296fbd3af08a0a1837a26ee8ac4fd1e1d89", "turn": 16, "type": "turn", "winner": null}
+{"action": "czlonkek culture: Brennia culture -> 2", "args": {}, "citizen": 0, "day": 8, "name": "czlonkek", "raw_action": "culture", "turn": 17, "type": "action"}
+{"action": "bot01 trade with Dalmara +8", "args": {}, "citizen": 1, "day": 8, "name": "bot01", "raw_action": "trade", "turn": 17, "type": "action"}
+{"action": "bot02 trade with Cordovia +8", "args": {}, "citizen": 2, "day": 8, "name": "bot02", "raw_action": "trade", "turn": 17, "type": "action"}
+{"action": "bot03 work +9", "args": {}, "citizen": 3, "day": 8, "name": "bot03", "raw_action": "work", "turn": 17, "type": "action"}
+{"action": "bot04 work +6", "args": {}, "citizen": 4, "day": 8, "name": "bot04", "raw_action": "work", "turn": 17, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 8, "name": "bot05", "raw_action": "work", "turn": 17, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 8, "name": "bot06", "raw_action": "work", "turn": 17, "type": "action"}
+{"action": "bot07 work +6", "args": {}, "citizen": 7, "day": 8, "name": "bot07", "raw_action": "work", "turn": 17, "type": "action"}
+{"action": "bot08 train: Cordovia army -> 44", "args": {}, "citizen": 8, "day": 8, "name": "bot08", "raw_action": "train", "turn": 17, "type": "action"}
+{"action": "bot09 train failed (credits 3 < 7)", "args": {}, "citizen": 9, "day": 8, "name": "bot09", "raw_action": "train", "turn": 17, "type": "action"}
+{"action": "bot10 trade with Brennia +8", "args": {}, "citizen": 10, "day": 8, "name": "bot10", "raw_action": "trade", "turn": 17, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 22", "args": {}, "citizen": 11, "day": 8, "name": "bot11", "raw_action": "culture", "turn": 17, "type": "action"}
+{"action": "bot12 work +6", "args": {}, "citizen": 12, "day": 8, "name": "bot12", "raw_action": "work", "turn": 17, "type": "action"}
+{"action": "bot13 trade with Cordovia +8", "args": {}, "citizen": 13, "day": 8, "name": "bot13", "raw_action": "trade", "turn": 17, "type": "action"}
+{"action": "bot14 trade with Cordovia +8", "args": {}, "citizen": 14, "day": 8, "name": "bot14", "raw_action": "trade", "turn": 17, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 8, "name": "bot15", "raw_action": "work", "turn": 17, "type": "action"}
+{"action": "bot16 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 16, "day": 8, "name": "bot16", "raw_action": "peace", "turn": 17, "type": "action"}
+{"action": "bot17 train failed (credits 2 < 12)", "args": {}, "citizen": 17, "day": 8, "name": "bot17", "raw_action": "train", "turn": 17, "type": "action"}
+{"action": "bot18 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 18, "day": 8, "name": "bot18", "raw_action": "peace", "turn": 17, "type": "action"}
+{"action": "bot19 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 19, "day": 8, "name": "bot19", "raw_action": "peace", "turn": 17, "type": "action"}
+{"day": 8, "recent": ["t013 skirmish Brennia wins: Aurelia army 0->0", "t013 skirmish Estra wins: Aurelia army 0->0", "t013 Aurelia loses 2 tiles to Brennia (army 0)", "t013 CONQUERED Aurelia (0 tiles)", "t015 WAR Cordovia vs Estra", "t015 skirmish Cordovia wins: Estra army 12->2", "t016 skirmish Cordovia wins: Estra army 4->0", "t016 Estra loses 2 tiles to Cordovia (army 0)", "t017 skirmish Cordovia wins: Estra army 0->0", "t017 Estra loses 2 tiles to Cordovia (army 0)"], "seal": "f658da0957307f4a0c8f32348c00ddbc5a759b50c2957f09c373f8a9371d4392", "turn": 17, "type": "turn", "winner": null}
+{"action": "czlonkek culture: Brennia culture -> 3", "args": {}, "citizen": 0, "day": 9, "name": "czlonkek", "raw_action": "culture", "turn": 18, "type": "action"}
+{"action": "bot01 trade with Estra +8", "args": {}, "citizen": 1, "day": 9, "name": "bot01", "raw_action": "trade", "turn": 18, "type": "action"}
+{"action": "bot02 research: Brennia tech -> 1", "args": {}, "citizen": 2, "day": 9, "name": "bot02", "raw_action": "research", "turn": 18, "type": "action"}
+{"action": "bot03 joins Brennia", "args": {"target": 1}, "citizen": 3, "day": 9, "name": "bot03", "raw_action": "join", "turn": 18, "type": "action"}
+{"action": "bot04 train: Brennia army -> 40", "args": {}, "citizen": 4, "day": 9, "name": "bot04", "raw_action": "train", "turn": 18, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 9, "name": "bot05", "raw_action": "work", "turn": 18, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 9, "name": "bot06", "raw_action": "work", "turn": 18, "type": "action"}
+{"action": "bot07 train: Brennia army -> 42", "args": {}, "citizen": 7, "day": 9, "name": "bot07", "raw_action": "train", "turn": 18, "type": "action"}
+{"action": "bot08 train failed (credits 3 < 7)", "args": {}, "citizen": 8, "day": 9, "name": "bot08", "raw_action": "train", "turn": 18, "type": "action"}
+{"action": "bot09 train failed (credits 3 < 7)", "args": {}, "citizen": 9, "day": 9, "name": "bot09", "raw_action": "train", "turn": 18, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 23", "args": {}, "citizen": 10, "day": 9, "name": "bot10", "raw_action": "culture", "turn": 18, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 24", "args": {}, "citizen": 11, "day": 9, "name": "bot11", "raw_action": "culture", "turn": 18, "type": "action"}
+{"action": "bot12 culture: Dalmara culture -> 9", "args": {}, "citizen": 12, "day": 9, "name": "bot12", "raw_action": "culture", "turn": 18, "type": "action"}
+{"action": "bot13 trade with Cordovia +8", "args": {}, "citizen": 13, "day": 9, "name": "bot13", "raw_action": "trade", "turn": 18, "type": "action"}
+{"action": "bot14 trade with Brennia +8", "args": {}, "citizen": 14, "day": 9, "name": "bot14", "raw_action": "trade", "turn": 18, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 9, "name": "bot15", "raw_action": "work", "turn": 18, "type": "action"}
+{"action": "bot16 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 16, "day": 9, "name": "bot16", "raw_action": "peace", "turn": 18, "type": "action"}
+{"action": "bot17 train failed (credits 2 < 12)", "args": {}, "citizen": 17, "day": 9, "name": "bot17", "raw_action": "train", "turn": 18, "type": "action"}
+{"action": "bot18 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 18, "day": 9, "name": "bot18", "raw_action": "peace", "turn": 18, "type": "action"}
+{"action": "bot19 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 19, "day": 9, "name": "bot19", "raw_action": "peace", "turn": 18, "type": "action"}
+{"day": 9, "recent": ["t013 Aurelia loses 2 tiles to Brennia (army 0)", "t013 CONQUERED Aurelia (0 tiles)", "t015 WAR Cordovia vs Estra", "t015 skirmish Cordovia wins: Estra army 12->2", "t016 skirmish Cordovia wins: Estra army 4->0", "t016 Estra loses 2 tiles to Cordovia (army 0)", "t017 skirmish Cordovia wins: Estra army 0->0", "t017 Estra loses 2 tiles to Cordovia (army 0)", "t018 skirmish Cordovia wins: Estra army 0->0", "t018 Estra loses 2 tiles to Cordovia (army 0)"], "seal": "dfb7cefab1e7106289110f31bec906d505c2642b286fc7d61494273e3d85ffc9", "turn": 18, "type": "turn", "winner": null}
+{"action": "czlonkek culture: Brennia culture -> 4", "args": {}, "citizen": 0, "day": 9, "name": "czlonkek", "raw_action": "culture", "turn": 19, "type": "action"}
+{"action": "bot01 trade with Dalmara +8", "args": {}, "citizen": 1, "day": 9, "name": "bot01", "raw_action": "trade", "turn": 19, "type": "action"}
+{"action": "bot02 trade with Estra +8", "args": {}, "citizen": 2, "day": 9, "name": "bot02", "raw_action": "trade", "turn": 19, "type": "action"}
+{"action": "bot03 culture: Brennia culture -> 5", "args": {}, "citizen": 3, "day": 9, "name": "bot03", "raw_action": "culture", "turn": 19, "type": "action"}
+{"action": "bot04 work +6", "args": {}, "citizen": 4, "day": 9, "name": "bot04", "raw_action": "work", "turn": 19, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 9, "name": "bot05", "raw_action": "work", "turn": 19, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 9, "name": "bot06", "raw_action": "work", "turn": 19, "type": "action"}
+{"action": "bot07 work +6", "args": {}, "citizen": 7, "day": 9, "name": "bot07", "raw_action": "work", "turn": 19, "type": "action"}
+{"action": "bot08 train failed (credits 3 < 7)", "args": {}, "citizen": 8, "day": 9, "name": "bot08", "raw_action": "train", "turn": 19, "type": "action"}
+{"action": "bot09 train failed (credits 3 < 7)", "args": {}, "citizen": 9, "day": 9, "name": "bot09", "raw_action": "train", "turn": 19, "type": "action"}
+{"action": "bot10 trade with Dalmara +8", "args": {}, "citizen": 10, "day": 9, "name": "bot10", "raw_action": "trade", "turn": 19, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 9, "name": "bot11", "raw_action": "work", "turn": 19, "type": "action"}
+{"action": "bot12 work +6", "args": {}, "citizen": 12, "day": 9, "name": "bot12", "raw_action": "work", "turn": 19, "type": "action"}
+{"action": "bot13 trade with Cordovia +8", "args": {}, "citizen": 13, "day": 9, "name": "bot13", "raw_action": "trade", "turn": 19, "type": "action"}
+{"action": "bot14 trade with Cordovia +8", "args": {}, "citizen": 14, "day": 9, "name": "bot14", "raw_action": "trade", "turn": 19, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 9, "name": "bot15", "raw_action": "work", "turn": 19, "type": "action"}
+{"action": "bot16 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 16, "day": 9, "name": "bot16", "raw_action": "peace", "turn": 19, "type": "action"}
+{"action": "bot17 train failed (credits 2 < 12)", "args": {}, "citizen": 17, "day": 9, "name": "bot17", "raw_action": "train", "turn": 19, "type": "action"}
+{"action": "bot18 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 18, "day": 9, "name": "bot18", "raw_action": "peace", "turn": 19, "type": "action"}
+{"action": "bot19 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 19, "day": 9, "name": "bot19", "raw_action": "peace", "turn": 19, "type": "action"}
+{"day": 9, "recent": ["t015 WAR Cordovia vs Estra", "t015 skirmish Cordovia wins: Estra army 12->2", "t016 skirmish Cordovia wins: Estra army 4->0", "t016 Estra loses 2 tiles to Cordovia (army 0)", "t017 skirmish Cordovia wins: Estra army 0->0", "t017 Estra loses 2 tiles to Cordovia (army 0)", "t018 skirmish Cordovia wins: Estra army 0->0", "t018 Estra loses 2 tiles to Cordovia (army 0)", "t019 skirmish Cordovia wins: Estra army 0->0", "t019 Estra loses 2 tiles to Cordovia (army 0)"], "seal": "652fdda0d36aa9644430f2660fcc7fd69e621181f49e855cb18936ebb1751abf", "turn": 19, "type": "turn", "winner": null}
+{"action": "czlonkek culture: Brennia culture -> 6", "args": {}, "citizen": 0, "day": 10, "name": "czlonkek", "raw_action": "culture", "turn": 20, "type": "action"}
+{"action": "bot01 trade with Cordovia +8", "args": {}, "citizen": 1, "day": 10, "name": "bot01", "raw_action": "trade", "turn": 20, "type": "action"}
+{"action": "bot02 trade with Cordovia +8", "args": {}, "citizen": 2, "day": 10, "name": "bot02", "raw_action": "trade", "turn": 20, "type": "action"}
+{"action": "bot03 work +6", "args": {}, "citizen": 3, "day": 10, "name": "bot03", "raw_action": "work", "turn": 20, "type": "action"}
+{"action": "bot04 train: Brennia army -> 44", "args": {}, "citizen": 4, "day": 10, "name": "bot04", "raw_action": "train", "turn": 20, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 10, "name": "bot05", "raw_action": "work", "turn": 20, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 10, "name": "bot06", "raw_action": "work", "turn": 20, "type": "action"}
+{"action": "bot07 train: Brennia army -> 46", "args": {}, "citizen": 7, "day": 10, "name": "bot07", "raw_action": "train", "turn": 20, "type": "action"}
+{"action": "bot08 train failed (credits 3 < 7)", "args": {}, "citizen": 8, "day": 10, "name": "bot08", "raw_action": "train", "turn": 20, "type": "action"}
+{"action": "bot09 train failed (credits 3 < 7)", "args": {}, "citizen": 9, "day": 10, "name": "bot09", "raw_action": "train", "turn": 20, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 25", "args": {}, "citizen": 10, "day": 10, "name": "bot10", "raw_action": "culture", "turn": 20, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 26", "args": {}, "citizen": 11, "day": 10, "name": "bot11", "raw_action": "culture", "turn": 20, "type": "action"}
+{"action": "bot12 culture: Dalmara culture -> 10", "args": {}, "citizen": 12, "day": 10, "name": "bot12", "raw_action": "culture", "turn": 20, "type": "action"}
+{"action": "bot13 trade with Cordovia +8", "args": {}, "citizen": 13, "day": 10, "name": "bot13", "raw_action": "trade", "turn": 20, "type": "action"}
+{"action": "bot14 trade with Cordovia +8", "args": {}, "citizen": 14, "day": 10, "name": "bot14", "raw_action": "trade", "turn": 20, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 10, "name": "bot15", "raw_action": "work", "turn": 20, "type": "action"}
+{"action": "bot16 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 16, "day": 10, "name": "bot16", "raw_action": "peace", "turn": 20, "type": "action"}
+{"action": "bot17 train failed (credits 2 < 12)", "args": {}, "citizen": 17, "day": 10, "name": "bot17", "raw_action": "train", "turn": 20, "type": "action"}
+{"action": "bot18 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 18, "day": 10, "name": "bot18", "raw_action": "peace", "turn": 20, "type": "action"}
+{"action": "bot19 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 19, "day": 10, "name": "bot19", "raw_action": "peace", "turn": 20, "type": "action"}
+{"day": 10, "recent": ["t016 skirmish Cordovia wins: Estra army 4->0", "t016 Estra loses 2 tiles to Cordovia (army 0)", "t017 skirmish Cordovia wins: Estra army 0->0", "t017 Estra loses 2 tiles to Cordovia (army 0)", "t018 skirmish Cordovia wins: Estra army 0->0", "t018 Estra loses 2 tiles to Cordovia (army 0)", "t019 skirmish Cordovia wins: Estra army 0->0", "t019 Estra loses 2 tiles to Cordovia (army 0)", "t020 skirmish Cordovia wins: Estra army 0->0", "t020 Estra loses 2 tiles to Cordovia (army 0)"], "seal": "a301630eb41e1b124dff3daa5053b43dd634de5efd5e5b59df69b1e0cf109cd1", "turn": 20, "type": "turn", "winner": null}
+{"action": "bot16 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 16, "day": 10, "name": "bot16", "raw_action": "peace", "turn": 21, "type": "action"}
+{"action": "bot18 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 18, "day": 10, "name": "bot18", "raw_action": "peace", "turn": 21, "type": "action"}
+{"action": "bot19 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 19, "day": 10, "name": "bot19", "raw_action": "peace", "turn": 21, "type": "action"}
+{"day": 10, "recent": ["t019 skirmish Cordovia wins: Estra army 0->0", "t019 Estra loses 2 tiles to Cordovia (army 0)", "t020 skirmish Cordovia wins: Estra army 0->0", "t020 Estra loses 2 tiles to Cordovia (army 0)", "t021 ELECTION Brennia: bot04 re-elected ({})", "t021 ELECTION Cordovia: bot08 re-elected ({})", "t021 ELECTION Dalmara: bot12 re-elected ({})", "t021 ELECTION Estra: bot16 re-elected ({})", "t021 skirmish Cordovia wins: Estra army 0->0", "t021 Estra loses 2 tiles to Cordovia (army 0)"], "seal": "17ea59d95945fc44e3c97a0026cccd2e0b12c08ea20e6f81db64a3972f112a67", "turn": 21, "type": "turn", "winner": null}
+{"action": "czlonkek culture: Brennia culture -> 7", "args": {}, "citizen": 0, "day": 11, "name": "czlonkek", "raw_action": "culture", "turn": 22, "type": "action"}
+{"action": "bot01 research: Brennia tech -> 2", "args": {}, "citizen": 1, "day": 11, "name": "bot01", "raw_action": "research", "turn": 22, "type": "action"}
+{"action": "bot02 trade with Cordovia +8", "args": {}, "citizen": 2, "day": 11, "name": "bot02", "raw_action": "trade", "turn": 22, "type": "action"}
+{"action": "bot03 culture: Brennia culture -> 8", "args": {}, "citizen": 3, "day": 11, "name": "bot03", "raw_action": "culture", "turn": 22, "type": "action"}
+{"action": "bot04 work +6", "args": {}, "citizen": 4, "day": 11, "name": "bot04", "raw_action": "work", "turn": 22, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 11, "name": "bot05", "raw_action": "work", "turn": 22, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 11, "name": "bot06", "raw_action": "work", "turn": 22, "type": "action"}
+{"action": "bot07 work +6", "args": {}, "citizen": 7, "day": 11, "name": "bot07", "raw_action": "work", "turn": 22, "type": "action"}
+{"action": "bot08 train failed (credits 3 < 7)", "args": {}, "citizen": 8, "day": 11, "name": "bot08", "raw_action": "train", "turn": 22, "type": "action"}
+{"action": "bot09 train failed (credits 3 < 7)", "args": {}, "citizen": 9, "day": 11, "name": "bot09", "raw_action": "train", "turn": 22, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 27", "args": {}, "citizen": 10, "day": 11, "name": "bot10", "raw_action": "culture", "turn": 22, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 11, "name": "bot11", "raw_action": "work", "turn": 22, "type": "action"}
+{"action": "bot12 work +6", "args": {}, "citizen": 12, "day": 11, "name": "bot12", "raw_action": "work", "turn": 22, "type": "action"}
+{"action": "bot13 trade with Estra +8", "args": {}, "citizen": 13, "day": 11, "name": "bot13", "raw_action": "trade", "turn": 22, "type": "action"}
+{"action": "bot14 trade with Estra +8", "args": {}, "citizen": 14, "day": 11, "name": "bot14", "raw_action": "trade", "turn": 22, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 11, "name": "bot15", "raw_action": "work", "turn": 22, "type": "action"}
+{"action": "bot16 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 16, "day": 11, "name": "bot16", "raw_action": "peace", "turn": 22, "type": "action"}
+{"action": "bot17 train failed (credits 2 < 12)", "args": {}, "citizen": 17, "day": 11, "name": "bot17", "raw_action": "train", "turn": 22, "type": "action"}
+{"action": "bot18 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 18, "day": 11, "name": "bot18", "raw_action": "peace", "turn": 22, "type": "action"}
+{"action": "bot19 peace rejected (army 0 <= 44*1.5)", "args": {"target": 2}, "citizen": 19, "day": 11, "name": "bot19", "raw_action": "peace", "turn": 22, "type": "action"}
+{"day": 11, "recent": ["t020 Estra loses 2 tiles to Cordovia (army 0)", "t021 ELECTION Brennia: bot04 re-elected ({})", "t021 ELECTION Cordovia: bot08 re-elected ({})", "t021 ELECTION Dalmara: bot12 re-elected ({})", "t021 ELECTION Estra: bot16 re-elected ({})", "t021 skirmish Cordovia wins: Estra army 0->0", "t021 Estra loses 2 tiles to Cordovia (army 0)", "t022 skirmish Cordovia wins: Estra army 0->0", "t022 Estra loses 2 tiles to Cordovia (army 0)", "t022 CONQUERED Estra (0 tiles)"], "seal": "f63034d8579186937df8076ebfd0bc8038f949e015201e121e057a427ff422d7", "turn": 22, "type": "turn", "winner": null}
+{"action": "czlonkek culture: Brennia culture -> 9", "args": {}, "citizen": 0, "day": 11, "name": "czlonkek", "raw_action": "culture", "turn": 23, "type": "action"}
+{"action": "bot01 research: Brennia tech -> 3", "args": {}, "citizen": 1, "day": 11, "name": "bot01", "raw_action": "research", "turn": 23, "type": "action"}
+{"action": "bot02 research: Brennia tech -> 4", "args": {}, "citizen": 2, "day": 11, "name": "bot02", "raw_action": "research", "turn": 23, "type": "action"}
+{"action": "bot03 work +6", "args": {}, "citizen": 3, "day": 11, "name": "bot03", "raw_action": "work", "turn": 23, "type": "action"}
+{"action": "bot04 train: Brennia army -> 48", "args": {}, "citizen": 4, "day": 11, "name": "bot04", "raw_action": "train", "turn": 23, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 11, "name": "bot05", "raw_action": "work", "turn": 23, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 11, "name": "bot06", "raw_action": "work", "turn": 23, "type": "action"}
+{"action": "bot07 train: Brennia army -> 50", "args": {}, "citizen": 7, "day": 11, "name": "bot07", "raw_action": "train", "turn": 23, "type": "action"}
+{"action": "bot08 work +6", "args": {}, "citizen": 8, "day": 11, "name": "bot08", "raw_action": "work", "turn": 23, "type": "action"}
+{"action": "bot09 work +6", "args": {}, "citizen": 9, "day": 11, "name": "bot09", "raw_action": "work", "turn": 23, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 28", "args": {}, "citizen": 10, "day": 11, "name": "bot10", "raw_action": "culture", "turn": 23, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 29", "args": {}, "citizen": 11, "day": 11, "name": "bot11", "raw_action": "culture", "turn": 23, "type": "action"}
+{"action": "bot12 culture: Dalmara culture -> 11", "args": {}, "citizen": 12, "day": 11, "name": "bot12", "raw_action": "culture", "turn": 23, "type": "action"}
+{"action": "bot13 trade with Brennia +8", "args": {}, "citizen": 13, "day": 11, "name": "bot13", "raw_action": "trade", "turn": 23, "type": "action"}
+{"action": "bot14 trade with Cordovia +8", "args": {}, "citizen": 14, "day": 11, "name": "bot14", "raw_action": "trade", "turn": 23, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 11, "name": "bot15", "raw_action": "work", "turn": 23, "type": "action"}
+{"action": "bot16 work +9", "args": {}, "citizen": 16, "day": 11, "name": "bot16", "raw_action": "work", "turn": 23, "type": "action"}
+{"action": "bot17 work +9", "args": {}, "citizen": 17, "day": 11, "name": "bot17", "raw_action": "work", "turn": 23, "type": "action"}
+{"action": "bot18 joins Cordovia", "args": {"target": 2}, "citizen": 18, "day": 11, "name": "bot18", "raw_action": "join", "turn": 23, "type": "action"}
+{"action": "bot19 joins Cordovia", "args": {"target": 2}, "citizen": 19, "day": 11, "name": "bot19", "raw_action": "join", "turn": 23, "type": "action"}
+{"day": 11, "recent": ["t020 Estra loses 2 tiles to Cordovia (army 0)", "t021 ELECTION Brennia: bot04 re-elected ({})", "t021 ELECTION Cordovia: bot08 re-elected ({})", "t021 ELECTION Dalmara: bot12 re-elected ({})", "t021 ELECTION Estra: bot16 re-elected ({})", "t021 skirmish Cordovia wins: Estra army 0->0", "t021 Estra loses 2 tiles to Cordovia (army 0)", "t022 skirmish Cordovia wins: Estra army 0->0", "t022 Estra loses 2 tiles to Cordovia (army 0)", "t022 CONQUERED Estra (0 tiles)"], "seal": "ca1990d8a59ea101410d08df98923f6813995db06a6b8c9f556e846b62809df9", "turn": 23, "type": "turn", "winner": null}
+{"action": "czlonkek culture: Brennia culture -> 10", "args": {}, "citizen": 0, "day": 12, "name": "czlonkek", "raw_action": "culture", "turn": 24, "type": "action"}
+{"action": "bot01 trade with Dalmara +8", "args": {}, "citizen": 1, "day": 12, "name": "bot01", "raw_action": "trade", "turn": 24, "type": "action"}
+{"action": "bot02 research: Brennia tech -> 5", "args": {}, "citizen": 2, "day": 12, "name": "bot02", "raw_action": "research", "turn": 24, "type": "action"}
+{"action": "bot03 culture: Brennia culture -> 11", "args": {}, "citizen": 3, "day": 12, "name": "bot03", "raw_action": "culture", "turn": 24, "type": "action"}
+{"action": "bot04 work +6", "args": {}, "citizen": 4, "day": 12, "name": "bot04", "raw_action": "work", "turn": 24, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 12, "name": "bot05", "raw_action": "work", "turn": 24, "type": "action"}
+{"action": "bot06 declares war Brennia vs Dalmara", "args": {"target": 3}, "citizen": 6, "day": 12, "name": "bot06", "raw_action": "declare_war", "turn": 24, "type": "action"}
+{"action": "bot07 work +6", "args": {}, "citizen": 7, "day": 12, "name": "bot07", "raw_action": "work", "turn": 24, "type": "action"}
+{"action": "bot08 work +6", "args": {}, "citizen": 8, "day": 12, "name": "bot08", "raw_action": "work", "turn": 24, "type": "action"}
+{"action": "bot09 work +6", "args": {}, "citizen": 9, "day": 12, "name": "bot09", "raw_action": "work", "turn": 24, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 30", "args": {}, "citizen": 10, "day": 12, "name": "bot10", "raw_action": "culture", "turn": 24, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 12, "name": "bot11", "raw_action": "work", "turn": 24, "type": "action"}
+{"action": "bot12 work +6", "args": {}, "citizen": 12, "day": 12, "name": "bot12", "raw_action": "work", "turn": 24, "type": "action"}
+{"action": "bot13 trade with Cordovia +8", "args": {}, "citizen": 13, "day": 12, "name": "bot13", "raw_action": "trade", "turn": 24, "type": "action"}
+{"action": "bot14 trade with Cordovia +8", "args": {}, "citizen": 14, "day": 12, "name": "bot14", "raw_action": "trade", "turn": 24, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 12, "name": "bot15", "raw_action": "work", "turn": 24, "type": "action"}
+{"action": "bot16 work +9", "args": {}, "citizen": 16, "day": 12, "name": "bot16", "raw_action": "work", "turn": 24, "type": "action"}
+{"action": "bot17 work +9", "args": {}, "citizen": 17, "day": 12, "name": "bot17", "raw_action": "work", "turn": 24, "type": "action"}
+{"action": "bot18 culture: Cordovia culture -> 31", "args": {}, "citizen": 18, "day": 12, "name": "bot18", "raw_action": "culture", "turn": 24, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 12, "name": "bot19", "raw_action": "work", "turn": 24, "type": "action"}
+{"day": 12, "recent": ["t021 ELECTION Dalmara: bot12 re-elected ({})", "t021 ELECTION Estra: bot16 re-elected ({})", "t021 skirmish Cordovia wins: Estra army 0->0", "t021 Estra loses 2 tiles to Cordovia (army 0)", "t022 skirmish Cordovia wins: Estra army 0->0", "t022 Estra loses 2 tiles to Cordovia (army 0)", "t022 CONQUERED Estra (0 tiles)", "t024 WAR Brennia vs Dalmara", "t024 skirmish Brennia wins: Dalmara army 0->0", "t024 Dalmara loses 2 tiles to Brennia (army 0)"], "seal": "46875d07761718e59b17deaa5b03d48b6b24a063ea01de41859c0d5397cecdc5", "turn": 24, "type": "turn", "winner": null}
+{"action": "czlonkek culture: Brennia culture -> 12", "args": {}, "citizen": 0, "day": 12, "name": "czlonkek", "raw_action": "culture", "turn": 25, "type": "action"}
+{"action": "bot01 trade with Cordovia +8", "args": {}, "citizen": 1, "day": 12, "name": "bot01", "raw_action": "trade", "turn": 25, "type": "action"}
+{"action": "bot02 trade with Cordovia +8", "args": {}, "citizen": 2, "day": 12, "name": "bot02", "raw_action": "trade", "turn": 25, "type": "action"}
+{"action": "bot03 work +6", "args": {}, "citizen": 3, "day": 12, "name": "bot03", "raw_action": "work", "turn": 25, "type": "action"}
+{"action": "bot04 train: Brennia army -> 52", "args": {}, "citizen": 4, "day": 12, "name": "bot04", "raw_action": "train", "turn": 25, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 12, "name": "bot05", "raw_action": "work", "turn": 25, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 12, "name": "bot06", "raw_action": "work", "turn": 25, "type": "action"}
+{"action": "bot07 train: Brennia army -> 54", "args": {}, "citizen": 7, "day": 12, "name": "bot07", "raw_action": "train", "turn": 25, "type": "action"}
+{"action": "bot08 train: Cordovia army -> 46", "args": {}, "citizen": 8, "day": 12, "name": "bot08", "raw_action": "train", "turn": 25, "type": "action"}
+{"action": "bot09 train: Cordovia army -> 48", "args": {}, "citizen": 9, "day": 12, "name": "bot09", "raw_action": "train", "turn": 25, "type": "action"}
+{"action": "bot10 trade with Brennia +8", "args": {}, "citizen": 10, "day": 12, "name": "bot10", "raw_action": "trade", "turn": 25, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 32", "args": {}, "citizen": 11, "day": 12, "name": "bot11", "raw_action": "culture", "turn": 25, "type": "action"}
+{"action": "bot12 peace rejected (army 0 <= 54*1.5)", "args": {"target": 1}, "citizen": 12, "day": 12, "name": "bot12", "raw_action": "peace", "turn": 25, "type": "action"}
+{"action": "bot13 trade with Cordovia +8", "args": {}, "citizen": 13, "day": 12, "name": "bot13", "raw_action": "trade", "turn": 25, "type": "action"}
+{"action": "bot14 trade with Cordovia +8", "args": {}, "citizen": 14, "day": 12, "name": "bot14", "raw_action": "trade", "turn": 25, "type": "action"}
+{"action": "bot15 peace rejected (army 0 <= 54*1.5)", "args": {"target": 1}, "citizen": 15, "day": 12, "name": "bot15", "raw_action": "peace", "turn": 25, "type": "action"}
+{"action": "bot16 work +9", "args": {}, "citizen": 16, "day": 12, "name": "bot16", "raw_action": "work", "turn": 25, "type": "action"}
+{"action": "bot17 work +9", "args": {}, "citizen": 17, "day": 12, "name": "bot17", "raw_action": "work", "turn": 25, "type": "action"}
+{"action": "bot18 culture: Cordovia culture -> 33", "args": {}, "citizen": 18, "day": 12, "name": "bot18", "raw_action": "culture", "turn": 25, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 12, "name": "bot19", "raw_action": "work", "turn": 25, "type": "action"}
+{"day": 12, "recent": ["t021 skirmish Cordovia wins: Estra army 0->0", "t021 Estra loses 2 tiles to Cordovia (army 0)", "t022 skirmish Cordovia wins: Estra army 0->0", "t022 Estra loses 2 tiles to Cordovia (army 0)", "t022 CONQUERED Estra (0 tiles)", "t024 WAR Brennia vs Dalmara", "t024 skirmish Brennia wins: Dalmara army 0->0", "t024 Dalmara loses 2 tiles to Brennia (army 0)", "t025 skirmish Brennia wins: Dalmara army 0->0", "t025 Dalmara loses 2 tiles to Brennia (army 0)"], "seal": "9e949778c53067539c0179af8a88608e97a077e54cad055df7dd1bd0bbaf1789", "turn": 25, "type": "turn", "winner": null}
+{"action": "czlonkek trade with Cordovia +8", "args": {}, "citizen": 0, "day": 13, "name": "czlonkek", "raw_action": "trade", "turn": 26, "type": "action"}
+{"action": "bot01 research: Brennia tech -> 6", "args": {}, "citizen": 1, "day": 13, "name": "bot01", "raw_action": "research", "turn": 26, "type": "action"}
+{"action": "bot02 trade with Cordovia +8", "args": {}, "citizen": 2, "day": 13, "name": "bot02", "raw_action": "trade", "turn": 26, "type": "action"}
+{"action": "bot03 culture: Brennia culture -> 13", "args": {}, "citizen": 3, "day": 13, "name": "bot03", "raw_action": "culture", "turn": 26, "type": "action"}
+{"action": "bot04 train: Brennia army -> 56", "args": {}, "citizen": 4, "day": 13, "name": "bot04", "raw_action": "train", "turn": 26, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 13, "name": "bot05", "raw_action": "work", "turn": 26, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 13, "name": "bot06", "raw_action": "work", "turn": 26, "type": "action"}
+{"action": "bot07 train failed (credits 6 < 7)", "args": {}, "citizen": 7, "day": 13, "name": "bot07", "raw_action": "train", "turn": 26, "type": "action"}
+{"action": "bot08 work +6", "args": {}, "citizen": 8, "day": 13, "name": "bot08", "raw_action": "work", "turn": 26, "type": "action"}
+{"action": "bot09 work +6", "args": {}, "citizen": 9, "day": 13, "name": "bot09", "raw_action": "work", "turn": 26, "type": "action"}
+{"action": "bot10 trade with Dalmara +8", "args": {}, "citizen": 10, "day": 13, "name": "bot10", "raw_action": "trade", "turn": 26, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 13, "name": "bot11", "raw_action": "work", "turn": 26, "type": "action"}
+{"action": "bot12 peace rejected (army 0 <= 56*1.5)", "args": {"target": 1}, "citizen": 12, "day": 13, "name": "bot12", "raw_action": "peace", "turn": 26, "type": "action"}
+{"action": "bot13 trade with Cordovia +8", "args": {}, "citizen": 13, "day": 13, "name": "bot13", "raw_action": "trade", "turn": 26, "type": "action"}
+{"action": "bot14 trade with Cordovia +8", "args": {}, "citizen": 14, "day": 13, "name": "bot14", "raw_action": "trade", "turn": 26, "type": "action"}
+{"action": "bot15 peace rejected (army 0 <= 56*1.5)", "args": {"target": 1}, "citizen": 15, "day": 13, "name": "bot15", "raw_action": "peace", "turn": 26, "type": "action"}
+{"action": "bot16 joins Cordovia", "args": {"target": 2}, "citizen": 16, "day": 13, "name": "bot16", "raw_action": "join", "turn": 26, "type": "action"}
+{"action": "bot17 work +9", "args": {}, "citizen": 17, "day": 13, "name": "bot17", "raw_action": "work", "turn": 26, "type": "action"}
+{"action": "bot18 culture: Cordovia culture -> 34", "args": {}, "citizen": 18, "day": 13, "name": "bot18", "raw_action": "culture", "turn": 26, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 13, "name": "bot19", "raw_action": "work", "turn": 26, "type": "action"}
+{"day": 13, "recent": ["t022 skirmish Cordovia wins: Estra army 0->0", "t022 Estra loses 2 tiles to Cordovia (army 0)", "t022 CONQUERED Estra (0 tiles)", "t024 WAR Brennia vs Dalmara", "t024 skirmish Brennia wins: Dalmara army 0->0", "t024 Dalmara loses 2 tiles to Brennia (army 0)", "t025 skirmish Brennia wins: Dalmara army 0->0", "t025 Dalmara loses 2 tiles to Brennia (army 0)", "t026 skirmish Brennia wins: Dalmara army 0->0", "t026 Dalmara loses 2 tiles to Brennia (army 0)"], "seal": "cb105818ddad83379e6f6734b44ee24e525c050b59d7145ba7073312a966df9f", "turn": 26, "type": "turn", "winner": null}
+{"action": "czlonkek culture: Brennia culture -> 14", "args": {}, "citizen": 0, "day": 13, "name": "czlonkek", "raw_action": "culture", "turn": 27, "type": "action"}
+{"action": "bot01 trade with Cordovia +8", "args": {}, "citizen": 1, "day": 13, "name": "bot01", "raw_action": "trade", "turn": 27, "type": "action"}
+{"action": "bot02 trade with Cordovia +8", "args": {}, "citizen": 2, "day": 13, "name": "bot02", "raw_action": "trade", "turn": 27, "type": "action"}
+{"action": "bot03 culture: Brennia culture -> 15", "args": {}, "citizen": 3, "day": 13, "name": "bot03", "raw_action": "culture", "turn": 27, "type": "action"}
+{"action": "bot04 train failed (credits 0 < 7)", "args": {}, "citizen": 4, "day": 13, "name": "bot04", "raw_action": "train", "turn": 27, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 13, "name": "bot05", "raw_action": "work", "turn": 27, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 13, "name": "bot06", "raw_action": "work", "turn": 27, "type": "action"}
+{"action": "bot07 train failed (credits 6 < 7)", "args": {}, "citizen": 7, "day": 13, "name": "bot07", "raw_action": "train", "turn": 27, "type": "action"}
+{"action": "bot08 train: Cordovia army -> 50", "args": {}, "citizen": 8, "day": 13, "name": "bot08", "raw_action": "train", "turn": 27, "type": "action"}
+{"action": "bot09 train: Cordovia army -> 52", "args": {}, "citizen": 9, "day": 13, "name": "bot09", "raw_action": "train", "turn": 27, "type": "action"}
+{"action": "bot10 trade with Dalmara +8", "args": {}, "citizen": 10, "day": 13, "name": "bot10", "raw_action": "trade", "turn": 27, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 35", "args": {}, "citizen": 11, "day": 13, "name": "bot11", "raw_action": "culture", "turn": 27, "type": "action"}
+{"action": "bot12 peace rejected (army 0 <= 56*1.5)", "args": {"target": 1}, "citizen": 12, "day": 13, "name": "bot12", "raw_action": "peace", "turn": 27, "type": "action"}
+{"action": "bot13 trade with Cordovia +8", "args": {}, "citizen": 13, "day": 13, "name": "bot13", "raw_action": "trade", "turn": 27, "type": "action"}
+{"action": "bot14 trade with Cordovia +8", "args": {}, "citizen": 14, "day": 13, "name": "bot14", "raw_action": "trade", "turn": 27, "type": "action"}
+{"action": "bot15 peace rejected (army 0 <= 56*1.5)", "args": {"target": 1}, "citizen": 15, "day": 13, "name": "bot15", "raw_action": "peace", "turn": 27, "type": "action"}
+{"action": "bot16 work +6", "args": {}, "citizen": 16, "day": 13, "name": "bot16", "raw_action": "work", "turn": 27, "type": "action"}
+{"action": "bot17 joins Cordovia", "args": {"target": 2}, "citizen": 17, "day": 13, "name": "bot17", "raw_action": "join", "turn": 27, "type": "action"}
+{"action": "bot18 culture: Cordovia culture -> 36", "args": {}, "citizen": 18, "day": 13, "name": "bot18", "raw_action": "culture", "turn": 27, "type": "action"}
+{"action": "bot19 declares war Cordovia vs Dalmara", "args": {"target": 3}, "citizen": 19, "day": 13, "name": "bot19", "raw_action": "declare_war", "turn": 27, "type": "action"}
+{"day": 13, "recent": ["t024 skirmish Brennia wins: Dalmara army 0->0", "t024 Dalmara loses 2 tiles to Brennia (army 0)", "t025 skirmish Brennia wins: Dalmara army 0->0", "t025 Dalmara loses 2 tiles to Brennia (army 0)", "t026 skirmish Brennia wins: Dalmara army 0->0", "t026 Dalmara loses 2 tiles to Brennia (army 0)", "t027 WAR Cordovia vs Dalmara", "t027 skirmish Brennia wins: Dalmara army 0->0", "t027 skirmish Cordovia wins: Dalmara army 0->0", "t027 Dalmara loses 2 tiles to Brennia (army 0)"], "seal": "fe60b37372253dea66f75f911948943466c6aa9889f10a953c6889d0f86b4843", "turn": 27, "type": "turn", "winner": null}
+{"action": "czlonkek trade with Cordovia +8", "args": {}, "citizen": 0, "day": 14, "name": "czlonkek", "raw_action": "trade", "turn": 28, "type": "action"}
+{"action": "bot01 trade with Cordovia +8", "args": {}, "citizen": 1, "day": 14, "name": "bot01", "raw_action": "trade", "turn": 28, "type": "action"}
+{"action": "bot02 trade with Cordovia +8", "args": {}, "citizen": 2, "day": 14, "name": "bot02", "raw_action": "trade", "turn": 28, "type": "action"}
+{"action": "bot03 work +6", "args": {}, "citizen": 3, "day": 14, "name": "bot03", "raw_action": "work", "turn": 28, "type": "action"}
+{"action": "bot04 train failed (credits 0 < 7)", "args": {}, "citizen": 4, "day": 14, "name": "bot04", "raw_action": "train", "turn": 28, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 14, "name": "bot05", "raw_action": "work", "turn": 28, "type": "action"}
+{"action": "bot06 work +6", "args": {}, "citizen": 6, "day": 14, "name": "bot06", "raw_action": "work", "turn": 28, "type": "action"}
+{"action": "bot07 train failed (credits 6 < 7)", "args": {}, "citizen": 7, "day": 14, "name": "bot07", "raw_action": "train", "turn": 28, "type": "action"}
+{"action": "bot08 train: Cordovia army -> 54", "args": {}, "citizen": 8, "day": 14, "name": "bot08", "raw_action": "train", "turn": 28, "type": "action"}
+{"action": "bot09 train: Cordovia army -> 56", "args": {}, "citizen": 9, "day": 14, "name": "bot09", "raw_action": "train", "turn": 28, "type": "action"}
+{"action": "bot10 trade with Brennia +8", "args": {}, "citizen": 10, "day": 14, "name": "bot10", "raw_action": "trade", "turn": 28, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 14, "name": "bot11", "raw_action": "work", "turn": 28, "type": "action"}
+{"action": "bot12 peace rejected (army 0 <= 56*1.5)", "args": {"target": 2}, "citizen": 12, "day": 14, "name": "bot12", "raw_action": "peace", "turn": 28, "type": "action"}
+{"action": "bot13 trade failed (no target)", "args": {}, "citizen": 13, "day": 14, "name": "bot13", "raw_action": "trade", "turn": 28, "type": "action"}
+{"action": "bot14 trade failed (no target)", "args": {}, "citizen": 14, "day": 14, "name": "bot14", "raw_action": "trade", "turn": 28, "type": "action"}
+{"action": "bot15 peace rejected (army 0 <= 56*1.5)", "args": {"target": 2}, "citizen": 15, "day": 14, "name": "bot15", "raw_action": "peace", "turn": 28, "type": "action"}
+{"action": "bot16 culture: Cordovia culture -> 37", "args": {}, "citizen": 16, "day": 14, "name": "bot16", "raw_action": "culture", "turn": 28, "type": "action"}
+{"action": "bot17 train: Cordovia army -> 58", "args": {}, "citizen": 17, "day": 14, "name": "bot17", "raw_action": "train", "turn": 28, "type": "action"}
+{"action": "bot18 culture: Cordovia culture -> 38", "args": {}, "citizen": 18, "day": 14, "name": "bot18", "raw_action": "culture", "turn": 28, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 14, "name": "bot19", "raw_action": "work", "turn": 28, "type": "action"}
+{"day": 14, "recent": ["t026 skirmish Brennia wins: Dalmara army 0->0", "t026 Dalmara loses 2 tiles to Brennia (army 0)", "t027 WAR Cordovia vs Dalmara", "t027 skirmish Brennia wins: Dalmara army 0->0", "t027 skirmish Cordovia wins: Dalmara army 0->0", "t027 Dalmara loses 2 tiles to Brennia (army 0)", "t028 skirmish Brennia wins: Dalmara army 0->0", "t028 skirmish Cordovia wins: Dalmara army 0->0", "t028 Dalmara loses 2 tiles to Cordovia (army 0)", "t028 CONQUERED Dalmara (0 tiles)"], "seal": "e13270653d4d333d40598f94da3df6bddea57a6d85b02e44e3dcfb3c6ef88244", "turn": 28, "type": "turn", "winner": null}
+{"action": "czlonkek trade with Cordovia +8", "args": {}, "citizen": 0, "day": 14, "name": "czlonkek", "raw_action": "trade", "turn": 29, "type": "action"}
+{"action": "bot01 research: Brennia tech -> 7", "args": {}, "citizen": 1, "day": 14, "name": "bot01", "raw_action": "research", "turn": 29, "type": "action"}
+{"action": "bot02 trade with Cordovia +8", "args": {}, "citizen": 2, "day": 14, "name": "bot02", "raw_action": "trade", "turn": 29, "type": "action"}
+{"action": "bot03 culture: Brennia culture -> 16", "args": {}, "citizen": 3, "day": 14, "name": "bot03", "raw_action": "culture", "turn": 29, "type": "action"}
+{"action": "bot04 work +6", "args": {}, "citizen": 4, "day": 14, "name": "bot04", "raw_action": "work", "turn": 29, "type": "action"}
+{"action": "bot05 work +6", "args": {}, "citizen": 5, "day": 14, "name": "bot05", "raw_action": "work", "turn": 29, "type": "action"}
+{"action": "bot06 declares war Brennia vs Cordovia", "args": {"target": 2}, "citizen": 6, "day": 14, "name": "bot06", "raw_action": "declare_war", "turn": 29, "type": "action"}
+{"action": "bot07 work +6", "args": {}, "citizen": 7, "day": 14, "name": "bot07", "raw_action": "work", "turn": 29, "type": "action"}
+{"action": "bot08 work +6", "args": {}, "citizen": 8, "day": 14, "name": "bot08", "raw_action": "work", "turn": 29, "type": "action"}
+{"action": "bot09 work +6", "args": {}, "citizen": 9, "day": 14, "name": "bot09", "raw_action": "work", "turn": 29, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 39", "args": {}, "citizen": 10, "day": 14, "name": "bot10", "raw_action": "culture", "turn": 29, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 40", "args": {}, "citizen": 11, "day": 14, "name": "bot11", "raw_action": "culture", "turn": 29, "type": "action"}
+{"action": "bot12 work +9", "args": {}, "citizen": 12, "day": 14, "name": "bot12", "raw_action": "work", "turn": 29, "type": "action"}
+{"action": "bot13 joins Cordovia", "args": {"target": 2}, "citizen": 13, "day": 14, "name": "bot13", "raw_action": "join", "turn": 29, "type": "action"}
+{"action": "bot14 joins Cordovia", "args": {"target": 2}, "citizen": 14, "day": 14, "name": "bot14", "raw_action": "join", "turn": 29, "type": "action"}
+{"action": "bot15 joins Cordovia", "args": {"target": 2}, "citizen": 15, "day": 14, "name": "bot15", "raw_action": "join", "turn": 29, "type": "action"}
+{"action": "bot16 work +6", "args": {}, "citizen": 16, "day": 14, "name": "bot16", "raw_action": "work", "turn": 29, "type": "action"}
+{"action": "bot17 work +6", "args": {}, "citizen": 17, "day": 14, "name": "bot17", "raw_action": "work", "turn": 29, "type": "action"}
+{"action": "bot18 culture: Cordovia culture -> 41", "args": {}, "citizen": 18, "day": 14, "name": "bot18", "raw_action": "culture", "turn": 29, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 14, "name": "bot19", "raw_action": "work", "turn": 29, "type": "action"}
+{"day": 14, "recent": ["t027 WAR Cordovia vs Dalmara", "t027 skirmish Brennia wins: Dalmara army 0->0", "t027 skirmish Cordovia wins: Dalmara army 0->0", "t027 Dalmara loses 2 tiles to Brennia (army 0)", "t028 skirmish Brennia wins: Dalmara army 0->0", "t028 skirmish Cordovia wins: Dalmara army 0->0", "t028 Dalmara loses 2 tiles to Cordovia (army 0)", "t028 CONQUERED Dalmara (0 tiles)", "t029 WAR Brennia vs Cordovia", "t029 skirmish Cordovia wins: Brennia army 56->41"], "seal": "ae497de726adda92b6c485382eeac21b2aa6a63165de6c00190f81ca631467e1", "turn": 29, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 41 <= 58*1.5)", "args": {"target": 2}, "citizen": 0, "day": 15, "name": "czlonkek", "raw_action": "peace", "turn": 30, "type": "action"}
+{"action": "bot01 trade failed (no target)", "args": {}, "citizen": 1, "day": 15, "name": "bot01", "raw_action": "trade", "turn": 30, "type": "action"}
+{"action": "bot02 trade failed (no target)", "args": {}, "citizen": 2, "day": 15, "name": "bot02", "raw_action": "trade", "turn": 30, "type": "action"}
+{"action": "bot03 peace rejected (army 41 <= 58*1.5)", "args": {"target": 2}, "citizen": 3, "day": 15, "name": "bot03", "raw_action": "peace", "turn": 30, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 15, "name": "bot04", "raw_action": "train", "turn": 30, "type": "action"}
+{"action": "bot05 peace rejected (army 41 <= 58*1.5)", "args": {"target": 2}, "citizen": 5, "day": 15, "name": "bot05", "raw_action": "peace", "turn": 30, "type": "action"}
+{"action": "bot06 peace rejected (army 41 <= 58*1.5)", "args": {"target": 2}, "citizen": 6, "day": 15, "name": "bot06", "raw_action": "peace", "turn": 30, "type": "action"}
+{"action": "bot07 train: Brennia army -> 43", "args": {}, "citizen": 7, "day": 15, "name": "bot07", "raw_action": "train", "turn": 30, "type": "action"}
+{"action": "bot08 train failed (credits 6 < 7)", "args": {}, "citizen": 8, "day": 15, "name": "bot08", "raw_action": "train", "turn": 30, "type": "action"}
+{"action": "bot09 train failed (credits 6 < 7)", "args": {}, "citizen": 9, "day": 15, "name": "bot09", "raw_action": "train", "turn": 30, "type": "action"}
+{"action": "bot10 trade failed (no target)", "args": {}, "citizen": 10, "day": 15, "name": "bot10", "raw_action": "trade", "turn": 30, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 42", "args": {}, "citizen": 11, "day": 15, "name": "bot11", "raw_action": "culture", "turn": 30, "type": "action"}
+{"action": "bot12 work +9", "args": {}, "citizen": 12, "day": 15, "name": "bot12", "raw_action": "work", "turn": 30, "type": "action"}
+{"action": "bot13 research: Cordovia tech -> 3", "args": {}, "citizen": 13, "day": 15, "name": "bot13", "raw_action": "research", "turn": 30, "type": "action"}
+{"action": "bot14 research: Cordovia tech -> 4", "args": {}, "citizen": 14, "day": 15, "name": "bot14", "raw_action": "research", "turn": 30, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 15, "name": "bot15", "raw_action": "work", "turn": 30, "type": "action"}
+{"action": "bot16 culture: Cordovia culture -> 43", "args": {}, "citizen": 16, "day": 15, "name": "bot16", "raw_action": "culture", "turn": 30, "type": "action"}
+{"action": "bot17 train: Cordovia army -> 60", "args": {}, "citizen": 17, "day": 15, "name": "bot17", "raw_action": "train", "turn": 30, "type": "action"}
+{"action": "bot18 culture: Cordovia culture -> 44", "args": {}, "citizen": 18, "day": 15, "name": "bot18", "raw_action": "culture", "turn": 30, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 15, "name": "bot19", "raw_action": "work", "turn": 30, "type": "action"}
+{"day": 15, "recent": ["t027 skirmish Brennia wins: Dalmara army 0->0", "t027 skirmish Cordovia wins: Dalmara army 0->0", "t027 Dalmara loses 2 tiles to Brennia (army 0)", "t028 skirmish Brennia wins: Dalmara army 0->0", "t028 skirmish Cordovia wins: Dalmara army 0->0", "t028 Dalmara loses 2 tiles to Cordovia (army 0)", "t028 CONQUERED Dalmara (0 tiles)", "t029 WAR Brennia vs Cordovia", "t029 skirmish Cordovia wins: Brennia army 56->41", "t030 skirmish Cordovia wins: Brennia army 43->28"], "seal": "9b15ea85257696b92aadd0b70517f0ac36c0c3346fe52f00e10ba2f64d66011d", "turn": 30, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 28 <= 60*1.5)", "args": {"target": 2}, "citizen": 0, "day": 15, "name": "czlonkek", "raw_action": "peace", "turn": 31, "type": "action"}
+{"action": "bot01 trade failed (no target)", "args": {}, "citizen": 1, "day": 15, "name": "bot01", "raw_action": "trade", "turn": 31, "type": "action"}
+{"action": "bot02 trade failed (no target)", "args": {}, "citizen": 2, "day": 15, "name": "bot02", "raw_action": "trade", "turn": 31, "type": "action"}
+{"action": "bot03 peace rejected (army 28 <= 60*1.5)", "args": {"target": 2}, "citizen": 3, "day": 15, "name": "bot03", "raw_action": "peace", "turn": 31, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 15, "name": "bot04", "raw_action": "train", "turn": 31, "type": "action"}
+{"action": "bot05 peace rejected (army 28 <= 60*1.5)", "args": {"target": 2}, "citizen": 5, "day": 15, "name": "bot05", "raw_action": "peace", "turn": 31, "type": "action"}
+{"action": "bot06 peace rejected (army 28 <= 60*1.5)", "args": {"target": 2}, "citizen": 6, "day": 15, "name": "bot06", "raw_action": "peace", "turn": 31, "type": "action"}
+{"action": "bot07 train failed (credits 5 < 7)", "args": {}, "citizen": 7, "day": 15, "name": "bot07", "raw_action": "train", "turn": 31, "type": "action"}
+{"action": "bot08 train failed (credits 6 < 7)", "args": {}, "citizen": 8, "day": 15, "name": "bot08", "raw_action": "train", "turn": 31, "type": "action"}
+{"action": "bot09 train failed (credits 6 < 7)", "args": {}, "citizen": 9, "day": 15, "name": "bot09", "raw_action": "train", "turn": 31, "type": "action"}
+{"action": "bot10 trade failed (no target)", "args": {}, "citizen": 10, "day": 15, "name": "bot10", "raw_action": "trade", "turn": 31, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 15, "name": "bot11", "raw_action": "work", "turn": 31, "type": "action"}
+{"action": "bot12 work +9", "args": {}, "citizen": 12, "day": 15, "name": "bot12", "raw_action": "work", "turn": 31, "type": "action"}
+{"action": "bot13 trade failed (no target)", "args": {}, "citizen": 13, "day": 15, "name": "bot13", "raw_action": "trade", "turn": 31, "type": "action"}
+{"action": "bot14 research: Cordovia tech -> 5", "args": {}, "citizen": 14, "day": 15, "name": "bot14", "raw_action": "research", "turn": 31, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 15, "name": "bot15", "raw_action": "work", "turn": 31, "type": "action"}
+{"action": "bot16 culture: Cordovia culture -> 45", "args": {}, "citizen": 16, "day": 15, "name": "bot16", "raw_action": "culture", "turn": 31, "type": "action"}
+{"action": "bot17 train failed (credits 0 < 7)", "args": {}, "citizen": 17, "day": 15, "name": "bot17", "raw_action": "train", "turn": 31, "type": "action"}
+{"action": "bot18 culture: Cordovia culture -> 46", "args": {}, "citizen": 18, "day": 15, "name": "bot18", "raw_action": "culture", "turn": 31, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 15, "name": "bot19", "raw_action": "work", "turn": 31, "type": "action"}
+{"day": 15, "recent": ["t027 skirmish Cordovia wins: Dalmara army 0->0", "t027 Dalmara loses 2 tiles to Brennia (army 0)", "t028 skirmish Brennia wins: Dalmara army 0->0", "t028 skirmish Cordovia wins: Dalmara army 0->0", "t028 Dalmara loses 2 tiles to Cordovia (army 0)", "t028 CONQUERED Dalmara (0 tiles)", "t029 WAR Brennia vs Cordovia", "t029 skirmish Cordovia wins: Brennia army 56->41", "t030 skirmish Cordovia wins: Brennia army 43->28", "t031 skirmish Cordovia wins: Brennia army 28->11"], "seal": "776df0f0bb15508e635ce41d838f6d05e198fb28a68a76f31fcbcfeb01e8c189", "turn": 31, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 11 <= 60*1.5)", "args": {"target": 2}, "citizen": 0, "day": 16, "name": "czlonkek", "raw_action": "peace", "turn": 32, "type": "action"}
+{"action": "bot01 trade failed (no target)", "args": {}, "citizen": 1, "day": 16, "name": "bot01", "raw_action": "trade", "turn": 32, "type": "action"}
+{"action": "bot02 research: Brennia tech -> 8", "args": {}, "citizen": 2, "day": 16, "name": "bot02", "raw_action": "research", "turn": 32, "type": "action"}
+{"action": "bot03 peace rejected (army 11 <= 60*1.5)", "args": {"target": 2}, "citizen": 3, "day": 16, "name": "bot03", "raw_action": "peace", "turn": 32, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 16, "name": "bot04", "raw_action": "train", "turn": 32, "type": "action"}
+{"action": "bot05 peace rejected (army 11 <= 60*1.5)", "args": {"target": 2}, "citizen": 5, "day": 16, "name": "bot05", "raw_action": "peace", "turn": 32, "type": "action"}
+{"action": "bot06 peace rejected (army 11 <= 60*1.5)", "args": {"target": 2}, "citizen": 6, "day": 16, "name": "bot06", "raw_action": "peace", "turn": 32, "type": "action"}
+{"action": "bot07 train failed (credits 5 < 7)", "args": {}, "citizen": 7, "day": 16, "name": "bot07", "raw_action": "train", "turn": 32, "type": "action"}
+{"action": "bot08 train failed (credits 6 < 7)", "args": {}, "citizen": 8, "day": 16, "name": "bot08", "raw_action": "train", "turn": 32, "type": "action"}
+{"action": "bot09 train failed (credits 6 < 7)", "args": {}, "citizen": 9, "day": 16, "name": "bot09", "raw_action": "train", "turn": 32, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 47", "args": {}, "citizen": 10, "day": 16, "name": "bot10", "raw_action": "culture", "turn": 32, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 48", "args": {}, "citizen": 11, "day": 16, "name": "bot11", "raw_action": "culture", "turn": 32, "type": "action"}
+{"action": "bot12 joins Cordovia", "args": {"target": 2}, "citizen": 12, "day": 16, "name": "bot12", "raw_action": "join", "turn": 32, "type": "action"}
+{"action": "bot13 research: Cordovia tech -> 6", "args": {}, "citizen": 13, "day": 16, "name": "bot13", "raw_action": "research", "turn": 32, "type": "action"}
+{"action": "bot14 trade failed (no target)", "args": {}, "citizen": 14, "day": 16, "name": "bot14", "raw_action": "trade", "turn": 32, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 16, "name": "bot15", "raw_action": "work", "turn": 32, "type": "action"}
+{"action": "bot16 work +6", "args": {}, "citizen": 16, "day": 16, "name": "bot16", "raw_action": "work", "turn": 32, "type": "action"}
+{"action": "bot17 train failed (credits 0 < 7)", "args": {}, "citizen": 17, "day": 16, "name": "bot17", "raw_action": "train", "turn": 32, "type": "action"}
+{"action": "bot18 culture: Cordovia culture -> 49", "args": {}, "citizen": 18, "day": 16, "name": "bot18", "raw_action": "culture", "turn": 32, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 16, "name": "bot19", "raw_action": "work", "turn": 32, "type": "action"}
+{"day": 16, "recent": ["t028 skirmish Brennia wins: Dalmara army 0->0", "t028 skirmish Cordovia wins: Dalmara army 0->0", "t028 Dalmara loses 2 tiles to Cordovia (army 0)", "t028 CONQUERED Dalmara (0 tiles)", "t029 WAR Brennia vs Cordovia", "t029 skirmish Cordovia wins: Brennia army 56->41", "t030 skirmish Cordovia wins: Brennia army 43->28", "t031 skirmish Cordovia wins: Brennia army 28->11", "t032 skirmish Cordovia wins: Brennia army 11->0", "t032 Brennia loses 2 tiles to Cordovia (army 0)"], "seal": "38e819f304b4b2dbbb34656b804245336ad16a6c74b4ed7268ef150accbf0048", "turn": 32, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 0, "day": 16, "name": "czlonkek", "raw_action": "peace", "turn": 33, "type": "action"}
+{"action": "bot01 trade failed (no target)", "args": {}, "citizen": 1, "day": 16, "name": "bot01", "raw_action": "trade", "turn": 33, "type": "action"}
+{"action": "bot02 research: Brennia tech -> 9", "args": {}, "citizen": 2, "day": 16, "name": "bot02", "raw_action": "research", "turn": 33, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 3, "day": 16, "name": "bot03", "raw_action": "peace", "turn": 33, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 16, "name": "bot04", "raw_action": "train", "turn": 33, "type": "action"}
+{"action": "bot05 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 5, "day": 16, "name": "bot05", "raw_action": "peace", "turn": 33, "type": "action"}
+{"action": "bot06 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 6, "day": 16, "name": "bot06", "raw_action": "peace", "turn": 33, "type": "action"}
+{"action": "bot07 train failed (credits 5 < 7)", "args": {}, "citizen": 7, "day": 16, "name": "bot07", "raw_action": "train", "turn": 33, "type": "action"}
+{"action": "bot08 train failed (credits 6 < 7)", "args": {}, "citizen": 8, "day": 16, "name": "bot08", "raw_action": "train", "turn": 33, "type": "action"}
+{"action": "bot09 train failed (credits 6 < 7)", "args": {}, "citizen": 9, "day": 16, "name": "bot09", "raw_action": "train", "turn": 33, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 50", "args": {}, "citizen": 10, "day": 16, "name": "bot10", "raw_action": "culture", "turn": 33, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 16, "name": "bot11", "raw_action": "work", "turn": 33, "type": "action"}
+{"action": "bot12 culture: Cordovia culture -> 51", "args": {}, "citizen": 12, "day": 16, "name": "bot12", "raw_action": "culture", "turn": 33, "type": "action"}
+{"action": "bot13 research: Cordovia tech -> 7", "args": {}, "citizen": 13, "day": 16, "name": "bot13", "raw_action": "research", "turn": 33, "type": "action"}
+{"action": "bot14 research: Cordovia tech -> 8", "args": {}, "citizen": 14, "day": 16, "name": "bot14", "raw_action": "research", "turn": 33, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 16, "name": "bot15", "raw_action": "work", "turn": 33, "type": "action"}
+{"action": "bot16 culture: Cordovia culture -> 52", "args": {}, "citizen": 16, "day": 16, "name": "bot16", "raw_action": "culture", "turn": 33, "type": "action"}
+{"action": "bot17 train failed (credits 0 < 7)", "args": {}, "citizen": 17, "day": 16, "name": "bot17", "raw_action": "train", "turn": 33, "type": "action"}
+{"action": "bot18 culture: Cordovia culture -> 53", "args": {}, "citizen": 18, "day": 16, "name": "bot18", "raw_action": "culture", "turn": 33, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 16, "name": "bot19", "raw_action": "work", "turn": 33, "type": "action"}
+{"day": 16, "recent": ["t028 Dalmara loses 2 tiles to Cordovia (army 0)", "t028 CONQUERED Dalmara (0 tiles)", "t029 WAR Brennia vs Cordovia", "t029 skirmish Cordovia wins: Brennia army 56->41", "t030 skirmish Cordovia wins: Brennia army 43->28", "t031 skirmish Cordovia wins: Brennia army 28->11", "t032 skirmish Cordovia wins: Brennia army 11->0", "t032 Brennia loses 2 tiles to Cordovia (army 0)", "t033 skirmish Cordovia wins: Brennia army 0->0", "t033 Brennia loses 2 tiles to Cordovia (army 0)"], "seal": "f756116d65867d230ff83614597f56e383125f5c7bfb344855ca6157e74d5103", "turn": 33, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 0, "day": 17, "name": "czlonkek", "raw_action": "peace", "turn": 34, "type": "action"}
+{"action": "bot01 trade failed (no target)", "args": {}, "citizen": 1, "day": 17, "name": "bot01", "raw_action": "trade", "turn": 34, "type": "action"}
+{"action": "bot02 research: Brennia tech -> 10", "args": {}, "citizen": 2, "day": 17, "name": "bot02", "raw_action": "research", "turn": 34, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 3, "day": 17, "name": "bot03", "raw_action": "peace", "turn": 34, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 17, "name": "bot04", "raw_action": "train", "turn": 34, "type": "action"}
+{"action": "bot05 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 5, "day": 17, "name": "bot05", "raw_action": "peace", "turn": 34, "type": "action"}
+{"action": "bot06 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 6, "day": 17, "name": "bot06", "raw_action": "peace", "turn": 34, "type": "action"}
+{"action": "bot07 train failed (credits 5 < 7)", "args": {}, "citizen": 7, "day": 17, "name": "bot07", "raw_action": "train", "turn": 34, "type": "action"}
+{"action": "bot08 train failed (credits 6 < 7)", "args": {}, "citizen": 8, "day": 17, "name": "bot08", "raw_action": "train", "turn": 34, "type": "action"}
+{"action": "bot09 train failed (credits 6 < 7)", "args": {}, "citizen": 9, "day": 17, "name": "bot09", "raw_action": "train", "turn": 34, "type": "action"}
+{"action": "bot10 trade failed (no target)", "args": {}, "citizen": 10, "day": 17, "name": "bot10", "raw_action": "trade", "turn": 34, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 54", "args": {}, "citizen": 11, "day": 17, "name": "bot11", "raw_action": "culture", "turn": 34, "type": "action"}
+{"action": "bot12 work +6", "args": {}, "citizen": 12, "day": 17, "name": "bot12", "raw_action": "work", "turn": 34, "type": "action"}
+{"action": "bot13 research: Cordovia tech -> 9", "args": {}, "citizen": 13, "day": 17, "name": "bot13", "raw_action": "research", "turn": 34, "type": "action"}
+{"action": "bot14 research: Cordovia tech -> 10", "args": {}, "citizen": 14, "day": 17, "name": "bot14", "raw_action": "research", "turn": 34, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 17, "name": "bot15", "raw_action": "work", "turn": 34, "type": "action"}
+{"action": "bot16 work +6", "args": {}, "citizen": 16, "day": 17, "name": "bot16", "raw_action": "work", "turn": 34, "type": "action"}
+{"action": "bot17 train failed (credits 0 < 7)", "args": {}, "citizen": 17, "day": 17, "name": "bot17", "raw_action": "train", "turn": 34, "type": "action"}
+{"action": "bot18 trade failed (no target)", "args": {}, "citizen": 18, "day": 17, "name": "bot18", "raw_action": "trade", "turn": 34, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 17, "name": "bot19", "raw_action": "work", "turn": 34, "type": "action"}
+{"day": 17, "recent": ["t029 WAR Brennia vs Cordovia", "t029 skirmish Cordovia wins: Brennia army 56->41", "t030 skirmish Cordovia wins: Brennia army 43->28", "t031 skirmish Cordovia wins: Brennia army 28->11", "t032 skirmish Cordovia wins: Brennia army 11->0", "t032 Brennia loses 2 tiles to Cordovia (army 0)", "t033 skirmish Cordovia wins: Brennia army 0->0", "t033 Brennia loses 2 tiles to Cordovia (army 0)", "t034 skirmish Cordovia wins: Brennia army 0->0", "t034 Brennia loses 2 tiles to Cordovia (army 0)"], "seal": "40d17b921d024b1617f29aa6d203cbf8d405c991bb4a59582ff81d54af1cdbff", "turn": 34, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 0, "day": 17, "name": "czlonkek", "raw_action": "peace", "turn": 35, "type": "action"}
+{"action": "bot01 trade failed (no target)", "args": {}, "citizen": 1, "day": 17, "name": "bot01", "raw_action": "trade", "turn": 35, "type": "action"}
+{"action": "bot02 trade failed (no target)", "args": {}, "citizen": 2, "day": 17, "name": "bot02", "raw_action": "trade", "turn": 35, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 3, "day": 17, "name": "bot03", "raw_action": "peace", "turn": 35, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 17, "name": "bot04", "raw_action": "train", "turn": 35, "type": "action"}
+{"action": "bot05 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 5, "day": 17, "name": "bot05", "raw_action": "peace", "turn": 35, "type": "action"}
+{"action": "bot06 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 6, "day": 17, "name": "bot06", "raw_action": "peace", "turn": 35, "type": "action"}
+{"action": "bot07 train failed (credits 5 < 7)", "args": {}, "citizen": 7, "day": 17, "name": "bot07", "raw_action": "train", "turn": 35, "type": "action"}
+{"action": "bot08 train failed (credits 6 < 7)", "args": {}, "citizen": 8, "day": 17, "name": "bot08", "raw_action": "train", "turn": 35, "type": "action"}
+{"action": "bot09 train failed (credits 6 < 7)", "args": {}, "citizen": 9, "day": 17, "name": "bot09", "raw_action": "train", "turn": 35, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 55", "args": {}, "citizen": 10, "day": 17, "name": "bot10", "raw_action": "culture", "turn": 35, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 17, "name": "bot11", "raw_action": "work", "turn": 35, "type": "action"}
+{"action": "bot12 culture: Cordovia culture -> 56", "args": {}, "citizen": 12, "day": 17, "name": "bot12", "raw_action": "culture", "turn": 35, "type": "action"}
+{"action": "bot13 trade failed (no target)", "args": {}, "citizen": 13, "day": 17, "name": "bot13", "raw_action": "trade", "turn": 35, "type": "action"}
+{"action": "bot14 trade failed (no target)", "args": {}, "citizen": 14, "day": 17, "name": "bot14", "raw_action": "trade", "turn": 35, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 17, "name": "bot15", "raw_action": "work", "turn": 35, "type": "action"}
+{"action": "bot16 culture: Cordovia culture -> 57", "args": {}, "citizen": 16, "day": 17, "name": "bot16", "raw_action": "culture", "turn": 35, "type": "action"}
+{"action": "bot17 train failed (credits 0 < 7)", "args": {}, "citizen": 17, "day": 17, "name": "bot17", "raw_action": "train", "turn": 35, "type": "action"}
+{"action": "bot18 culture: Cordovia culture -> 58", "args": {}, "citizen": 18, "day": 17, "name": "bot18", "raw_action": "culture", "turn": 35, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 17, "name": "bot19", "raw_action": "work", "turn": 35, "type": "action"}
+{"day": 17, "recent": ["t030 skirmish Cordovia wins: Brennia army 43->28", "t031 skirmish Cordovia wins: Brennia army 28->11", "t032 skirmish Cordovia wins: Brennia army 11->0", "t032 Brennia loses 2 tiles to Cordovia (army 0)", "t033 skirmish Cordovia wins: Brennia army 0->0", "t033 Brennia loses 2 tiles to Cordovia (army 0)", "t034 skirmish Cordovia wins: Brennia army 0->0", "t034 Brennia loses 2 tiles to Cordovia (army 0)", "t035 skirmish Cordovia wins: Brennia army 0->0", "t035 Brennia loses 2 tiles to Cordovia (army 0)"], "seal": "894916721406bb5d28ce832a6005e6adf37e4c6592a1073517e1bcf86076aaf6", "turn": 35, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 0, "day": 18, "name": "czlonkek", "raw_action": "peace", "turn": 36, "type": "action"}
+{"action": "bot01 trade failed (no target)", "args": {}, "citizen": 1, "day": 18, "name": "bot01", "raw_action": "trade", "turn": 36, "type": "action"}
+{"action": "bot02 trade failed (no target)", "args": {}, "citizen": 2, "day": 18, "name": "bot02", "raw_action": "trade", "turn": 36, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 3, "day": 18, "name": "bot03", "raw_action": "peace", "turn": 36, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 18, "name": "bot04", "raw_action": "train", "turn": 36, "type": "action"}
+{"action": "bot05 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 5, "day": 18, "name": "bot05", "raw_action": "peace", "turn": 36, "type": "action"}
+{"action": "bot06 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 6, "day": 18, "name": "bot06", "raw_action": "peace", "turn": 36, "type": "action"}
+{"action": "bot07 train failed (credits 5 < 7)", "args": {}, "citizen": 7, "day": 18, "name": "bot07", "raw_action": "train", "turn": 36, "type": "action"}
+{"action": "bot08 train failed (credits 6 < 7)", "args": {}, "citizen": 8, "day": 18, "name": "bot08", "raw_action": "train", "turn": 36, "type": "action"}
+{"action": "bot09 train failed (credits 6 < 7)", "args": {}, "citizen": 9, "day": 18, "name": "bot09", "raw_action": "train", "turn": 36, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 59", "args": {}, "citizen": 10, "day": 18, "name": "bot10", "raw_action": "culture", "turn": 36, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 60", "args": {}, "citizen": 11, "day": 18, "name": "bot11", "raw_action": "culture", "turn": 36, "type": "action"}
+{"action": "bot12 work +6", "args": {}, "citizen": 12, "day": 18, "name": "bot12", "raw_action": "work", "turn": 36, "type": "action"}
+{"action": "bot13 trade failed (no target)", "args": {}, "citizen": 13, "day": 18, "name": "bot13", "raw_action": "trade", "turn": 36, "type": "action"}
+{"action": "bot14 trade failed (no target)", "args": {}, "citizen": 14, "day": 18, "name": "bot14", "raw_action": "trade", "turn": 36, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 18, "name": "bot15", "raw_action": "work", "turn": 36, "type": "action"}
+{"action": "bot16 work +6", "args": {}, "citizen": 16, "day": 18, "name": "bot16", "raw_action": "work", "turn": 36, "type": "action"}
+{"action": "bot17 train failed (credits 0 < 7)", "args": {}, "citizen": 17, "day": 18, "name": "bot17", "raw_action": "train", "turn": 36, "type": "action"}
+{"action": "bot18 trade failed (no target)", "args": {}, "citizen": 18, "day": 18, "name": "bot18", "raw_action": "trade", "turn": 36, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 18, "name": "bot19", "raw_action": "work", "turn": 36, "type": "action"}
+{"day": 18, "recent": ["t032 skirmish Cordovia wins: Brennia army 11->0", "t032 Brennia loses 2 tiles to Cordovia (army 0)", "t033 skirmish Cordovia wins: Brennia army 0->0", "t033 Brennia loses 2 tiles to Cordovia (army 0)", "t034 skirmish Cordovia wins: Brennia army 0->0", "t034 Brennia loses 2 tiles to Cordovia (army 0)", "t035 skirmish Cordovia wins: Brennia army 0->0", "t035 Brennia loses 2 tiles to Cordovia (army 0)", "t036 skirmish Cordovia wins: Brennia army 0->0", "t036 Brennia loses 2 tiles to Cordovia (army 0)"], "seal": "206e8ea99841492951e596ca92f5183c75940da7ce1068efe29f42fda2c5da4b", "turn": 36, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 0, "day": 18, "name": "czlonkek", "raw_action": "peace", "turn": 37, "type": "action"}
+{"action": "bot01 trade failed (no target)", "args": {}, "citizen": 1, "day": 18, "name": "bot01", "raw_action": "trade", "turn": 37, "type": "action"}
+{"action": "bot02 trade failed (no target)", "args": {}, "citizen": 2, "day": 18, "name": "bot02", "raw_action": "trade", "turn": 37, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 3, "day": 18, "name": "bot03", "raw_action": "peace", "turn": 37, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 18, "name": "bot04", "raw_action": "train", "turn": 37, "type": "action"}
+{"action": "bot05 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 5, "day": 18, "name": "bot05", "raw_action": "peace", "turn": 37, "type": "action"}
+{"action": "bot06 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 6, "day": 18, "name": "bot06", "raw_action": "peace", "turn": 37, "type": "action"}
+{"action": "bot07 train failed (credits 5 < 7)", "args": {}, "citizen": 7, "day": 18, "name": "bot07", "raw_action": "train", "turn": 37, "type": "action"}
+{"action": "bot08 train failed (credits 6 < 7)", "args": {}, "citizen": 8, "day": 18, "name": "bot08", "raw_action": "train", "turn": 37, "type": "action"}
+{"action": "bot09 train failed (credits 6 < 7)", "args": {}, "citizen": 9, "day": 18, "name": "bot09", "raw_action": "train", "turn": 37, "type": "action"}
+{"action": "bot10 culture: Cordovia culture -> 61", "args": {}, "citizen": 10, "day": 18, "name": "bot10", "raw_action": "culture", "turn": 37, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 18, "name": "bot11", "raw_action": "work", "turn": 37, "type": "action"}
+{"action": "bot12 culture: Cordovia culture -> 62", "args": {}, "citizen": 12, "day": 18, "name": "bot12", "raw_action": "culture", "turn": 37, "type": "action"}
+{"action": "bot13 trade failed (no target)", "args": {}, "citizen": 13, "day": 18, "name": "bot13", "raw_action": "trade", "turn": 37, "type": "action"}
+{"action": "bot14 trade failed (no target)", "args": {}, "citizen": 14, "day": 18, "name": "bot14", "raw_action": "trade", "turn": 37, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 18, "name": "bot15", "raw_action": "work", "turn": 37, "type": "action"}
+{"action": "bot16 culture: Cordovia culture -> 63", "args": {}, "citizen": 16, "day": 18, "name": "bot16", "raw_action": "culture", "turn": 37, "type": "action"}
+{"action": "bot17 train failed (credits 0 < 7)", "args": {}, "citizen": 17, "day": 18, "name": "bot17", "raw_action": "train", "turn": 37, "type": "action"}
+{"action": "bot18 culture: Cordovia culture -> 64", "args": {}, "citizen": 18, "day": 18, "name": "bot18", "raw_action": "culture", "turn": 37, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 18, "name": "bot19", "raw_action": "work", "turn": 37, "type": "action"}
+{"day": 18, "recent": ["t033 skirmish Cordovia wins: Brennia army 0->0", "t033 Brennia loses 2 tiles to Cordovia (army 0)", "t034 skirmish Cordovia wins: Brennia army 0->0", "t034 Brennia loses 2 tiles to Cordovia (army 0)", "t035 skirmish Cordovia wins: Brennia army 0->0", "t035 Brennia loses 2 tiles to Cordovia (army 0)", "t036 skirmish Cordovia wins: Brennia army 0->0", "t036 Brennia loses 2 tiles to Cordovia (army 0)", "t037 skirmish Cordovia wins: Brennia army 0->0", "t037 Brennia loses 2 tiles to Cordovia (army 0)"], "seal": "73273cf66b55b18fbc641440bf13a145d7b8400ca2e174d1d3a90614d2863597", "turn": 37, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 0, "day": 19, "name": "czlonkek", "raw_action": "peace", "turn": 38, "type": "action"}
+{"action": "bot01 trade failed (no target)", "args": {}, "citizen": 1, "day": 19, "name": "bot01", "raw_action": "trade", "turn": 38, "type": "action"}
+{"action": "bot02 trade failed (no target)", "args": {}, "citizen": 2, "day": 19, "name": "bot02", "raw_action": "trade", "turn": 38, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 3, "day": 19, "name": "bot03", "raw_action": "peace", "turn": 38, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 19, "name": "bot04", "raw_action": "train", "turn": 38, "type": "action"}
+{"action": "bot05 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 5, "day": 19, "name": "bot05", "raw_action": "peace", "turn": 38, "type": "action"}
+{"action": "bot06 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 6, "day": 19, "name": "bot06", "raw_action": "peace", "turn": 38, "type": "action"}
+{"action": "bot07 train failed (credits 5 < 7)", "args": {}, "citizen": 7, "day": 19, "name": "bot07", "raw_action": "train", "turn": 38, "type": "action"}
+{"action": "bot08 train failed (credits 6 < 7)", "args": {}, "citizen": 8, "day": 19, "name": "bot08", "raw_action": "train", "turn": 38, "type": "action"}
+{"action": "bot09 train failed (credits 6 < 7)", "args": {}, "citizen": 9, "day": 19, "name": "bot09", "raw_action": "train", "turn": 38, "type": "action"}
+{"action": "bot10 trade failed (no target)", "args": {}, "citizen": 10, "day": 19, "name": "bot10", "raw_action": "trade", "turn": 38, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 65", "args": {}, "citizen": 11, "day": 19, "name": "bot11", "raw_action": "culture", "turn": 38, "type": "action"}
+{"action": "bot12 work +6", "args": {}, "citizen": 12, "day": 19, "name": "bot12", "raw_action": "work", "turn": 38, "type": "action"}
+{"action": "bot13 trade failed (no target)", "args": {}, "citizen": 13, "day": 19, "name": "bot13", "raw_action": "trade", "turn": 38, "type": "action"}
+{"action": "bot14 trade failed (no target)", "args": {}, "citizen": 14, "day": 19, "name": "bot14", "raw_action": "trade", "turn": 38, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 19, "name": "bot15", "raw_action": "work", "turn": 38, "type": "action"}
+{"action": "bot16 work +6", "args": {}, "citizen": 16, "day": 19, "name": "bot16", "raw_action": "work", "turn": 38, "type": "action"}
+{"action": "bot17 train failed (credits 0 < 7)", "args": {}, "citizen": 17, "day": 19, "name": "bot17", "raw_action": "train", "turn": 38, "type": "action"}
+{"action": "bot18 trade failed (no target)", "args": {}, "citizen": 18, "day": 19, "name": "bot18", "raw_action": "trade", "turn": 38, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 19, "name": "bot19", "raw_action": "work", "turn": 38, "type": "action"}
+{"day": 19, "recent": ["t034 skirmish Cordovia wins: Brennia army 0->0", "t034 Brennia loses 2 tiles to Cordovia (army 0)", "t035 skirmish Cordovia wins: Brennia army 0->0", "t035 Brennia loses 2 tiles to Cordovia (army 0)", "t036 skirmish Cordovia wins: Brennia army 0->0", "t036 Brennia loses 2 tiles to Cordovia (army 0)", "t037 skirmish Cordovia wins: Brennia army 0->0", "t037 Brennia loses 2 tiles to Cordovia (army 0)", "t038 skirmish Cordovia wins: Brennia army 0->0", "t038 Brennia loses 2 tiles to Cordovia (army 0)"], "seal": "7cb13d59720e172f73990bcd50499526f1ff6d2278aa77d5ee761a6f7845f11f", "turn": 38, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 0, "day": 19, "name": "czlonkek", "raw_action": "peace", "turn": 39, "type": "action"}
+{"action": "bot01 trade failed (no target)", "args": {}, "citizen": 1, "day": 19, "name": "bot01", "raw_action": "trade", "turn": 39, "type": "action"}
+{"action": "bot02 trade failed (no target)", "args": {}, "citizen": 2, "day": 19, "name": "bot02", "raw_action": "trade", "turn": 39, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 3, "day": 19, "name": "bot03", "raw_action": "peace", "turn": 39, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 19, "name": "bot04", "raw_action": "train", "turn": 39, "type": "action"}
+{"action": "bot05 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 5, "day": 19, "name": "bot05", "raw_action": "peace", "turn": 39, "type": "action"}
+{"action": "bot06 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 6, "day": 19, "name": "bot06", "raw_action": "peace", "turn": 39, "type": "action"}
+{"action": "bot07 train failed (credits 5 < 7)", "args": {}, "citizen": 7, "day": 19, "name": "bot07", "raw_action": "train", "turn": 39, "type": "action"}
+{"action": "bot08 train failed (credits 6 < 7)", "args": {}, "citizen": 8, "day": 19, "name": "bot08", "raw_action": "train", "turn": 39, "type": "action"}
+{"action": "bot09 train failed (credits 6 < 7)", "args": {}, "citizen": 9, "day": 19, "name": "bot09", "raw_action": "train", "turn": 39, "type": "action"}
+{"action": "bot10 trade failed (no target)", "args": {}, "citizen": 10, "day": 19, "name": "bot10", "raw_action": "trade", "turn": 39, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 19, "name": "bot11", "raw_action": "work", "turn": 39, "type": "action"}
+{"action": "bot12 culture: Cordovia culture -> 66", "args": {}, "citizen": 12, "day": 19, "name": "bot12", "raw_action": "culture", "turn": 39, "type": "action"}
+{"action": "bot13 trade failed (no target)", "args": {}, "citizen": 13, "day": 19, "name": "bot13", "raw_action": "trade", "turn": 39, "type": "action"}
+{"action": "bot14 trade failed (no target)", "args": {}, "citizen": 14, "day": 19, "name": "bot14", "raw_action": "trade", "turn": 39, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 19, "name": "bot15", "raw_action": "work", "turn": 39, "type": "action"}
+{"action": "bot16 culture: Cordovia culture -> 67", "args": {}, "citizen": 16, "day": 19, "name": "bot16", "raw_action": "culture", "turn": 39, "type": "action"}
+{"action": "bot17 train failed (credits 0 < 7)", "args": {}, "citizen": 17, "day": 19, "name": "bot17", "raw_action": "train", "turn": 39, "type": "action"}
+{"action": "bot18 trade failed (no target)", "args": {}, "citizen": 18, "day": 19, "name": "bot18", "raw_action": "trade", "turn": 39, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 19, "name": "bot19", "raw_action": "work", "turn": 39, "type": "action"}
+{"day": 19, "recent": ["t035 skirmish Cordovia wins: Brennia army 0->0", "t035 Brennia loses 2 tiles to Cordovia (army 0)", "t036 skirmish Cordovia wins: Brennia army 0->0", "t036 Brennia loses 2 tiles to Cordovia (army 0)", "t037 skirmish Cordovia wins: Brennia army 0->0", "t037 Brennia loses 2 tiles to Cordovia (army 0)", "t038 skirmish Cordovia wins: Brennia army 0->0", "t038 Brennia loses 2 tiles to Cordovia (army 0)", "t039 skirmish Cordovia wins: Brennia army 0->0", "t039 Brennia loses 2 tiles to Cordovia (army 0)"], "seal": "690fb164600b88c94b85c37f05d5ce056046fef1bc388417894d75f0083c702f", "turn": 39, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 0, "day": 20, "name": "czlonkek", "raw_action": "peace", "turn": 40, "type": "action"}
+{"action": "bot01 trade failed (no target)", "args": {}, "citizen": 1, "day": 20, "name": "bot01", "raw_action": "trade", "turn": 40, "type": "action"}
+{"action": "bot02 trade failed (no target)", "args": {}, "citizen": 2, "day": 20, "name": "bot02", "raw_action": "trade", "turn": 40, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 3, "day": 20, "name": "bot03", "raw_action": "peace", "turn": 40, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 20, "name": "bot04", "raw_action": "train", "turn": 40, "type": "action"}
+{"action": "bot05 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 5, "day": 20, "name": "bot05", "raw_action": "peace", "turn": 40, "type": "action"}
+{"action": "bot06 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 6, "day": 20, "name": "bot06", "raw_action": "peace", "turn": 40, "type": "action"}
+{"action": "bot07 train failed (credits 5 < 7)", "args": {}, "citizen": 7, "day": 20, "name": "bot07", "raw_action": "train", "turn": 40, "type": "action"}
+{"action": "bot08 train failed (credits 6 < 7)", "args": {}, "citizen": 8, "day": 20, "name": "bot08", "raw_action": "train", "turn": 40, "type": "action"}
+{"action": "bot09 train failed (credits 6 < 7)", "args": {}, "citizen": 9, "day": 20, "name": "bot09", "raw_action": "train", "turn": 40, "type": "action"}
+{"action": "bot10 trade failed (no target)", "args": {}, "citizen": 10, "day": 20, "name": "bot10", "raw_action": "trade", "turn": 40, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 68", "args": {}, "citizen": 11, "day": 20, "name": "bot11", "raw_action": "culture", "turn": 40, "type": "action"}
+{"action": "bot12 culture: Cordovia culture -> 69", "args": {}, "citizen": 12, "day": 20, "name": "bot12", "raw_action": "culture", "turn": 40, "type": "action"}
+{"action": "bot13 trade failed (no target)", "args": {}, "citizen": 13, "day": 20, "name": "bot13", "raw_action": "trade", "turn": 40, "type": "action"}
+{"action": "bot14 trade failed (no target)", "args": {}, "citizen": 14, "day": 20, "name": "bot14", "raw_action": "trade", "turn": 40, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 20, "name": "bot15", "raw_action": "work", "turn": 40, "type": "action"}
+{"action": "bot16 work +6", "args": {}, "citizen": 16, "day": 20, "name": "bot16", "raw_action": "work", "turn": 40, "type": "action"}
+{"action": "bot17 train failed (credits 0 < 7)", "args": {}, "citizen": 17, "day": 20, "name": "bot17", "raw_action": "train", "turn": 40, "type": "action"}
+{"action": "bot18 trade failed (no target)", "args": {}, "citizen": 18, "day": 20, "name": "bot18", "raw_action": "trade", "turn": 40, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 20, "name": "bot19", "raw_action": "work", "turn": 40, "type": "action"}
+{"day": 20, "recent": ["t036 skirmish Cordovia wins: Brennia army 0->0", "t036 Brennia loses 2 tiles to Cordovia (army 0)", "t037 skirmish Cordovia wins: Brennia army 0->0", "t037 Brennia loses 2 tiles to Cordovia (army 0)", "t038 skirmish Cordovia wins: Brennia army 0->0", "t038 Brennia loses 2 tiles to Cordovia (army 0)", "t039 skirmish Cordovia wins: Brennia army 0->0", "t039 Brennia loses 2 tiles to Cordovia (army 0)", "t040 skirmish Cordovia wins: Brennia army 0->0", "t040 Brennia loses 2 tiles to Cordovia (army 0)"], "seal": "3b3cfb8550be8ededcc4ba9a804e2d39322195d665bb97bb398a0a1a90b8f305", "turn": 40, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 0, "day": 20, "name": "czlonkek", "raw_action": "peace", "turn": 41, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 3, "day": 20, "name": "bot03", "raw_action": "peace", "turn": 41, "type": "action"}
+{"action": "bot05 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 5, "day": 20, "name": "bot05", "raw_action": "peace", "turn": 41, "type": "action"}
+{"action": "bot06 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 6, "day": 20, "name": "bot06", "raw_action": "peace", "turn": 41, "type": "action"}
+{"day": 20, "recent": ["t038 skirmish Cordovia wins: Brennia army 0->0", "t038 Brennia loses 2 tiles to Cordovia (army 0)", "t039 skirmish Cordovia wins: Brennia army 0->0", "t039 Brennia loses 2 tiles to Cordovia (army 0)", "t040 skirmish Cordovia wins: Brennia army 0->0", "t040 Brennia loses 2 tiles to Cordovia (army 0)", "t041 ELECTION Brennia: bot04 re-elected ({})", "t041 ELECTION Cordovia: bot08 re-elected ({})", "t041 skirmish Cordovia wins: Brennia army 0->0", "t041 Brennia loses 2 tiles to Cordovia (army 0)"], "seal": "ca05eaa673358fdea4e9c7053ae170b3389283baac98dfd732104c83631648cb", "turn": 41, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 0, "day": 21, "name": "czlonkek", "raw_action": "peace", "turn": 42, "type": "action"}
+{"action": "bot01 trade failed (no target)", "args": {}, "citizen": 1, "day": 21, "name": "bot01", "raw_action": "trade", "turn": 42, "type": "action"}
+{"action": "bot02 trade failed (no target)", "args": {}, "citizen": 2, "day": 21, "name": "bot02", "raw_action": "trade", "turn": 42, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 3, "day": 21, "name": "bot03", "raw_action": "peace", "turn": 42, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 21, "name": "bot04", "raw_action": "train", "turn": 42, "type": "action"}
+{"action": "bot05 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 5, "day": 21, "name": "bot05", "raw_action": "peace", "turn": 42, "type": "action"}
+{"action": "bot06 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 6, "day": 21, "name": "bot06", "raw_action": "peace", "turn": 42, "type": "action"}
+{"action": "bot07 train failed (credits 5 < 7)", "args": {}, "citizen": 7, "day": 21, "name": "bot07", "raw_action": "train", "turn": 42, "type": "action"}
+{"action": "bot08 train failed (credits 6 < 7)", "args": {}, "citizen": 8, "day": 21, "name": "bot08", "raw_action": "train", "turn": 42, "type": "action"}
+{"action": "bot09 train failed (credits 6 < 7)", "args": {}, "citizen": 9, "day": 21, "name": "bot09", "raw_action": "train", "turn": 42, "type": "action"}
+{"action": "bot10 trade failed (no target)", "args": {}, "citizen": 10, "day": 21, "name": "bot10", "raw_action": "trade", "turn": 42, "type": "action"}
+{"action": "bot11 culture: Cordovia culture -> 70", "args": {}, "citizen": 11, "day": 21, "name": "bot11", "raw_action": "culture", "turn": 42, "type": "action"}
+{"action": "bot12 work +6", "args": {}, "citizen": 12, "day": 21, "name": "bot12", "raw_action": "work", "turn": 42, "type": "action"}
+{"action": "bot13 trade failed (no target)", "args": {}, "citizen": 13, "day": 21, "name": "bot13", "raw_action": "trade", "turn": 42, "type": "action"}
+{"action": "bot14 trade failed (no target)", "args": {}, "citizen": 14, "day": 21, "name": "bot14", "raw_action": "trade", "turn": 42, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 21, "name": "bot15", "raw_action": "work", "turn": 42, "type": "action"}
+{"action": "bot16 culture: Cordovia culture -> 71", "args": {}, "citizen": 16, "day": 21, "name": "bot16", "raw_action": "culture", "turn": 42, "type": "action"}
+{"action": "bot17 train failed (credits 0 < 7)", "args": {}, "citizen": 17, "day": 21, "name": "bot17", "raw_action": "train", "turn": 42, "type": "action"}
+{"action": "bot18 trade failed (no target)", "args": {}, "citizen": 18, "day": 21, "name": "bot18", "raw_action": "trade", "turn": 42, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 21, "name": "bot19", "raw_action": "work", "turn": 42, "type": "action"}
+{"day": 21, "recent": ["t039 skirmish Cordovia wins: Brennia army 0->0", "t039 Brennia loses 2 tiles to Cordovia (army 0)", "t040 skirmish Cordovia wins: Brennia army 0->0", "t040 Brennia loses 2 tiles to Cordovia (army 0)", "t041 ELECTION Brennia: bot04 re-elected ({})", "t041 ELECTION Cordovia: bot08 re-elected ({})", "t041 skirmish Cordovia wins: Brennia army 0->0", "t041 Brennia loses 2 tiles to Cordovia (army 0)", "t042 skirmish Cordovia wins: Brennia army 0->0", "t042 Brennia loses 2 tiles to Cordovia (army 0)"], "seal": "53a16d662aad7458fb697ff21637769b26e165cd76738aa6cbc0244c30a9b875", "turn": 42, "type": "turn", "winner": null}
+{"action": "czlonkek peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 0, "day": 21, "name": "czlonkek", "raw_action": "peace", "turn": 43, "type": "action"}
+{"action": "bot01 trade failed (no target)", "args": {}, "citizen": 1, "day": 21, "name": "bot01", "raw_action": "trade", "turn": 43, "type": "action"}
+{"action": "bot02 trade failed (no target)", "args": {}, "citizen": 2, "day": 21, "name": "bot02", "raw_action": "trade", "turn": 43, "type": "action"}
+{"action": "bot03 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 3, "day": 21, "name": "bot03", "raw_action": "peace", "turn": 43, "type": "action"}
+{"action": "bot04 train failed (credits 6 < 7)", "args": {}, "citizen": 4, "day": 21, "name": "bot04", "raw_action": "train", "turn": 43, "type": "action"}
+{"action": "bot05 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 5, "day": 21, "name": "bot05", "raw_action": "peace", "turn": 43, "type": "action"}
+{"action": "bot06 peace rejected (army 0 <= 60*1.5)", "args": {"target": 2}, "citizen": 6, "day": 21, "name": "bot06", "raw_action": "peace", "turn": 43, "type": "action"}
+{"action": "bot07 train failed (credits 5 < 7)", "args": {}, "citizen": 7, "day": 21, "name": "bot07", "raw_action": "train", "turn": 43, "type": "action"}
+{"action": "bot08 train failed (credits 6 < 7)", "args": {}, "citizen": 8, "day": 21, "name": "bot08", "raw_action": "train", "turn": 43, "type": "action"}
+{"action": "bot09 train failed (credits 6 < 7)", "args": {}, "citizen": 9, "day": 21, "name": "bot09", "raw_action": "train", "turn": 43, "type": "action"}
+{"action": "bot10 trade failed (no target)", "args": {}, "citizen": 10, "day": 21, "name": "bot10", "raw_action": "trade", "turn": 43, "type": "action"}
+{"action": "bot11 work +6", "args": {}, "citizen": 11, "day": 21, "name": "bot11", "raw_action": "work", "turn": 43, "type": "action"}
+{"action": "bot12 culture: Cordovia culture -> 72", "args": {}, "citizen": 12, "day": 21, "name": "bot12", "raw_action": "culture", "turn": 43, "type": "action"}
+{"action": "bot13 trade failed (no target)", "args": {}, "citizen": 13, "day": 21, "name": "bot13", "raw_action": "trade", "turn": 43, "type": "action"}
+{"action": "bot14 trade failed (no target)", "args": {}, "citizen": 14, "day": 21, "name": "bot14", "raw_action": "trade", "turn": 43, "type": "action"}
+{"action": "bot15 work +6", "args": {}, "citizen": 15, "day": 21, "name": "bot15", "raw_action": "work", "turn": 43, "type": "action"}
+{"action": "bot16 culture: Cordovia culture -> 73", "args": {}, "citizen": 16, "day": 21, "name": "bot16", "raw_action": "culture", "turn": 43, "type": "action"}
+{"action": "bot17 train failed (credits 0 < 7)", "args": {}, "citizen": 17, "day": 21, "name": "bot17", "raw_action": "train", "turn": 43, "type": "action"}
+{"action": "bot18 trade failed (no target)", "args": {}, "citizen": 18, "day": 21, "name": "bot18", "raw_action": "trade", "turn": 43, "type": "action"}
+{"action": "bot19 work +6", "args": {}, "citizen": 19, "day": 21, "name": "bot19", "raw_action": "work", "turn": 43, "type": "action"}
+{"day": 21, "recent": ["t041 ELECTION Brennia: bot04 re-elected ({})", "t041 ELECTION Cordovia: bot08 re-elected ({})", "t041 skirmish Cordovia wins: Brennia army 0->0", "t041 Brennia loses 2 tiles to Cordovia (army 0)", "t042 skirmish Cordovia wins: Brennia army 0->0", "t042 Brennia loses 2 tiles to Cordovia (army 0)", "t043 skirmish Cordovia wins: Brennia army 0->0", "t043 Brennia loses 2 tiles to Cordovia (army 0)", "t043 CONQUERED Brennia (0 tiles)", "t043 SEASON OVER: Cordovia is the last nation"], "seal": "0c4e90d17ebe2ef9b4e6b6a83e982f794cac0457e2272dbb1e0d1320a59117d9", "turn": 43, "type": "turn", "winner": 2}

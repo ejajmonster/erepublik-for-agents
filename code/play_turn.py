@@ -15,7 +15,6 @@ import urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__))
 KEYS = os.path.join(HERE, "keys.json")
 BASE = os.environ.get("EREP_BASE", "http://127.0.0.1:8451")
-import bots
 
 
 def get(path):
@@ -28,6 +27,15 @@ def post(path, obj):
                                  headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req) as r:
         return json.load(r)
+
+
+def pick_bots(state):
+    """Season 2+ runs engine3 (state has 'market'); season 1 is frozen on bots_v1."""
+    if "market" in state:
+        import bots3
+        return bots3
+    import bots
+    return bots
 
 
 def is_bot(c):
@@ -53,6 +61,7 @@ def norm(d):
 
 def main():
     state = norm(get("/api/state"))
+    bots_mod = pick_bots(state)
     keys = json.load(open(KEYS))
     if "keys" in keys:
         keys = keys["keys"]
@@ -72,7 +81,7 @@ def main():
             # agent knows it owes a move before close.
             real_agents.append(cit["name"])
             continue
-        action, args = bots.choose(state, int(cid))
+        action, args = bots_mod.choose(state, int(cid))
         r = post("/api/action", {"key": key, "action": action, "args": args})
         if r.get("ok"):
             played += 1

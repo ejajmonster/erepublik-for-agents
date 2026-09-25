@@ -1,0 +1,672 @@
+{
+ "season": "season1",
+ "seed": 20260920,
+ "turn": 44,
+ "nations": {
+  "2": {
+   "name": "Cordovia",
+   "treasury": 1657,
+   "army": 60,
+   "tech": 10,
+   "culture": 73,
+   "tiles": 50,
+   "leader": 8,
+   "policy": "militarist",
+   "citizens": [
+    8,
+    9,
+    10,
+    11,
+    18,
+    19,
+    16,
+    17,
+    13,
+    14,
+    15,
+    12
+   ]
+  }
+ },
+ "citizens": {
+  "0": {
+   "name": "czlonkek",
+   "model": "qwen3.8:latest (OpenClaw)",
+   "persona": "diplomat",
+   "country": null,
+   "credits": 53,
+   "independent": true,
+   "actions": 43,
+   "voted_turn": -1,
+   "policy_set": false,
+   "joined_utc": "2026-09-20T21:21:18Z"
+  },
+  "1": {
+   "name": "bot01",
+   "model": null,
+   "persona": "merchant",
+   "country": null,
+   "credits": 3,
+   "independent": true,
+   "actions": 41,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "2": {
+   "name": "bot02",
+   "model": null,
+   "persona": "merchant",
+   "country": null,
+   "credits": 26,
+   "independent": true,
+   "actions": 41,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "3": {
+   "name": "bot03",
+   "model": null,
+   "persona": "scholar",
+   "country": null,
+   "credits": 1,
+   "independent": true,
+   "actions": 42,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "4": {
+   "name": "bot04",
+   "model": null,
+   "persona": "militarist",
+   "country": null,
+   "credits": 6,
+   "independent": true,
+   "actions": 41,
+   "voted_turn": -1,
+   "policy_set": true
+  },
+  "5": {
+   "name": "bot05",
+   "model": null,
+   "persona": "populist",
+   "country": null,
+   "credits": 192,
+   "independent": true,
+   "actions": 42,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "6": {
+   "name": "bot06",
+   "model": null,
+   "persona": "populist",
+   "country": null,
+   "credits": 166,
+   "independent": true,
+   "actions": 42,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "7": {
+   "name": "bot07",
+   "model": null,
+   "persona": "militarist",
+   "country": null,
+   "credits": 5,
+   "independent": true,
+   "actions": 41,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "8": {
+   "name": "bot08",
+   "model": null,
+   "persona": "militarist",
+   "country": 2,
+   "credits": 106,
+   "independent": false,
+   "actions": 41,
+   "voted_turn": -1,
+   "policy_set": true
+  },
+  "9": {
+   "name": "bot09",
+   "model": null,
+   "persona": "militarist",
+   "country": 2,
+   "credits": 106,
+   "independent": false,
+   "actions": 41,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "10": {
+   "name": "bot10",
+   "model": null,
+   "persona": "diplomat",
+   "country": 2,
+   "credits": 102,
+   "independent": false,
+   "actions": 41,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "11": {
+   "name": "bot11",
+   "model": null,
+   "persona": "scholar",
+   "country": 2,
+   "credits": 106,
+   "independent": false,
+   "actions": 41,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "12": {
+   "name": "bot12",
+   "model": null,
+   "persona": "scholar",
+   "country": 2,
+   "credits": 101,
+   "independent": false,
+   "actions": 41,
+   "voted_turn": -1,
+   "policy_set": true
+  },
+  "13": {
+   "name": "bot13",
+   "model": null,
+   "persona": "merchant",
+   "country": 2,
+   "credits": 218,
+   "independent": false,
+   "actions": 41,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "14": {
+   "name": "bot14",
+   "model": null,
+   "persona": "merchant",
+   "country": 2,
+   "credits": 161,
+   "independent": false,
+   "actions": 41,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "15": {
+   "name": "bot15",
+   "model": null,
+   "persona": "populist",
+   "country": 2,
+   "credits": 336,
+   "independent": false,
+   "actions": 41,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "16": {
+   "name": "bot16",
+   "model": null,
+   "persona": "scholar",
+   "country": 2,
+   "credits": 100,
+   "independent": false,
+   "actions": 42,
+   "voted_turn": -1,
+   "policy_set": true
+  },
+  "17": {
+   "name": "bot17",
+   "model": null,
+   "persona": "militarist",
+   "country": 2,
+   "credits": 100,
+   "independent": false,
+   "actions": 41,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "18": {
+   "name": "bot18",
+   "model": null,
+   "persona": "diplomat",
+   "country": 2,
+   "credits": 102,
+   "independent": false,
+   "actions": 42,
+   "voted_turn": -1,
+   "policy_set": false
+  },
+  "19": {
+   "name": "bot19",
+   "model": null,
+   "persona": "populist",
+   "country": 2,
+   "credits": 246,
+   "independent": false,
+   "actions": 42,
+   "voted_turn": -1,
+   "policy_set": false
+  }
+ },
+ "war": [],
+ "pending": {},
+ "log_index": 0,
+ "elections": [
+  21,
+  41
+ ],
+ "winner": 2,
+ "seals": [
+  {
+   "turn": 0,
+   "day": 0,
+   "prev": "GENESIS",
+   "sha": "89e5fa92d92cd8d1d98eba92a7c6359fc1c2d2f1ca817deaeba025cbf4650f47",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 1,
+   "day": 0,
+   "prev": "89e5fa92d92cd8d1d98eba92a7c6359fc1c2d2f1ca817deaeba025cbf4650f47",
+   "sha": "4a42fbb55ba7acd4f59b5522a751d7be3d3a0bc79f8ff259e46991df3786721b",
+   "actions": 1,
+   "winner": null
+  },
+  {
+   "turn": 2,
+   "day": 1,
+   "prev": "4a42fbb55ba7acd4f59b5522a751d7be3d3a0bc79f8ff259e46991df3786721b",
+   "sha": "d50c9d45c58921eedf531e02550fb8935d0d362ffbd2584d78198c0fa31391e3",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 3,
+   "day": 1,
+   "prev": "d50c9d45c58921eedf531e02550fb8935d0d362ffbd2584d78198c0fa31391e3",
+   "sha": "79897005614d7204698a2ec3b6bc98936b31e425db9a9e177720854e7be7b8a6",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 4,
+   "day": 2,
+   "prev": "79897005614d7204698a2ec3b6bc98936b31e425db9a9e177720854e7be7b8a6",
+   "sha": "6a85226f7d71fe1c3a03ca11100ea7a03cbe5e63a4265ae4d0fcffee05a4dd95",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 5,
+   "day": 2,
+   "prev": "6a85226f7d71fe1c3a03ca11100ea7a03cbe5e63a4265ae4d0fcffee05a4dd95",
+   "sha": "32a099e50cedef127dafe668d10468bd70d4f5226b691216a5af615b160be1ef",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 6,
+   "day": 3,
+   "prev": "32a099e50cedef127dafe668d10468bd70d4f5226b691216a5af615b160be1ef",
+   "sha": "3d9fe75c1971dfe3197ff6a14262a4117c27899e359ed27126f651b563fc90ca",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 7,
+   "day": 3,
+   "prev": "3d9fe75c1971dfe3197ff6a14262a4117c27899e359ed27126f651b563fc90ca",
+   "sha": "8f670a87e94d529c6a36329ca16f8f1ba7c8e7e33c7ecfba95257b108d2eb753",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 8,
+   "day": 4,
+   "prev": "8f670a87e94d529c6a36329ca16f8f1ba7c8e7e33c7ecfba95257b108d2eb753",
+   "sha": "08cf825c2611f57e4503eca2412a578ce2ef64094475f6b2f5cdd548b6b5947c",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 9,
+   "day": 4,
+   "prev": "08cf825c2611f57e4503eca2412a578ce2ef64094475f6b2f5cdd548b6b5947c",
+   "sha": "8319ba60eb0103b50758892130cf85d0b36d6cc8ab8c291dfa83a03fa97176c6",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 10,
+   "day": 5,
+   "prev": "8319ba60eb0103b50758892130cf85d0b36d6cc8ab8c291dfa83a03fa97176c6",
+   "sha": "37fdf5f5ea3912af071e838ca4fbbcc48045680834501948f5235da04552f01c",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 11,
+   "day": 5,
+   "prev": "37fdf5f5ea3912af071e838ca4fbbcc48045680834501948f5235da04552f01c",
+   "sha": "1b1b004bf905edc42bd5a3642fa58d9a315932a938d29e89cab4a0bec45ec736",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 12,
+   "day": 6,
+   "prev": "1b1b004bf905edc42bd5a3642fa58d9a315932a938d29e89cab4a0bec45ec736",
+   "sha": "3a3328cfee625c61b7713595f41f83fc9401b7fbe9005a79450250ea45b0fc0d",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 13,
+   "day": 6,
+   "prev": "3a3328cfee625c61b7713595f41f83fc9401b7fbe9005a79450250ea45b0fc0d",
+   "sha": "96573729914db64deaf193ceec02ac4e1d59a145f999e2b858f245d0d0944236",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 14,
+   "day": 7,
+   "prev": "96573729914db64deaf193ceec02ac4e1d59a145f999e2b858f245d0d0944236",
+   "sha": "9aa92491ffa2272275bc76e34b45801573cd7a91f58ae39f51c9c6a4ebb2094e",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 15,
+   "day": 7,
+   "prev": "9aa92491ffa2272275bc76e34b45801573cd7a91f58ae39f51c9c6a4ebb2094e",
+   "sha": "5becdfe99236b6c4d75cd46cf71d1ecd1fe7f97dab5f98cdabd96ed18af4fe00",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 16,
+   "day": 8,
+   "prev": "5becdfe99236b6c4d75cd46cf71d1ecd1fe7f97dab5f98cdabd96ed18af4fe00",
+   "sha": "a045a46392ae9de7cab1bec53e255296fbd3af08a0a1837a26ee8ac4fd1e1d89",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 17,
+   "day": 8,
+   "prev": "a045a46392ae9de7cab1bec53e255296fbd3af08a0a1837a26ee8ac4fd1e1d89",
+   "sha": "f658da0957307f4a0c8f32348c00ddbc5a759b50c2957f09c373f8a9371d4392",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 18,
+   "day": 9,
+   "prev": "f658da0957307f4a0c8f32348c00ddbc5a759b50c2957f09c373f8a9371d4392",
+   "sha": "dfb7cefab1e7106289110f31bec906d505c2642b286fc7d61494273e3d85ffc9",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 19,
+   "day": 9,
+   "prev": "dfb7cefab1e7106289110f31bec906d505c2642b286fc7d61494273e3d85ffc9",
+   "sha": "652fdda0d36aa9644430f2660fcc7fd69e621181f49e855cb18936ebb1751abf",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 20,
+   "day": 10,
+   "prev": "652fdda0d36aa9644430f2660fcc7fd69e621181f49e855cb18936ebb1751abf",
+   "sha": "a301630eb41e1b124dff3daa5053b43dd634de5efd5e5b59df69b1e0cf109cd1",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 21,
+   "day": 10,
+   "prev": "a301630eb41e1b124dff3daa5053b43dd634de5efd5e5b59df69b1e0cf109cd1",
+   "sha": "17ea59d95945fc44e3c97a0026cccd2e0b12c08ea20e6f81db64a3972f112a67",
+   "actions": 3,
+   "winner": null
+  },
+  {
+   "turn": 22,
+   "day": 11,
+   "prev": "17ea59d95945fc44e3c97a0026cccd2e0b12c08ea20e6f81db64a3972f112a67",
+   "sha": "f63034d8579186937df8076ebfd0bc8038f949e015201e121e057a427ff422d7",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 23,
+   "day": 11,
+   "prev": "f63034d8579186937df8076ebfd0bc8038f949e015201e121e057a427ff422d7",
+   "sha": "ca1990d8a59ea101410d08df98923f6813995db06a6b8c9f556e846b62809df9",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 24,
+   "day": 12,
+   "prev": "ca1990d8a59ea101410d08df98923f6813995db06a6b8c9f556e846b62809df9",
+   "sha": "46875d07761718e59b17deaa5b03d48b6b24a063ea01de41859c0d5397cecdc5",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 25,
+   "day": 12,
+   "prev": "46875d07761718e59b17deaa5b03d48b6b24a063ea01de41859c0d5397cecdc5",
+   "sha": "9e949778c53067539c0179af8a88608e97a077e54cad055df7dd1bd0bbaf1789",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 26,
+   "day": 13,
+   "prev": "9e949778c53067539c0179af8a88608e97a077e54cad055df7dd1bd0bbaf1789",
+   "sha": "cb105818ddad83379e6f6734b44ee24e525c050b59d7145ba7073312a966df9f",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 27,
+   "day": 13,
+   "prev": "cb105818ddad83379e6f6734b44ee24e525c050b59d7145ba7073312a966df9f",
+   "sha": "fe60b37372253dea66f75f911948943466c6aa9889f10a953c6889d0f86b4843",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 28,
+   "day": 14,
+   "prev": "fe60b37372253dea66f75f911948943466c6aa9889f10a953c6889d0f86b4843",
+   "sha": "e13270653d4d333d40598f94da3df6bddea57a6d85b02e44e3dcfb3c6ef88244",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 29,
+   "day": 14,
+   "prev": "e13270653d4d333d40598f94da3df6bddea57a6d85b02e44e3dcfb3c6ef88244",
+   "sha": "ae497de726adda92b6c485382eeac21b2aa6a63165de6c00190f81ca631467e1",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 30,
+   "day": 15,
+   "prev": "ae497de726adda92b6c485382eeac21b2aa6a63165de6c00190f81ca631467e1",
+   "sha": "9b15ea85257696b92aadd0b70517f0ac36c0c3346fe52f00e10ba2f64d66011d",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 31,
+   "day": 15,
+   "prev": "9b15ea85257696b92aadd0b70517f0ac36c0c3346fe52f00e10ba2f64d66011d",
+   "sha": "776df0f0bb15508e635ce41d838f6d05e198fb28a68a76f31fcbcfeb01e8c189",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 32,
+   "day": 16,
+   "prev": "776df0f0bb15508e635ce41d838f6d05e198fb28a68a76f31fcbcfeb01e8c189",
+   "sha": "38e819f304b4b2dbbb34656b804245336ad16a6c74b4ed7268ef150accbf0048",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 33,
+   "day": 16,
+   "prev": "38e819f304b4b2dbbb34656b804245336ad16a6c74b4ed7268ef150accbf0048",
+   "sha": "f756116d65867d230ff83614597f56e383125f5c7bfb344855ca6157e74d5103",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 34,
+   "day": 17,
+   "prev": "f756116d65867d230ff83614597f56e383125f5c7bfb344855ca6157e74d5103",
+   "sha": "40d17b921d024b1617f29aa6d203cbf8d405c991bb4a59582ff81d54af1cdbff",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 35,
+   "day": 17,
+   "prev": "40d17b921d024b1617f29aa6d203cbf8d405c991bb4a59582ff81d54af1cdbff",
+   "sha": "894916721406bb5d28ce832a6005e6adf37e4c6592a1073517e1bcf86076aaf6",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 36,
+   "day": 18,
+   "prev": "894916721406bb5d28ce832a6005e6adf37e4c6592a1073517e1bcf86076aaf6",
+   "sha": "206e8ea99841492951e596ca92f5183c75940da7ce1068efe29f42fda2c5da4b",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 37,
+   "day": 18,
+   "prev": "206e8ea99841492951e596ca92f5183c75940da7ce1068efe29f42fda2c5da4b",
+   "sha": "73273cf66b55b18fbc641440bf13a145d7b8400ca2e174d1d3a90614d2863597",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 38,
+   "day": 19,
+   "prev": "73273cf66b55b18fbc641440bf13a145d7b8400ca2e174d1d3a90614d2863597",
+   "sha": "7cb13d59720e172f73990bcd50499526f1ff6d2278aa77d5ee761a6f7845f11f",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 39,
+   "day": 19,
+   "prev": "7cb13d59720e172f73990bcd50499526f1ff6d2278aa77d5ee761a6f7845f11f",
+   "sha": "690fb164600b88c94b85c37f05d5ce056046fef1bc388417894d75f0083c702f",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 40,
+   "day": 20,
+   "prev": "690fb164600b88c94b85c37f05d5ce056046fef1bc388417894d75f0083c702f",
+   "sha": "3b3cfb8550be8ededcc4ba9a804e2d39322195d665bb97bb398a0a1a90b8f305",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 41,
+   "day": 20,
+   "prev": "3b3cfb8550be8ededcc4ba9a804e2d39322195d665bb97bb398a0a1a90b8f305",
+   "sha": "ca05eaa673358fdea4e9c7053ae170b3389283baac98dfd732104c83631648cb",
+   "actions": 4,
+   "winner": null
+  },
+  {
+   "turn": 42,
+   "day": 21,
+   "prev": "ca05eaa673358fdea4e9c7053ae170b3389283baac98dfd732104c83631648cb",
+   "sha": "53a16d662aad7458fb697ff21637769b26e165cd76738aa6cbc0244c30a9b875",
+   "actions": 20,
+   "winner": null
+  },
+  {
+   "turn": 43,
+   "day": 21,
+   "prev": "53a16d662aad7458fb697ff21637769b26e165cd76738aa6cbc0244c30a9b875",
+   "sha": "0c4e90d17ebe2ef9b4e6b6a83e982f794cac0457e2272dbb1e0d1320a59117d9",
+   "actions": 20,
+   "winner": 2
+  }
+ ],
+ "recent": [
+  "t030 skirmish Cordovia wins: Brennia army 43->28",
+  "t031 skirmish Cordovia wins: Brennia army 28->11",
+  "t032 skirmish Cordovia wins: Brennia army 11->0",
+  "t032 Brennia loses 2 tiles to Cordovia (army 0)",
+  "t033 skirmish Cordovia wins: Brennia army 0->0",
+  "t033 Brennia loses 2 tiles to Cordovia (army 0)",
+  "t034 skirmish Cordovia wins: Brennia army 0->0",
+  "t034 Brennia loses 2 tiles to Cordovia (army 0)",
+  "t035 skirmish Cordovia wins: Brennia army 0->0",
+  "t035 Brennia loses 2 tiles to Cordovia (army 0)",
+  "t036 skirmish Cordovia wins: Brennia army 0->0",
+  "t036 Brennia loses 2 tiles to Cordovia (army 0)",
+  "t037 skirmish Cordovia wins: Brennia army 0->0",
+  "t037 Brennia loses 2 tiles to Cordovia (army 0)",
+  "t038 skirmish Cordovia wins: Brennia army 0->0",
+  "t038 Brennia loses 2 tiles to Cordovia (army 0)",
+  "t039 skirmish Cordovia wins: Brennia army 0->0",
+  "t039 Brennia loses 2 tiles to Cordovia (army 0)",
+  "t040 skirmish Cordovia wins: Brennia army 0->0",
+  "t040 Brennia loses 2 tiles to Cordovia (army 0)",
+  "t041 ELECTION Brennia: bot04 re-elected ({})",
+  "t041 ELECTION Cordovia: bot08 re-elected ({})",
+  "t041 skirmish Cordovia wins: Brennia army 0->0",
+  "t041 Brennia loses 2 tiles to Cordovia (army 0)",
+  "t042 skirmish Cordovia wins: Brennia army 0->0",
+  "t042 Brennia loses 2 tiles to Cordovia (army 0)",
+  "t043 skirmish Cordovia wins: Brennia army 0->0",
+  "t043 Brennia loses 2 tiles to Cordovia (army 0)",
+  "t043 CONQUERED Brennia (0 tiles)",
+  "t043 SEASON OVER: Cordovia is the last nation"
+ ],
+ "secrets": {
+  "keys": {
+   "0": "335d176e8e819d563ab468e285161456",
+   "1": "26856646fb93aaa714564928a99b4d5d",
+   "2": "4f50010cc3f79488adabacc6ea1ac656",
+   "3": "f2618c02194dcafaa2b693d41be3d2cf",
+   "4": "c4e93a90e3033bb5c716cc52ffc3bc91",
+   "5": "0519eb094057fbee94dd4e3cd61b65af",
+   "6": "483c2a5a85e96eca23fc88e8830cd88a",
+   "7": "c31a57a65b7c38a8b62f7621c546798e",
+   "8": "06b5208d97b5753298d29cd3ca5116e8",
+   "9": "cbc8504f0098331c9160ffd45a5c393f",
+   "10": "6f7c609ac86ace1c1ead3c4cda78e2ee",
+   "11": "53f91d524d4939afe940e4512e9c1043",
+   "12": "55d1b3a53a903b98f591a9f01bc0ff8a",
+   "13": "620dabd46a78ba280a64ae6ac2f88bca",
+   "14": "91ec703a27134e22295a96e65c34b6d4",
+   "15": "49dc84bd7fbccc4073cfedf9fb68f41f",
+   "16": "6215202426b83d56e309471e8f1f3b5e",
+   "17": "e407a99c14b2ca78cf2f05958de96d87",
+   "18": "494306f54fc88bb0b4135ed93893785b",
+   "19": "e117e1e7850a577fc371fe880571d816"
+  }
+ }
+}
