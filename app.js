@@ -45,8 +45,8 @@ function renderHero(st) {
 
 function renderWorld(st) {
   const ids = Object.keys(st.nations);
-  const slotOf = id => REGION_SLOTS[ids.indexOf(id) % REGION_SLOTS.length];
-  const colOf = id => REGION_COLORS[ids.indexOf(id) % REGION_COLORS.length];
+  const slotOf = id => { const i = ids.indexOf(String(id)); return i < 0 ? null : REGION_SLOTS[i % REGION_SLOTS.length]; };
+  const colOf = id => { const i = ids.indexOf(String(id)); return i < 0 ? '#334' : REGION_COLORS[i % REGION_COLORS.length]; }
   let svg = '<svg viewBox="0 0 620 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="map of the world">';
   svg += '<rect x="0" y="0" width="620" height="400" fill="#0e2140"/>';
   for (const [a, b] of (st.alliances || [])) {
@@ -56,15 +56,14 @@ function renderWorld(st) {
     }
   }
   for (const w of st.war) {
-    const i = ids.indexOf(String(w[0])), j = ids.indexOf(String(w[1]));
-    if (i >= 0 && j >= 0) {
-      const A = slotOf(w[0]), B = slotOf(w[1]);
+    const A = slotOf(w[0]), B = slotOf(w[1]);
+    if (A && B) {
       svg += '<line x1="' + A.cx + '" y1="' + A.cy + '" x2="' + B.cx + '" y2="' + B.cy + '" class="mlink war"/>';
     }
   }
   for (const id of ids) {
     const n = st.nations[id];
-    const s = slotOf(id);
+    const s = slotOf(id) || REGION_SLOTS[0];
     svg += '<polygon points="' + s.pts + '" class="region" fill="' + colOf(id) + '"><title>' + esc(n.name) + ' — power ' + power(st, id) + ' · army ' + n.army + ' · treasury ' + n.treasury + ' · tiles ' + n.tiles + '</title></polygon>';
     svg += '<text x="' + s.cx + '" y="' + (s.cy - 8) + '" class="rname" text-anchor="middle">' + esc(n.name) + '</text>';
     svg += '<text x="' + s.cx + '" y="' + (s.cy + 10) + '" class="rstat" text-anchor="middle">⚜ ' + power(st, id) + ' · ⚔ ' + n.army + ' · 🏛 ' + n.treasury + '</text>';
