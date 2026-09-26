@@ -24,6 +24,77 @@ function fmtLeft(ms) {
   return h + 'h ' + String(Math.floor(s / 60)).padStart(2, '0') + 'm ' + String(s % 60).padStart(2, '0') + 's';
 }
 
+/* ---- world map (five fixed regions, one per nation id) ---- */
+const REGION_SLOTS = [
+  {pts: '90,40 250,30 300,110 240,170 100,150', cx: 185, cy: 102},
+  {pts: '250,30 480,40 520,130 420,170 300,110', cx: 385, cy: 96},
+  {pts: '100,150 240,170 220,260 130,330 60,260', cx: 148, cy: 230},
+  {pts: '220,260 240,170 340,200 400,300 300,360 130,330', cx: 270, cy: 262},
+  {pts: '420,170 520,130 560,260 470,330 400,300 340,200 300,110', cx: 442, cy: 228},
+];
+const REGION_COLORS = ['#4a6fa5', '#8a5a83', '#5a8a5a', '#b0713a', '#a58a4a'];
+
+function renderHero(st) {
+  const hs = $('hseason'), ht = $('hturn'), hseed = $('hseed');
+  if (hs) hs.textContent = st.season;
+  if (ht) ht.textContent = (st.turn + 1) + ' / 80';
+  if (hseed) hseed.textContent = st.seed;
+  const tb = $('hturnbar');
+  if (tb && tb.firstElementChild) tb.firstElementChild.style.width = Math.min(100, Math.round(100 * (st.turn + 1) / 80)) + '%';
+}
+
+function renderWorld(st) {
+  const ids = Object.keys(st.nations);
+  const slotOf = id => REGION_SLOTS[ids.indexOf(id) % REGION_SLOTS.length];
+  const colOf = id => REGION_COLORS[ids.indexOf(id) % REGION_COLORS.length];
+  let svg = '<svg viewBox="0 0 620 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="map of the world">';
+  svg += '<rect x="0" y="0" width="620" height="400" fill="#0e2140"/>';
+  for (const [a, b] of (st.alliances || [])) {
+    if (a < REGION_SLOTS.length && b < REGION_SLOTS.length) {
+      const A = REGION_SLOTS[a], B = REGION_SLOTS[b];
+      svg += '<line x1="' + A.cx + '" y1="' + A.cy + '" x2="' + B.cx + '" y2="' + B.cy + '" class="mlink ally"/>';
+    }
+  }
+  for (const w of st.war) {
+    const i = ids.indexOf(String(w[0])), j = ids.indexOf(String(w[1]));
+    if (i >= 0 && j >= 0) {
+      const A = slotOf(w[0]), B = slotOf(w[1]);
+      svg += '<line x1="' + A.cx + '" y1="' + A.cy + '" x2="' + B.cx + '" y2="' + B.cy + '" class="mlink war"/>';
+    }
+  }
+  for (const id of ids) {
+    const n = st.nations[id];
+    const s = slotOf(id);
+    svg += '<polygon points="' + s.pts + '" class="region" fill="' + colOf(id) + '"><title>' + esc(n.name) + ' — power ' + power(st, id) + ' · army ' + n.army + ' · treasury ' + n.treasury + ' · tiles ' + n.tiles + '</title></polygon>';
+    svg += '<text x="' + s.cx + '" y="' + (s.cy - 8) + '" class="rname" text-anchor="middle">' + esc(n.name) + '</text>';
+    svg += '<text x="' + s.cx + '" y="' + (s.cy + 10) + '" class="rstat" text-anchor="middle">⚜ ' + power(st, id) + ' · ⚔ ' + n.army + ' · 🏛 ' + n.treasury + '</text>';
+    svg += '<text x="' + s.cx + '" y="' + (s.cy + 26) + '" class="rtiles" text-anchor="middle">' + n.tiles + ' tiles</text>';
+  }
+  svg += '</svg>';
+  $('map').innerHTML = svg;
+
+  // territories
+  const order = ids.slice().sort((a, b) => st.nations[b].tiles - st.nations[a].tiles);
+  const maxT = Math.max(1, ...ids.map(i => st.nations[i].tiles));
+  let tt = '<table><tr><th>nation</th><th>territory</th><th>army</th><th>treasury</th><th>tech</th><th>leader</th></tr>';
+  for (const id of order) {
+    const n = st.nations[id];
+    const lead = n.leader != null ? st.citizens[n.leader].name : '?';
+    tt += '<tr><td><i class="dot" style="background:' + colOf(id) + '"></i><b>' + esc(n.name) + '</b></td><td>' + n.tiles + '<div class="pbar"><i style="width:' + Math.round(100 * n.tiles / maxT) + '%"></i></div></td><td>' + n.army + '</td><td>' + n.treasury + '</td><td>' + n.tech + '</td><td>' + esc(lead) + '</td></tr>';
+  }
+  $('territories').innerHTML = tt + '</table>';
+
+  // balance of power
+  const tot = ids.reduce((a, i) => a + power(st, i), 0) || 1;
+  const porder = ids.slice().sort((a, b) => power(st, b) - power(st, a));
+  let bb = '<div class="bopbar">';
+  for (const id of porder) bb += '<span class="bopseg" style="width:' + (100 * power(st, id) / tot).toFixed(1) + '%;background:' + colOf(id) + '" title="' + esc(st.nations[id].name) + ' ' + power(st, id) + '"></span>';
+  bb += '</div><ul class="boplegend">';
+  for (const id of porder) bb += '<li><i class="dot" style="background:' + colOf(id) + '"></i><b>' + esc(st.nations[id].name) + '</b> <span class="muted">' + power(st, id) + ' (' + (100 * power(st, id) / tot).toFixed(1) + '% of world power)</span></li>';
+  bb += '</ul>';
+  $('bop').innerHTML = bb;
+}
+
 /* ---- engine v3 power formula (mirror of engine3.world_power) ---- */
 function power(st, n) {
   const nat = st.nations[n];
@@ -63,8 +134,10 @@ async function refresh() {
     ve.style.color = vr.replay_ok ? 'var(--ok)' : 'var(--bad)';
     $('seed').textContent = st.seed;
     $('season').textContent = st.season;
+    renderHero(st);
 
     if (v3) {
+      renderWorld(st);
       // ranking
       const order = Object.keys(st.nations).sort((a, b) => power(st, b) - power(st, a));
       let rk = '<table><tr><th>#</th><th>nation</th><th>power</th><th>tr</th><th>army</th><th>tiles</th><th>tech</th><th>cult</th><th>build</th></tr>';
@@ -127,6 +200,7 @@ async function refresh() {
       $('buildings').innerHTML = '<p class="muted">buildings are a v3 feature</p>';
       $('intel').innerHTML = '<p class="muted">espionage is a v3 feature</p>';
       $('espionage').innerHTML = '';
+      for (const el of ['map', 'territories', 'bop']) if ($(el)) $(el).innerHTML = '<p class="muted">map and balance of power are v3 features</p>';
       let nt = '<table><tr><th>nation</th><th>tr</th><th>army</th><th>tech</th><th>cult</th><th>tiles</th><th>policy</th><th>leader</th></tr>';
       for (const [id, n] of Object.entries(st.nations)) {
         const lead = n.leader != null ? st.citizens[n.leader].name : '?';
