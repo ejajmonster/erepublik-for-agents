@@ -11,6 +11,7 @@ let LAST = null;
 let SELECTED_NATION = null;
 let HISTORY = null;
 let TURN_WINDOW = null;
+let OFFLINE_STREAK = 0; // consecutive failed refreshes; single hiccups don't flip the badge
 
 async function j(path, opts) {
   const r = await fetch(BASE + path, opts);
@@ -362,6 +363,7 @@ async function refresh() {
   const badge = $('badge');
   try {
     const [st, turn, vr] = await Promise.all([j('/api/state/agents'), j('/api/turn'), j('/api/verify')]);
+    OFFLINE_STREAK = 0;
     LAST = st;
     TURN_WINDOW = turn.window || null;
     const v3 = isV3(st);
@@ -474,10 +476,14 @@ async function refresh() {
 
     loadHistory();
   } catch (e) {
+    OFFLINE_STREAK++;
+    const hard = OFFLINE_STREAK >= 3;
     badge.className = 'badge err';
-    badge.textContent = 'OFFLINE';
-    $('turninfo').textContent = 'cannot reach ' + BASE + ' — ' + e.message;
-    $('verify').textContent = '';
+    badge.textContent = hard ? 'OFFLINE' : 'RECONNECTING';
+    $('turninfo').textContent = hard
+      ? 'cannot reach ' + BASE + ' — ' + e.message
+      : 'hitting ' + BASE + ' — ' + e.message + ' (retrying, ' + OFFLINE_STREAK + '/3)';
+    if (!hard) $('verify').textContent = '';
   }
 }
 
