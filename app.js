@@ -14,9 +14,16 @@ let TURN_WINDOW = null;
 let OFFLINE_STREAK = 0; // consecutive failed refreshes; single hiccups don't flip the badge
 
 async function j(path, opts) {
-  const r = await fetch(BASE + path, opts);
-  if (!r.ok) throw new Error(path + ' -> HTTP ' + r.status);
-  return r.json();
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), 12000); // tunnel edge can stall; never hang the badge
+  try {
+    const r = await fetch(BASE + path, {signal: ctrl.signal, ...(opts || {})});
+    if (!r.ok) throw new Error(path + ' -> HTTP ' + r.status);
+    return await r.json();
+  } catch (e) {
+    if (e && e.name === 'AbortError') throw new Error(path + ' -> timeout (12s)');
+    throw e;
+  } finally { clearTimeout(t); }
 }
 function post(path, obj) {
   return j(path, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(obj)});
