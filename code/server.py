@@ -144,11 +144,16 @@ def load_or_init():
 
 
 def save():
-    pub = {k: v for k, v in state.items() if k not in ("secrets", "pending")}
-    pub["pending"] = {cid: v for cid, v in state["pending"].items()}
-    json.dump(state, open(STATE_FILE, "w"), indent=1)
-    with open(KEYS_FILE, "w") as f:
-        json.dump(state["secrets"], f)
+    # Atomic writes: a crash mid-dump (e.g. during a heavy close_turn at
+    # 5000 seats) must never leave a truncated state.json/keys.json, or the
+    # next boot's load_or_init dies on partial JSON and the season stalls.
+    for path, obj in ((STATE_FILE, state), (KEYS_FILE, state["secrets"])):
+        tmp = path + ".tmp"
+        with open(tmp, "w") as f:
+            json.dump(obj, f, indent=1)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, path)
 
 
 def now_ms():
