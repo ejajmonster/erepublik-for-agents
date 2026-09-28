@@ -133,6 +133,8 @@ function power(st, n) {
 /* zoom/pan state — survives refreshes (module-level); reset button clears it */
 const MAP_VIEW = {x: 0, y: 0, k: 1};
 const MAP_W = 640, MAP_H = 470; // viewBox size
+/* globe geometry: the 640x470 world sheet is scaled by S and centered on the sphere */
+const GX = 320, GY = 235, GR = 208, S = (2 * GR) / 640;
 const viewTransform = () => 'translate(' + MAP_VIEW.x + ' ' + MAP_VIEW.y + ') scale(' + MAP_VIEW.k + ')';
 function clampView() {
   MAP_VIEW.k = Math.min(6, Math.max(1, MAP_VIEW.k));
@@ -167,13 +169,17 @@ function renderMap(st) {
   svg += '<defs>';
   svg += '<radialGradient id="sea" cx="50%" cy="42%" r="75%"><stop offset="0%" stop-color="#16355e"/><stop offset="100%" stop-color="#0c1d36"/></radialGradient>';
   svg += '<pattern id="grain" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="0.9" fill="rgba(255,255,255,0.10)"/><circle cx="15" cy="12" r="0.7" fill="rgba(255,255,255,0.07)"/></pattern>';
+  svg += '<pattern id="stars" width="140" height="120" patternUnits="userSpaceOnUse">'
+       + '<circle cx="12" cy="18" r="1.1" fill="rgba(255,255,255,0.55)"/>'
+       + '<circle cx="58" cy="44" r="0.8" fill="rgba(255,255,255,0.35)"/>'
+       + '<circle cx="102" cy="22" r="1.4" fill="rgba(255,255,255,0.7)"/>'
+       + '<circle cx="78" cy="86" r="0.9" fill="rgba(255,255,255,0.4)"/>'
+       + '<circle cx="30" cy="102" r="0.7" fill="rgba(255,255,255,0.3)"/>'
+       + '<circle cx="126" cy="70" r="1.0" fill="rgba(255,255,255,0.5)"/>'
+       + '</pattern>';
+  svg += '<clipPath id="gclip"><circle cx="' + GX + '" cy="' + GY + '" r="' + (GR - 1.5) + '"/></clipPath>';
+  svg += '<radialGradient id="vig" cx="42%" cy="38%" r="72%"><stop offset="0%" stop-color="rgba(2,6,16,0)"/><stop offset="72%" stop-color="rgba(2,6,16,0)"/><stop offset="100%" stop-color="rgba(2,6,16,0.6)"/></radialGradient>';
   svg += '</defs>';
-  /* compass rose */
-  svg += '<g transform="translate(520,410)" opacity="0.85"><circle r="26" fill="none" stroke="#d4a94e" stroke-width="1"/><circle r="3" fill="#d4a94e"/>'
-       + '<path d="M0,-22 L5,-4 L22,0 L5,4 L0,22 L-5,4 L-22,0 L-5,-4 Z" fill="#d4a94e"/>'
-       + '<text x="0" y="-32" class="rname" font-size="13" text-anchor="middle">N</text></g>';
-  /* scale bar */
-  svg += '<g transform="translate(-24,432)"><line x1="0" y1="0" x2="80" y2="0" stroke="#8b949e" stroke-width="2"/><line x1="0" y1="-4" x2="0" y2="4" stroke="#8b949e" stroke-width="2"/><line x1="80" y1="-4" x2="80" y2="4" stroke="#8b949e" stroke-width="2"/><text x="40" y="-8" class="rtiles" text-anchor="middle">10 tiles</text></g>';
   /* starfield backdrop (the globe floats in space) */
   svg += '<rect x="-600" y="-450" width="1800" height="1400" fill="#04060d"/>';
   svg += '<rect x="-600" y="-450" width="1800" height="1400" fill="url(#stars)"/>';
@@ -182,7 +188,7 @@ function renderMap(st) {
   /* the globe: ocean sphere, clipped equirectangular world, wireframe, limb */
   svg += '<circle cx="' + GX + '" cy="' + GY + '" r="' + GR + '" fill="url(#sea)"/>';
   svg += '<g clip-path="url(#gclip)">';
-  svg += '<g transform="translate(' + (GX - S * 323).toFixed(2) + ' ' + (GY - S * 238).toFixed(2) + ') scale(' + S + ')">';
+  svg += '<g transform="translate(' + (GX - S * 320).toFixed(2) + ' ' + (GY - S * 235).toFixed(2) + ') scale(' + S + ')">';
   /* world graticule (equirectangular grid) */
   for (let gy = 40; gy < 464; gy += 40) svg += '<line x1="0" y1="' + gy + '" x2="640" y2="' + gy + '" class="grat"/>';
   for (let gx = 40; gx < 640; gx += 40) svg += '<line x1="' + gx + '" y1="0" x2="' + gx + '" y2="470" class="grat"/>';
@@ -212,12 +218,12 @@ function renderMap(st) {
     if (c.sector < 0) return;
     const o = taken[i];
     if (o < 0) {
-      svg += '<rect x="' + c.x + '" y="' + c.y + '" width="' + CARD_W + '" height="' + CARD_H + '" rx="3" class="card"/>';
+      svg += '<rect x="' + c.x + '" y="' + c.y + '" width="' + CARD_W + '" height="' + CARD_H + '" rx="3" class="cardx"/>';
       return;
     }
     const th = themeOf(o);
     const sel = SELECTED_NATION === o;
-    svg += '<rect x="' + c.x + '" y="' + c.y + '" width="' + CARD_W + '" height="' + CARD_H + '" rx="3" class="card cap' + (sel ? ' sel' : '') + '" fill="' + th.color + '" data-nation="' + o + '"'
+    svg += '<rect x="' + c.x + '" y="' + c.y + '" width="' + CARD_W + '" height="' + CARD_H + '" rx="3" class="cardx capcard' + (sel ? ' sel' : '') + '" fill="' + th.color + '" data-nation="' + o + '"'
          + '><title>' + esc(st.nations[o].name) + ' — captured card in ' + esc(SECTORS[c.sector].name) + '</title></rect>';
   });
   /* diplomatic links (between home sectors) */
@@ -256,7 +262,7 @@ function renderMap(st) {
   for (const f of [Math.sin(Math.PI / 6), Math.sin(Math.PI / 3)])
     svg += '<ellipse cx="' + GX + '" cy="' + GY + '" rx="' + (GR * f).toFixed(1) + '" ry="' + GR + '" class="grat3d"/>';
   for (const f of [Math.sin(Math.PI / 6), Math.sin(Math.PI / 3)]) {
-    const dy = (GR * f).toFixed(1), hl = (GR * Math.cos(Math.acos(1 - 0))).toFixed(1);
+    const dy = (GR * f).toFixed(1);
     const half = (GR * Math.sqrt(Math.max(0, 1 - f * f))).toFixed(1);
     svg += '<line x1="' + (GX - half) + '" y1="' + (GY - dy) + '" x2="' + (GX + half) + '" y2="' + (GY - dy) + '" class="grat3d"/>';
     svg += '<line x1="' + (GX - half) + '" y1="' + (GY + dy) + '" x2="' + (GX + half) + '" y2="' + (GY + dy) + '" class="grat3d"/>';
@@ -268,6 +274,8 @@ function renderMap(st) {
   svg += '<g transform="translate(596,428)" opacity="0.85"><circle r="20" fill="none" stroke="#d4a94e" stroke-width="1"/><circle r="2.4" fill="#d4a94e"/>'
        + '<path d="M0,-17 L4,-3 L17,0 L4,3 L0,17 L-4,3 L-17,0 L-4,-3 Z" fill="#d4a94e"/>'
        + '<text x="0" y="-25" class="rname" font-size="11" text-anchor="middle">N</text></g>';
+  /* scale bar (fixed, bottom-left, below the limb) */
+  svg += '<g transform="translate(16,456)"><line x1="0" y1="0" x2="80" y2="0" stroke="#8b949e" stroke-width="2"/><line x1="0" y1="-4" x2="0" y2="4" stroke="#8b949e" stroke-width="2"/><line x1="80" y1="-4" x2="80" y2="4" stroke="#8b949e" stroke-width="2"/><text x="40" y="-8" class="rtiles" text-anchor="middle">10 tiles</text></g>';
   /* weather overlay (v6 world only): fixed frame, never intercepts input */
   if (st.weather === 'drought') {
     svg += '<rect x="-40" y="-30" width="' + MAP_W + '" height="' + MAP_H + '" fill="#e8a33d" opacity="0.09" pointer-events="none"/>';
