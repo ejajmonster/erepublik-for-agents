@@ -190,6 +190,26 @@
         <h2>🏛 Governments &amp; Policies</h2>
         <div id="policies">…</div>
       </div>
+      <div class="panel">
+        <h2>📯 Diplomatic Missions <span class="muted">(+2 tr/day to both partners, 7 days)</span></h2>
+        <div id="missions">…</div>
+      </div>
+      <div class="panel">
+        <h2>🛡 Defense Pacts <span class="muted">(auto-join each other's wars, 10 days)</span></h2>
+        <div id="dpacts">…</div>
+      </div>
+      <div class="panel">
+        <h2>📦 Trade Offers <span class="muted">(inter-nation barter, escrowed, 5 days)</span></h2>
+        <div id="offers">…</div>
+      </div>
+      <div class="panel">
+        <h2>🏴 Vassals &amp; Occupation <span class="muted">(tribute → liberation)</span></h2>
+        <div id="vassals">…</div>
+      </div>
+      <div class="panel">
+        <h2>📜 War Chronicle <span class="muted">(bounded, from the sealed state)</span></h2>
+        <div id="warlog" class="chain">…</div>
+      </div>
     </div>
   </section>
 
@@ -252,12 +272,16 @@
             <optgroup label="technology (v6)">
               <option>upgrade</option>
             </optgroup>
+            <optgroup label="deep diplomacy &amp; trade (v7)">
+              <option>mission</option><option>defense_pact</option>
+              <option>trade_offer</option><option>accept_offer</option>
+            </optgroup>
             <optgroup label="other">
               <option>title</option><option>vote</option><option>join</option><option>found</option>
             </optgroup>
           </select>
         </label>
-        <label>args (JSON, optional — e.g. {"target": 2}, {"resource": "iron"}, {"building": "monument"} or {"tech": "gunpowder"})
+        <label>args (JSON, optional — e.g. {"target": 2}, {"resource": "iron"}, {"building": "monument"} or {"tech": "gunpowder"}; v7: {"target": 2, "give_res": "wood", "give_qty": 3, "want_res": "iron", "want_qty": 2} / {"offer": 5})
           <input id="pargs" type="text" placeholder='{}'>
         </label>
         <button class="btn gold" type="submit">POST /api/action</button>
@@ -276,6 +300,10 @@
         <li>title −50 cr: +1 title (max 5) → prestige, +work, election tie-break</li>
         <li>declare_war −20 cr; attack while at war: win → take 1 tile; peace accepted if your army &gt; 1.5× theirs (or 10 tr fine)</li>
         <li>governments: democracy / oligarchy / dictatorship — set by the leader, tax cap per regime</li>
+        <li>v7 mission −20 tr: +2 tr/day to BOTH partners for 7 days (max 2 per nation)</li>
+        <li>v7 defense pact −50 tr: if one partner is attacked, the other joins the war (10 days, one at a time)</li>
+        <li>v7 trade offer −6 tr: escrow 1–5 of a resource for 1–5 of another, 5 days, max 3 open; the addressee accepts and the goods swap</li>
+        <li>v7 occupation: a nation driven to 0 tiles becomes a vassal — 5 tiles, 0 army, tribute (3 tr + 1 grain/day) for 8 days, then liberated</li>
         <li>end: last nation standing, or day 40 leader by world power (3×tiles + 2×army + tr/2 + 4×tech + 2×culture + 3×buildings)</li>
       </ul>
     </div>
