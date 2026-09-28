@@ -49,79 +49,79 @@ const NATION_THEME = [
 ];
 const themeOf = id => NATION_THEME[Number(id) % NATION_THEME.length];
 
-/* ---------------- the continent (5 base regions + 3 expansion coasts) -------
-   One polygon per nation id. Nation n draws its START region; if a nation
-   grows its tiles, extra tiles "expand" into the neighboring sea/coast
-   polygons as colored overlays (visual territory growth). */
-const LAND = [
-  // 0 AURELIA — north
-  {id: 0, d: 'M120,58 L205,42 L268,66 L262,128 L196,150 L138,132 L112,96 Z'},
-  // 1 BRENNIA — northeast
-  {id: 1, d: 'M268,66 L352,52 L412,84 L398,150 L330,168 L262,128 Z'},
-  // 2 CORDOVIA — west
-  {id: 2, d: 'M48,120 L112,96 L138,132 L150,196 L120,248 L64,232 L36,168 Z'},
-  // 3 DALMARA — central south
-  {id: 3, d: 'M150,196 L196,150 L262,128 L330,168 L318,232 L240,262 L168,244 Z'},
-  // 4 ESTRA — southeast
-  {id: 4, d: 'M330,168 L398,150 L452,196 L440,262 L368,296 L318,232 Z'},
+/* ---------------- the world (stylized globe, 12 sectors of capturable cards) --
+   Equirectangular globe: 12 named sectors (landmasses). A uniform card grid
+   is clipped onto the land: every card whose center falls in a sector belongs
+   to it. A nation's tiles == captured cards: it takes its home sector's cards
+   first, then neighbor sectors in distance order. Purely visual — the sealed
+   state carries only tile counts; the map is derived. */
+const SECTORS = [
+  {name: 'Borealis',   d: 'M150,32 L480,28 L500,62 L340,76 L170,68 Z'},
+  {name: 'Nordhaven',  d: 'M55,84 L195,74 L225,120 L190,170 L90,180 L50,135 Z'},
+  {name: 'Westmark',   d: 'M110,190 L195,182 L215,225 L175,258 L115,245 Z'},
+  {name: 'Southland',  d: 'M160,270 L230,262 L250,320 L220,385 L175,392 L150,325 Z'},
+  {name: 'Iberica',    d: 'M268,96 L335,88 L350,130 L318,162 L272,150 Z'},
+  {name: 'Ostmark',    d: 'M352,80 L480,72 L500,115 L455,148 L368,140 L350,110 Z'},
+  {name: 'Afrika',     d: 'M298,185 L380,175 L408,240 L378,330 L325,352 L292,270 Z'},
+  {name: 'Levant',     d: 'M415,185 L470,178 L492,222 L462,258 L420,242 Z'},
+  {name: 'Indara',     d: 'M495,200 L555,192 L575,245 L545,292 L500,270 Z'},
+  {name: 'Serenia',    d: 'M515,110 L615,100 L628,165 L590,205 L535,185 L512,150 Z'},
+  {name: 'Australis',  d: 'M480,320 L575,308 L600,362 L558,405 L492,388 Z'},
+  {name: 'Polaris',    d: 'M150,415 L450,408 L468,442 L168,448 Z'},
 ];
-/* expansion tiles: sea/coast cells the growing nation "takes" (drawn on top) */
-const EXPANSION_CELLS = [
-  // per nation: list of small polygons (up to ~15 extra tiles of visual room)
-  [
-    'M112,96 L92,70 L128,48 L156,44 L120,58', 'M205,42 L232,26 L262,44 L268,66',
-    'M138,132 L120,160 L134,176 L150,196', 'M262,128 L292,148 L282,170 L268,160',
-    'M120,58 L120,36 L160,28 L156,44', 'M150,196 L134,176 L110,190 L120,220',
-    'M268,66 L290,52 L304,72 L282,84', 'M112,96 L84,104 L88,132 L104,128',
-    'M196,150 L214,170 L206,192 L188,178', 'M304,72 L330,58 L340,84 L318,92',
-    'M120,220 L104,236 L120,252 L134,240', 'M232,26 L252,14 L272,30 L262,44',
-    'M88,132 L70,148 L84,168 L104,158', 'M214,170 L232,186 L224,206 L206,192',
-    'M134,240 L118,258 L140,268 L152,252',
-  ],
-  [
-    'M352,52 L382,34 L410,52 L412,84', 'M412,84 L442,76 L452,108 L432,124',
-    'M398,150 L420,168 L410,190 L392,176', 'M330,168 L348,190 L340,212 L322,196',
-    'M452,108 L474,116 L470,144 L452,132', 'M410,190 L432,204 L428,228 L410,214',
-    'M382,34 L408,22 L428,40 L418,52', 'M432,124 L452,132 L448,158 L430,148',
-    'M428,228 L446,244 L436,264 L420,250', 'M348,190 L366,204 L356,224 L340,212',
-    'M408,22 L432,14 L448,34 L428,40', 'M448,158 L468,168 L462,190 L446,178',
-    'M436,264 L452,280 L440,298 L424,286', 'M366,204 L384,218 L374,238 L356,224',
-    'M432,14 L452,8 L466,28 L448,34',
-  ],
-  [
-    'M48,120 L28,104 L36,76 L60,92 L72,110', 'M64,232 L44,248 L56,272 L80,258',
-    'M120,248 L104,236 L88,252 L100,272', 'M36,168 L14,178 L22,204 L40,196',
-    'M28,104 L10,88 L20,64 L40,80', 'M44,248 L24,262 L36,286 L56,272',
-    'M72,110 L56,92 L72,74 L90,90', 'M22,204 L6,220 L16,242 L34,230',
-    'M104,236 L88,252 L72,244 L84,226', 'M20,64 L8,44 L30,34 L40,58',
-    'M24,262 L8,278 L22,298 L36,286', 'M56,92 L40,80 L48,58 L66,72',
-    'M16,242 L2,258 L14,278 L30,264', 'M30,34 L12,24 L24,8 L40,22',
-    'M8,278 L0,296 L18,304 L22,298',
-  ],
-  [
-    'M240,262 L256,286 L236,300 L222,282', 'M318,232 L336,250 L324,270 L306,254',
-    'M168,244 L152,262 L166,280 L184,262', 'M256,286 L276,298 L266,318 L248,306',
-    'M336,250 L356,264 L346,286 L328,270', 'M152,262 L136,278 L152,294 L168,280',
-    'M276,298 L296,310 L286,330 L268,318', 'M356,264 L374,280 L362,300 L344,284',
-    'M136,278 L120,294 L138,310 L152,294', 'M296,310 L316,322 L306,340 L288,330',
-    'M120,294 L104,308 L122,324 L138,310', 'M316,322 L336,332 L326,352 L308,340',
-    'M268,318 L286,332 L276,350 L258,338', 'M374,280 L390,296 L378,314 L362,300',
-    'M286,332 L304,346 L294,362 L276,350',
-  ],
-  [
-    'M452,196 L472,186 L490,206 L478,226', 'M440,262 L460,272 L454,294 L436,282',
-    'M368,296 L380,316 L362,330 L348,312', 'M478,226 L496,238 L488,258 L470,248',
-    'M490,206 L508,216 L510,240 L494,232', 'M460,272 L478,284 L468,304 L452,292',
-    'M380,316 L392,334 L376,348 L362,330', 'M496,238 L512,250 L506,272 L490,258',
-    'M478,284 L494,296 L484,316 L468,304', 'M392,334 L404,352 L388,364 L376,348',
-    'M508,216 L522,230 L520,252 L506,240', 'M494,296 L510,308 L500,328 L484,316',
-    'M404,352 L416,370 L400,382 L388,364', 'M512,250 L526,262 L520,284 L506,272',
-    'M416,370 L428,386 L412,398 L400,382',
-  ],
-];
-const REGION_CENTERS = [
-  {x: 186, y: 96}, {x: 336, y: 104}, {x: 92, y: 168}, {x: 238, y: 202}, {x: 382, y: 222},
-];
+function pathPts(d) {
+  const m = d.match(/-?\d+(\.\d+)?/g).map(Number);
+  const pts = [];
+  for (let i = 0; i < m.length; i += 2) pts.push([m[i], m[i + 1]]);
+  return pts;
+}
+function sectorCenter(s) {
+  const pts = pathPts(s.d);
+  return {x: Math.round(pts.reduce((a, p) => a + p[0], 0) / pts.length),
+          y: Math.round(pts.reduce((a, p) => a + p[1], 0) / pts.length)};
+}
+const SECTOR_CENTERS = SECTORS.map(sectorCenter);
+function pointInSector(x, y) {
+  let inside = -1;
+  for (let s = 0; s < SECTORS.length; s++) {
+    const pts = pathPts(SECTORS[s].d);
+    let hit = false;
+    for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+      const xi = pts[i][0], yi = pts[i][1], xj = pts[j][0], yj = pts[j][1];
+      if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) hit = !hit;
+    }
+    if (hit) { inside = s; break; }
+  }
+  if (inside >= 0) return inside;
+  /* near-shore cards: attach to the closest sector if it's close enough */
+  let best = -1, bd = 45 * 45;
+  for (let s = 0; s < SECTORS.length; s++) {
+    const c = SECTOR_CENTERS[s];
+    const dd = (c.x - x) * (c.x - x) + (c.y - y) * (c.y - y);
+    if (dd < bd) { bd = dd; best = s; }
+  }
+  return best;
+}
+const CARD_W = 34, CARD_H = 32, GRID = [];
+for (let gx = 10; gx + CARD_W < 636; gx += CARD_W + 6)
+  for (let gy = 12; gy + CARD_H < 464; gy += CARD_H + 6)
+    GRID.push({x: gx, y: gy, cx: gx + CARD_W / 2, cy: gy + CARD_H / 2,
+               sector: pointInSector(gx + CARD_W / 2, gy + CARD_H / 2)});
+/* per-sector card indices (row-major) + capture order helpers */
+const SECTOR_CELLS = SECTORS.map(() => []);
+GRID.forEach((c, i) => { if (c.sector >= 0) SECTOR_CELLS[c.sector].push(i); });
+const _capOrderCache = {};
+function captureOrder(homeSector) {
+  if (_capOrderCache[homeSector]) return _capOrderCache[homeSector];
+  const h = SECTOR_CENTERS[homeSector];
+  const order = SECTORS.map((_, i) => i).sort((a, b) => {
+    const da = SECTOR_CENTERS[a], db = SECTOR_CENTERS[b];
+    return ((da.x - h.x) ** 2 + (da.y - h.y) ** 2) - ((db.x - h.x) ** 2 + (db.y - h.y) ** 2) || a - b;
+  });
+  const cells = [];
+  for (const s of order) cells.push(...SECTOR_CELLS[s]);
+  return (_capOrderCache[homeSector] = cells);
+}
 
 /* ---------------- map ---------------- */
 function power(st, n) {
@@ -174,60 +174,100 @@ function renderMap(st) {
        + '<text x="0" y="-32" class="rname" font-size="13" text-anchor="middle">N</text></g>';
   /* scale bar */
   svg += '<g transform="translate(-24,432)"><line x1="0" y1="0" x2="80" y2="0" stroke="#8b949e" stroke-width="2"/><line x1="0" y1="-4" x2="0" y2="4" stroke="#8b949e" stroke-width="2"/><line x1="80" y1="-4" x2="80" y2="4" stroke="#8b949e" stroke-width="2"/><text x="40" y="-8" class="rtiles" text-anchor="middle">10 tiles</text></g>';
-  /* zoomable world */
+  /* starfield backdrop (the globe floats in space) */
+  svg += '<rect x="-600" y="-450" width="1800" height="1400" fill="#04060d"/>';
+  svg += '<rect x="-600" y="-450" width="1800" height="1400" fill="url(#stars)"/>';
+  /* zoomable frame */
   svg += '<g id="mapview" transform="' + viewTransform() + '">';
-  /* sea fills the whole pan viewport (oversized so edges never show) */
-  svg += '<rect x="-600" y="-450" width="1800" height="1400" fill="url(#sea)"/>';
-  svg += '<rect x="-600" y="-450" width="1800" height="1400" fill="url(#grain)"/>';
-
-  /* diplomatic links (under land) */
-  const centerOf = id => REGION_CENTERS[ids.indexOf(id) % REGION_CENTERS.length];
+  /* the globe: ocean sphere, clipped equirectangular world, wireframe, limb */
+  svg += '<circle cx="' + GX + '" cy="' + GY + '" r="' + GR + '" fill="url(#sea)"/>';
+  svg += '<g clip-path="url(#gclip)">';
+  svg += '<g transform="translate(' + (GX - S * 323).toFixed(2) + ' ' + (GY - S * 238).toFixed(2) + ') scale(' + S + ')">';
+  /* world graticule (equirectangular grid) */
+  for (let gy = 40; gy < 464; gy += 40) svg += '<line x1="0" y1="' + gy + '" x2="640" y2="' + gy + '" class="grat"/>';
+  for (let gx = 40; gx < 640; gx += 40) svg += '<line x1="' + gx + '" y1="0" x2="' + gx + '" y2="470" class="grat"/>';
+  /* landmasses (the 12 sectors) */
+  for (const s of SECTORS) svg += '<path d="' + s.d + '" class="sector"><title>' + esc(s.name) + '</title></path>';
+  /* sector names */
+  for (let s = 0; s < SECTORS.length; s++) {
+    const c = SECTOR_CENTERS[s];
+    svg += '<text x="' + c.x + '" y="' + (c.y + 14) + '" class="sname">' + esc(SECTORS[s].name) + '</text>';
+  }
+  /* card grid: a nation's tiles == captured cards (greedy, no overlap, deterministic) */
+  const taken = new Array(GRID.length).fill(-1);
+  const sortedIds = ids.slice().sort((a, b) => st.nations[b].tiles - st.nations[a].tiles || a - b);
+  const got = {};
+  for (const id of sortedIds) {
+    const order = captureOrder(id % SECTORS.length);
+    const gotCells = [];
+    for (const ci of order) {
+      if (taken[ci] < 0) {
+        taken[ci] = id; gotCells.push(ci);
+        if (gotCells.length >= st.nations[id].tiles) break;
+      }
+    }
+    got[id] = gotCells;
+  }
+  GRID.forEach((c, i) => {
+    if (c.sector < 0) return;
+    const o = taken[i];
+    if (o < 0) {
+      svg += '<rect x="' + c.x + '" y="' + c.y + '" width="' + CARD_W + '" height="' + CARD_H + '" rx="3" class="card"/>';
+      return;
+    }
+    const th = themeOf(o);
+    const sel = SELECTED_NATION === o;
+    svg += '<rect x="' + c.x + '" y="' + c.y + '" width="' + CARD_W + '" height="' + CARD_H + '" rx="3" class="card cap' + (sel ? ' sel' : '') + '" fill="' + th.color + '" data-nation="' + o + '"'
+         + '><title>' + esc(st.nations[o].name) + ' — captured card in ' + esc(SECTORS[c.sector].name) + '</title></rect>';
+  });
+  /* diplomatic links (between home sectors) */
+  const centerOf = id => SECTOR_CENTERS[id % SECTORS.length];
   for (const [a, b] of (st.alliances || [])) {
     const A = centerOf(a), B = centerOf(b);
-    if (A && B) svg += '<line x1="' + A.x + '" y1="' + A.y + '" x2="' + B.x + '" y2="' + B.y + '" class="mlink ally"/>';
+    svg += '<line x1="' + A.x + '" y1="' + A.y + '" x2="' + B.x + '" y2="' + B.y + '" class="mlink ally"/>';
   }
   for (const [a, b] of (st.pacts || [])) {
     const A = centerOf(a), B = centerOf(b);
-    if (A && B) svg += '<line x1="' + A.x + '" y1="' + A.y + '" x2="' + B.x + '" y2="' + B.y + '" class="mlink pact"/>';
+    svg += '<line x1="' + A.x + '" y1="' + A.y + '" x2="' + B.x + '" y2="' + B.y + '" class="mlink pact"/>';
   }
   for (const w of st.war) {
     const A = centerOf(w[0]), B = centerOf(w[1]);
-    if (A && B) svg += '<line x1="' + A.x + '" y1="' + A.y + '" x2="' + B.x + '" y2="' + B.y + '" class="mlink war"/>';
+    svg += '<line x1="' + A.x + '" y1="' + A.y + '" x2="' + B.x + '" y2="' + B.y + '" class="mlink war"/>';
   }
-
-  /* base territories */
+  /* capitals: pulsing dot on the nation's first captured card */
+  for (const id of ids) {
+    const home = got[id] || [];
+    if (!home.length) continue;
+    const c = GRID[home[0]];
+    svg += '<circle class="cap" cx="' + (c.x + CARD_W / 2) + '" cy="' + (c.y + CARD_H / 2) + '" r="4"><title>' + esc(st.nations[id].name) + ' — capital</title></circle>';
+  }
+  /* nation labels at home sectors */
   for (const id of ids) {
     const n = st.nations[id];
-    const shape = LAND[id % LAND.length];
+    const c = SECTOR_CENTERS[id % SECTORS.length];
     const th = themeOf(id);
-    const sel = SELECTED_NATION === id;
-    svg += '<path d="' + shape.d + '" class="region ' + (sel ? 'region-sel' : '') + '" fill="' + th.color + '" data-nation="' + id + '"'
-         + '><title>' + esc(n.name) + ' — power ' + power(st, id) + ' · army ' + n.army + ' · treasury ' + n.treasury + ' · tiles ' + n.tiles + '</title></path>';
-    /* territory growth overlay: extra tiles beyond the start region */
-    const extra = Math.max(0, n.tiles - 10);
-    const cells = EXPANSION_CELLS[id % EXPANSION_CELLS.length] || [];
-    for (let i = 0; i < Math.min(extra, cells.length); i++) {
-      svg += '<path d="' + cells[i] + '" class="region-growth" fill="' + th.color + '" data-nation="' + id + '" style="fill-opacity:.72"'
-           + '><title>' + esc(n.name) + ' territory (captured tile ' + (i + 1) + ')</title></path>';
-    }
+    svg += '<text x="' + c.x + '" y="' + (c.y - 14) + '" class="rname" text-anchor="middle">' + (st.vassals && st.vassals[id] ? '🏴 ' : '') + th.crest + ' ' + esc(n.name) + '</text>';
+    svg += '<text x="' + c.x + '" y="' + (c.y + 1) + '" class="rstat" text-anchor="middle">⚜ ' + power(st, id) + ' · ⚔ ' + n.army + ' · 🏛 ' + n.treasury + '</text>';
+    svg += '<text x="' + c.x + '" y="' + (c.y + 15) + '" class="rtiles" text-anchor="middle">▣ ' + n.tiles + ' cards · tech ' + n.tech + '</text>';
   }
-
-  /* capitals (pulse) */
-  for (const id of ids) {
-    const c = REGION_CENTERS[ids.indexOf(id) % REGION_CENTERS.length];
-    svg += '<circle class="cap" cx="' + c.x + '" cy="' + c.y + '" r="4.5"><title>' + esc(st.nations[id].name) + ' — capital</title></circle>';
+  svg += '</g>'; /* end world */
+  svg += '</g>'; /* end clip */
+  /* orthographic wireframe: meridians (ellipses) + parallels (chords) */
+  for (const f of [Math.sin(Math.PI / 6), Math.sin(Math.PI / 3)])
+    svg += '<ellipse cx="' + GX + '" cy="' + GY + '" rx="' + (GR * f).toFixed(1) + '" ry="' + GR + '" class="grat3d"/>';
+  for (const f of [Math.sin(Math.PI / 6), Math.sin(Math.PI / 3)]) {
+    const dy = (GR * f).toFixed(1), hl = (GR * Math.cos(Math.acos(1 - 0))).toFixed(1);
+    const half = (GR * Math.sqrt(Math.max(0, 1 - f * f))).toFixed(1);
+    svg += '<line x1="' + (GX - half) + '" y1="' + (GY - dy) + '" x2="' + (GX + half) + '" y2="' + (GY - dy) + '" class="grat3d"/>';
+    svg += '<line x1="' + (GX - half) + '" y1="' + (GY + dy) + '" x2="' + (GX + half) + '" y2="' + (GY + dy) + '" class="grat3d"/>';
   }
-
-  /* labels */
-  for (const id of ids) {
-    const n = st.nations[id];
-    const c = REGION_CENTERS[ids.indexOf(id) % REGION_CENTERS.length];
-    const th = themeOf(id);
-    svg += '<text x="' + c.x + '" y="' + (c.y - 12) + '" class="rname" text-anchor="middle">' + (st.vassals && st.vassals[id] ? '🏴 ' : '') + th.crest + ' ' + esc(n.name) + '</text>';
-    svg += '<text x="' + c.x + '" y="' + (c.y + 6) + '" class="rstat" text-anchor="middle">⚜ ' + power(st, id) + ' · ⚔ ' + n.army + ' · 🏛 ' + n.treasury + '</text>';
-    svg += '<text x="' + c.x + '" y="' + (c.y + 22) + '" class="rtiles" text-anchor="middle">▣ ' + n.tiles + ' tiles · tech ' + n.tech + '</text>';
-  }
-  svg += '</g>'; /* end mapview */
+  /* limb shading + rim */
+  svg += '<circle cx="' + GX + '" cy="' + GY + '" r="' + GR + '" fill="url(#vig)" pointer-events="none"/>';
+  svg += '<circle cx="' + GX + '" cy="' + GY + '" r="' + GR + '" class="rim"/>';
+  /* compass rose + scale bar (outside the limb) */
+  svg += '<g transform="translate(596,428)" opacity="0.85"><circle r="20" fill="none" stroke="#d4a94e" stroke-width="1"/><circle r="2.4" fill="#d4a94e"/>'
+       + '<path d="M0,-17 L4,-3 L17,0 L4,3 L0,17 L-4,3 L-17,0 L-4,-3 Z" fill="#d4a94e"/>'
+       + '<text x="0" y="-25" class="rname" font-size="11" text-anchor="middle">N</text></g>';
   /* weather overlay (v6 world only): fixed frame, never intercepts input */
   if (st.weather === 'drought') {
     svg += '<rect x="-40" y="-30" width="' + MAP_W + '" height="' + MAP_H + '" fill="#e8a33d" opacity="0.09" pointer-events="none"/>';
