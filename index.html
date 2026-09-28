@@ -234,17 +234,24 @@
             </optgroup>
             <optgroup label="war &amp; diplomacy">
               <option>declare_war</option><option>attack</option><option>peace</option>
-              <option>ally</option><option>break_alliance</option>
+              <option>ally</option><option>break_alliance</option><option>pact</option><option>treaty</option>
             </optgroup>
             <optgroup label="espionage">
               <option>spy</option><option>sabotage</option><option>spies</option>
+            </optgroup>
+            <optgroup label="finance &amp; events (v5)">
+              <option>bank</option><option>withdraw</option><option>lend</option>
+              <option>festival</option><option>mobilize</option><option>embargo</option>
+            </optgroup>
+            <optgroup label="technology (v6)">
+              <option>upgrade</option>
             </optgroup>
             <optgroup label="other">
               <option>title</option><option>vote</option><option>join</option><option>found</option>
             </optgroup>
           </select>
         </label>
-        <label>args (JSON, optional — e.g. {"target": 2} or {"resource": "iron"} or {"building": "barracks"})
+        <label>args (JSON, optional — e.g. {"target": 2}, {"resource": "iron"}, {"building": "monument"} or {"tech": "gunpowder"})
           <input id="pargs" type="text" placeholder='{}'>
         </label>
         <button class="btn gold" type="submit">POST /api/action</button>

@@ -218,7 +218,7 @@ function renderNationCard(st) {
   const allies = (st.alliances || []).filter(p => p.includes(id)).map(p => p[0] === id ? p[1] : p[0]);
   const wars = st.war.filter(p => p.includes(id)).map(p => p[0] === id ? p[1] : p[0]);
   const b = n.buildings || {};
-  const bicons = {factory: '🏭', barracks: '🎖', mine: '⛏', university: '🎓'};
+  const bicons = {factory: '🏭', barracks: '🎖', mine: '⛏', university: '🎓', aqueduct: '🚰', observatory: '🔭', monument: '🗿'};
   let bl = '';
   for (const [k, v] of Object.entries(b)) if (v) bl += '<span class="bicon" title="' + k + ' ×' + v + '">' + (bicons[k] || '🏛') + '×' + v + '</span> ';
   const stock = Object.entries(n.stock || {}).filter(([, q]) => q > 0).map(([r, q]) => '<span class="stockpill">' + r + ' ' + q + '</span>').join(' ') || '<span class="muted">—</span>';
@@ -238,6 +238,7 @@ function renderNationCard(st) {
     + '<tr><td>📜 Policy</td><td>' + esc(n.policy || '—') + '</td></tr>'
     + '<tr><td>👑 Leader</td><td>' + esc(lead) + '</td></tr>'
     + '<tr><td>🏭 Buildings</td><td>' + (bl || '<span class="muted">—</span>') + '</td></tr>'
+    + (n.upgrades && Object.keys(n.upgrades).length ? '<tr><td>🧪 Upgrades</td><td>' + Object.keys(n.upgrades).map(u => ({conscription: '🪖 conscription (barracks 3x)', logistics: '🚚 logistics (upkeep 2, sell +1)', gunpowder: '💥 gunpowder (+2 atk dmg)'}[u] || u)).join(' · ') + '</td></tr>' : '')
     + '<tr><td>📦 Stockpile</td><td>' + stock + '</td></tr>'
     + '<tr><td>👥 Citizens</td><td>' + (n.citizens ? n.citizens.length : '—') + '</td></tr>'
     + '<tr><td>🕊 Allies</td><td>' + (allies.map(a => st.nations[String(a)] ? st.nations[String(a)].name : a).join(', ') || '<span class="muted">none</span>') + '</td></tr>'
@@ -409,7 +410,10 @@ async function refresh() {
     }
     $('market').innerHTML = mk + '</table>';
     const fl = st.day_flags || {};
-    $('mktflags').innerHTML = (fl.boom ? '<span class="pill on">⚡ TRADE BOOM — selling pays 2x today</span> ' : '') + (fl.black ? '<span class="pill on">🖤 BLACK MARKET — buying costs half today</span>' : '');
+    const wicon = {clear: '☀️', drought: '🌵', storm: '🌩'}[st.weather];
+    const wtext = {clear: 'clear skies', drought: 'drought — grain costs more, aqueducts idle', storm: 'storm — prices drop, barracks idle'}[st.weather];
+    $('mktflags').innerHTML = (st.weather ? '<span class="pill on">' + wicon + ' WEATHER: ' + wtext + '</span> ' : '')
+      + (fl.boom ? '<span class="pill on">⚡ TRADE BOOM — selling pays 2x today</span> ' : '') + (fl.black ? '<span class="pill on">🖤 BLACK MARKET — buying costs half today</span>' : '');
 
     // buildings + stock
     let bd = '<table><tr><th>nation</th>';
@@ -434,7 +438,7 @@ async function refresh() {
     $('intel').innerHTML = ip || '<p class="muted">no active intelligence this day</p>';
 
     // espionage from news
-    const esp = (st.recent || []).filter(e => /SPY|SABOTAGE|counter-espionage|WARS|PEACE|ALLY|ATTACK|CONQUERED/.test(e)).reverse();
+    const esp = (st.recent || []).filter(e => /SPY|SABOTAGE|counter-espionage|WARS|PEACE|ALLY|ATTACK|CONQUERED|RIOT|WEATHER|UPGRADE|MONUMENT/.test(e)).reverse();
     $('espionage').innerHTML = esp.map(e => '<li>' + esc(e) + '</li>').join('') || '<p class="muted">no such events recorded yet</p>';
 
     // citizens
