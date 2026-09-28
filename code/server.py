@@ -12,6 +12,7 @@
 The server is single-process; state is persisted to state.json after every
 applied turn. Turn windows: 1 per hour (alpha), turn closes on schedule.
 """
+import gzip
 import json
 import os
 import time
@@ -37,6 +38,40 @@ SEATS = int(os.environ.get("EREP_SEATS", "20"))
 PORT = int(os.environ.get("EREP_PORT", "8451"))
 SEASON_START = int(os.environ.get("EREP_SEASON_START", "1790431200"))  # epoch UTC of first turn open
 
+
+def _engine_flags():
+    """The selected engine defines the world version (vN implies all lower vN)."""
+    if _engine_name == "engine9":
+        return {"v5": True, "v6": True, "v7": True, "v8": True, "v9": True}
+    if _engine_name == "engine8":
+        return {"v5": True, "v6": True, "v7": True, "v8": True}
+    if _engine_name == "engine7":
+        return {"v5": True, "v6": True, "v7": True}
+    if _engine_name == "engine6":
+        return {"v5": True, "v6": True}
+    if _engine_name == "engine5":
+        return {"v5": True}
+    return {}
+
+
+def _replay_state():
+    """Fresh state for replay/verify with the live season's version flags.
+
+    v7=True implies v6+v5 in the engine, so a season3 (engine4) replay keeps
+    hashing exactly like the live engine4 state; season4 (engine7, v7=True)
+    replays with the full v5+v6+v7 world. Without this, a v7 season's seal
+    chain could not be reproduced from seed+log (different world shape)."""
+    v5 = v6 = v7 = False
+    s = state if state is not None else {}
+    if s:
+        v7 = bool(s.get("v7"))
+        v6 = bool(s.get("v6"))
+        v5 = bool(s.get("v5"))
+    else:
+        v5, v6, v7 = _engine_flags().get("v5", False), _engine_flags().get("v6", False), _engine_flags().get("v7", False)
+    return engine.new_state(seed=s.get("seed", SEED), season=s.get("season", SEASON),
+                            n_seats=s.get("seats", SEATS), v5=v5, v6=v6, v7=v7)
+
 lock = threading.Lock()
 state = None
 log_lines = []
@@ -49,7 +84,7 @@ def _compute_history():
     Powers /api/history (charts in the public UI). Full replay costs ~O(log);
     runs once per new closed turn, in a background thread."""
     try:
-        replay = engine.new_state(seed=state["seed"], season=state["season"], n_seats=state.get("seats", SEATS))
+        replay = _replay_state()
         wp = getattr(engine, "world_power", None)
         turns = []
         for raw in log_lines:
@@ -118,6 +153,25 @@ def _norm_state(d):
         d["elections"] = [int(x) for x in d["elections"]]
     if d.get("alliances") is not None:
         d["alliances"] = [[int(a), int(b)] for a, b in d["alliances"]]
+    # v7: vassals is keyed by nation id (int) — JSON turns it into a string
+    if d.get("vassals") is not None:
+        d["vassals"] = {int(k): v for k, v in d["vassals"].items()}
+        for v in d["vassals"].values():
+            if v.get("by") is not None:
+                v["by"] = int(v["by"])
+    # v7: offers/missions/dpacts are lists of [int, ...] — JSON keeps ints, but
+    # be defensive in case a hand-edited state has string entries.
+    for k in ("offers", "missions", "dpacts"):
+        if d.get(k) is not None:
+            d[k] = [[(int(x) if isinstance(x, str) and x.lstrip("-").isdigit() else x) for x in row]
+                    for row in d[k]]
+    # v7: war_log entries have a/b as int or None; text/turn/day stay as-is.
+    if d.get("war_log") is not None:
+        for e in d["war_log"]:
+            for f in ("a", "b"):
+                v = e.get(f)
+                if isinstance(v, str) and v.lstrip("-").isdigit():
+                    e[f] = int(v)
     return d
 
 
@@ -133,7 +187,7 @@ def load_or_init():
                 except Exception:
                     pass
         return
-    state = engine.new_state(seed=SEED, season=SEASON, n_seats=SEATS)
+    state = engine.new_state(seed=SEED, season=SEASON, n_seats=SEATS, **_engine_flags())
     if "seats" not in state:
         state["seats"] = SEATS
     keys = {}
@@ -498,11 +552,15 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def log_message(self, *a):
         pass
 
-    def _send(self, obj, code=200):
+    def _send(self, obj, code=200, compress=True):
         body = json.dumps(obj, indent=1).encode()
         self.send_response(code)
         self.send_header("Content-Type", "application/json")
         self.send_header("Access-Control-Allow-Origin", "*")
+        if compress and self.command == "GET" and len(body) > 1024 and "gzip" in (self.headers.get("Accept-Encoding") or ""):
+            body = gzip.compress(body, 6)
+            self.send_header("Content-Encoding", "gzip")
+            self.send_header("Vary", "Accept-Encoding")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
@@ -626,7 +684,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 # closes), then compare the full seal chain and identity.
                 # Old-format log lines (pre 2026-09-25) carry no type/turn on action
                 # lines; file order is authoritative, so synthesize type/turn.
-                replay = engine.new_state(seed=state["seed"], season=state["season"], n_seats=state.get("seats", 20))
+                replay = _replay_state()
                 ok = True
                 replayed_turns = 0
                 joins = 0
