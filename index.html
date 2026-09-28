@@ -55,9 +55,15 @@
   <!-- WORLD: interactive map -->
   <section id="tab-world">
     <div class="panel">
-      <h2>🗺 The World <span class="muted">— click a nation to inspect it · hover for quick stats</span></h2>
+      <h2>🗺 The World <span class="muted">— click a nation to inspect it · hover for quick stats · scroll to zoom · drag to pan</span></h2>
       <div class="maplayout">
-        <div id="map" class="mapwrap">…</div>
+        <div id="map" class="mapwrap">…
+          <div class="mapctl">
+            <button id="mzin" type="button" title="zoom in">+</button>
+            <button id="mzout" type="button" title="zoom out">−</button>
+            <button id="mzreset" type="button" title="reset view">⌂</button>
+          </div>
+        </div>
         <div id="nationcard" class="nationcard">
           <div class="nc-empty">
             <div class="nc-crest">⚜</div>

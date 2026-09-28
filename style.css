@@ -35,8 +35,15 @@ body{margin:0;background:var(--cream);color:var(--tx);
 /* map layout: map + nation dossier side by side */
 .maplayout{display:grid;grid-template-columns:minmax(360px,1.4fr) minmax(260px,1fr);gap:16px;align-items:start}
 @media (max-width:900px){.maplayout{grid-template-columns:1fr}}
-.mapwrap{display:flex;justify-content:center}
-.mapwrap svg{width:100%;max-width:640px;height:auto;border:1px solid var(--line);border-radius:8px;box-shadow:inset 0 0 40px rgba(0,0,0,.25)}
+.mapwrap{display:flex;justify-content:center;position:relative}
+.mapwrap svg{width:100%;max-width:640px;height:auto;border:1px solid var(--line);border-radius:8px;box-shadow:inset 0 0 40px rgba(0,0,0,.25);touch-action:none;user-select:none}
+.mapctl{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px}
+.mapctl button{width:30px;height:30px;border-radius:6px;border:1px solid var(--line);background:rgba(10,20,40,.85);color:#f2e8cf;font-size:16px;line-height:1;cursor:pointer;transition:background .15s}
+.mapctl button:hover{background:rgba(212,169,78,.25);border-color:var(--gold)}
+.cap{fill:#fff;pointer-events:none;animation:cappulse 2.2s ease-in-out infinite}
+@keyframes cappulse{0%,100%{r:4.5;opacity:.95}50%{r:6.5;opacity:.55}}
+.storm-tint{animation:stormblink 2.6s ease-in-out infinite}
+@keyframes stormblink{0%,100%{opacity:.32}50%{opacity:.55}}
 .region{stroke:#0e2140;stroke-width:4;stroke-linejoin:round;opacity:.94;transition:opacity .15s,filter .15s;cursor:pointer}
 .region:hover{opacity:1;stroke:#d4a94e;stroke-width:2.5;filter:brightness(1.12)}
 .region-sel{stroke:var(--gold);stroke-width:3.5;opacity:1;filter:brightness(1.15) drop-shadow(0 0 6px rgba(212,169,78,.7))}

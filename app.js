@@ -130,23 +130,55 @@ function power(st, n) {
     + 4 * nat.tech + 2 * nat.culture + 3 * Object.values(nat.buildings || {}).reduce((a, b) => a + b, 0);
 }
 
+/* zoom/pan state — survives refreshes (module-level); reset button clears it */
+const MAP_VIEW = {x: 0, y: 0, k: 1};
+const MAP_W = 640, MAP_H = 470; // viewBox size
+const viewTransform = () => 'translate(' + MAP_VIEW.x + ' ' + MAP_VIEW.y + ') scale(' + MAP_VIEW.k + ')';
+function clampView() {
+  MAP_VIEW.k = Math.min(6, Math.max(1, MAP_VIEW.k));
+  MAP_VIEW.x = Math.min(0, Math.max(MAP_W * (1 - MAP_VIEW.k), MAP_VIEW.x));
+  MAP_VIEW.y = Math.min(0, Math.max(MAP_H * (1 - MAP_VIEW.k), MAP_VIEW.y));
+}
+function svgPoint(svg, evt) {
+  const pt = svg.createSVGPoint();
+  pt.x = evt.clientX; pt.y = evt.clientY;
+  return pt.matrixTransform(svg.getScreenCTM().inverse());
+}
+function zoomAt(svg, px, py, factor) {
+  const k0 = MAP_VIEW.k;
+  const k1 = Math.min(6, Math.max(1, k0 * factor));
+  if (k1 === k0) return;
+  const wx = (px - MAP_VIEW.x) / k0, wy = (py - MAP_VIEW.y) / k0;
+  MAP_VIEW.k = k1;
+  MAP_VIEW.x = px - k1 * wx; MAP_VIEW.y = py - k1 * wy;
+  clampView();
+  applyMapView(svg);
+}
+function applyMapView(svg) {
+  const g = svg.querySelector('#mapview');
+  if (g) g.setAttribute('transform', viewTransform());
+}
+
 function renderMap(st) {
   const ids = Object.keys(st.nations).map(Number);
   const tileOf = id => st.nations[id].tiles;
-  let svg = '<svg viewBox="-40 -30 640 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="map of the world">';
+  let svg = '<svg id="mapsvg" viewBox="-40 -30 ' + MAP_W + ' ' + MAP_H + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="map of the world">';
   /* sea + decoration */
   svg += '<defs>';
   svg += '<radialGradient id="sea" cx="50%" cy="42%" r="75%"><stop offset="0%" stop-color="#16355e"/><stop offset="100%" stop-color="#0c1d36"/></radialGradient>';
   svg += '<pattern id="grain" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="0.9" fill="rgba(255,255,255,0.10)"/><circle cx="15" cy="12" r="0.7" fill="rgba(255,255,255,0.07)"/></pattern>';
   svg += '</defs>';
-  svg += '<rect x="-40" y="-30" width="640" height="470" fill="url(#sea)"/>';
-  svg += '<rect x="-40" y="-30" width="640" height="470" fill="url(#grain)"/>';
   /* compass rose */
   svg += '<g transform="translate(520,410)" opacity="0.85"><circle r="26" fill="none" stroke="#d4a94e" stroke-width="1"/><circle r="3" fill="#d4a94e"/>'
        + '<path d="M0,-22 L5,-4 L22,0 L5,4 L0,22 L-5,4 L-22,0 L-5,-4 Z" fill="#d4a94e"/>'
        + '<text x="0" y="-32" class="rname" font-size="13" text-anchor="middle">N</text></g>';
   /* scale bar */
   svg += '<g transform="translate(-24,432)"><line x1="0" y1="0" x2="80" y2="0" stroke="#8b949e" stroke-width="2"/><line x1="0" y1="-4" x2="0" y2="4" stroke="#8b949e" stroke-width="2"/><line x1="80" y1="-4" x2="80" y2="4" stroke="#8b949e" stroke-width="2"/><text x="40" y="-8" class="rtiles" text-anchor="middle">10 tiles</text></g>';
+  /* zoomable world */
+  svg += '<g id="mapview" transform="' + viewTransform() + '">';
+  /* sea fills the whole pan viewport (oversized so edges never show) */
+  svg += '<rect x="-600" y="-450" width="1800" height="1400" fill="url(#sea)"/>';
+  svg += '<rect x="-600" y="-450" width="1800" height="1400" fill="url(#grain)"/>';
 
   /* diplomatic links (under land) */
   const centerOf = id => REGION_CENTERS[ids.indexOf(id) % REGION_CENTERS.length];
@@ -180,6 +212,12 @@ function renderMap(st) {
     }
   }
 
+  /* capitals (pulse) */
+  for (const id of ids) {
+    const c = REGION_CENTERS[ids.indexOf(id) % REGION_CENTERS.length];
+    svg += '<circle class="cap" cx="' + c.x + '" cy="' + c.y + '" r="4.5"><title>' + esc(st.nations[id].name) + ' — capital</title></circle>';
+  }
+
   /* labels */
   for (const id of ids) {
     const n = st.nations[id];
@@ -189,18 +227,61 @@ function renderMap(st) {
     svg += '<text x="' + c.x + '" y="' + (c.y + 6) + '" class="rstat" text-anchor="middle">⚜ ' + power(st, id) + ' · ⚔ ' + n.army + ' · 🏛 ' + n.treasury + '</text>';
     svg += '<text x="' + c.x + '" y="' + (c.y + 22) + '" class="rtiles" text-anchor="middle">▣ ' + n.tiles + ' tiles · tech ' + n.tech + '</text>';
   }
+  svg += '</g>'; /* end mapview */
+  /* weather overlay (v6 world only): fixed frame, never intercepts input */
+  if (st.weather === 'drought') {
+    svg += '<rect x="-40" y="-30" width="' + MAP_W + '" height="' + MAP_H + '" fill="#e8a33d" opacity="0.09" pointer-events="none"/>';
+    svg += '<text x="586" y="6" font-size="26" text-anchor="end" pointer-events="none">🌵<title>drought: grain costs more, aqueducts idle</title></text>';
+  } else if (st.weather === 'storm') {
+    svg += '<rect class="storm-tint" x="-40" y="-30" width="' + MAP_W + '" height="' + MAP_H + '" fill="#0a1430" pointer-events="none"/>';
+    svg += '<text x="586" y="6" font-size="26" text-anchor="end" pointer-events="none">🌩<title>storm: prices drop, barracks idle</title></text>';
+  }
   svg += '</svg>';
   $('map').innerHTML = svg;
-  /* interactivity */
-  document.querySelectorAll('#map [data-nation]').forEach(el => {
-    el.addEventListener('click', e => {
-      e.stopPropagation();
-      const id = Number(el.getAttribute('data-nation'));
-      SELECTED_NATION = (SELECTED_NATION === id) ? null : id;
-      renderNationCard(LAST);
-      renderMap(LAST);
-    });
+
+  /* interactivity: click selects (drag pans, wheel zooms) */
+  const sv = $('map').querySelector('svg');
+  let dragging = false, moved = 0, last = null, downTarget = null;
+  sv.addEventListener('wheel', e => {
+    e.preventDefault();
+    const p = svgPoint(sv, e);
+    zoomAt(sv, p.x, p.y, e.deltaY < 0 ? 1.18 : 1 / 1.18);
+  }, {passive: false});
+  sv.addEventListener('pointerdown', e => {
+    dragging = true; moved = 0; last = [e.clientX, e.clientY];
+    downTarget = e.target;
+    try { sv.setPointerCapture(e.pointerId); } catch (err) {}
+    sv.style.cursor = 'grabbing';
   });
+  sv.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    const dx = e.clientX - last[0], dy = e.clientY - last[1];
+    moved += Math.abs(dx) + Math.abs(dy);
+    last = [e.clientX, e.clientY];
+    const ctm = sv.getScreenCTM();
+    if (ctm) { MAP_VIEW.x += dx / ctm.a; MAP_VIEW.y += dy / ctm.d; }
+    clampView();
+    applyMapView(sv);
+  });
+  sv.addEventListener('pointerup', e => {
+    if (!dragging) return;
+    dragging = false;
+    sv.style.cursor = '';
+    if (moved < 5) {
+      const t = (downTarget && downTarget.closest) ? downTarget.closest('[data-nation]') : null;
+      if (t) {
+        const id = Number(t.getAttribute('data-nation'));
+        SELECTED_NATION = (SELECTED_NATION === id) ? null : id;
+        renderMap(LAST);
+      }
+    }
+  });
+  /* zoom controls */
+  const bind = (elId, fn) => { const el = $(elId); if (el) el.onclick = () => fn(); };
+  bind('mzin', () => zoomAt(sv, -40 + MAP_W / 2, -30 + MAP_H / 2, 1.35));
+  bind('mzout', () => zoomAt(sv, -40 + MAP_W / 2, -30 + MAP_H / 2, 1 / 1.35));
+  bind('mzreset', () => { MAP_VIEW.x = 0; MAP_VIEW.y = 0; MAP_VIEW.k = 1; applyMapView(sv); });
+
   renderNationCard(st);
 }
 
