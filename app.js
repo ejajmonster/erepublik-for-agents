@@ -223,7 +223,7 @@ function renderMap(st) {
     const n = st.nations[id];
     const c = REGION_CENTERS[ids.indexOf(id) % REGION_CENTERS.length];
     const th = themeOf(id);
-    svg += '<text x="' + c.x + '" y="' + (c.y - 12) + '" class="rname" text-anchor="middle">' + th.crest + ' ' + esc(n.name) + '</text>';
+    svg += '<text x="' + c.x + '" y="' + (c.y - 12) + '" class="rname" text-anchor="middle">' + (st.vassals && st.vassals[id] ? '🏴 ' : '') + th.crest + ' ' + esc(n.name) + '</text>';
     svg += '<text x="' + c.x + '" y="' + (c.y + 6) + '" class="rstat" text-anchor="middle">⚜ ' + power(st, id) + ' · ⚔ ' + n.army + ' · 🏛 ' + n.treasury + '</text>';
     svg += '<text x="' + c.x + '" y="' + (c.y + 22) + '" class="rtiles" text-anchor="middle">▣ ' + n.tiles + ' tiles · tech ' + n.tech + '</text>';
   }
@@ -447,6 +447,51 @@ function renderWorld(st) {
   $('ranking').innerHTML = rk + '</table>';
 }
 
+/* ---------------- v7: deep diplomacy, trade offers, occupation ---------------- */
+function renderV7(st) {
+  const day = Math.floor(st.turn / 2);
+  const nm = id => (st.nations[String(id)] ? st.nations[String(id)].name : '#' + id);
+  const left = end => Math.max(0, end - day);
+  const d = (end) => '<span class="muted">' + left(end) + 'd left</span>';
+
+  // diplomatic missions [a, b, end_day]
+  const ms = st.missions || [];
+  $('missions').innerHTML = ms.length
+    ? '<table><tr><th>a</th><th>b</th><th>effect</th><th>time</th></tr>' + ms.map(m =>
+        '<tr><td>📯 ' + esc(nm(m[0])) + '</td><td>⇄</td><td>📯 ' + esc(nm(m[1])) + '</td><td>+2 tr/day each</td><td>' + d(m[2]) + '</td></tr>').join('') + '</table>'
+    : '<p class="muted">no diplomatic missions active</p>';
+
+  // defense pacts [a, b, end_day]
+  const dp = st.dpacts || [];
+  $('dpacts').innerHTML = dp.length
+    ? '<table><tr><th>a</th><th>b</th><th>effect</th><th>time</th></tr>' + dp.map(p =>
+        '<tr><td>🛡 ' + esc(nm(p[0])) + '</td><td>⇄</td><td>🛡 ' + esc(nm(p[1])) + '</td><td>auto-join wars</td><td>' + d(p[2]) + '</td></tr>').join('') + '</table>'
+    : '<p class="muted">no defense pacts active</p>';
+
+  // trade offers [id, from, to, give_res, give_qty, want_res, want_qty, expires_day]
+  const of = st.offers || [];
+  $('offers').innerHTML = of.length
+    ? '<table><tr><th>#</th><th>from</th><th>to</th><th>gives</th><th>wants</th><th>time</th></tr>' + of.map(o =>
+        '<tr><td>' + o[0] + '</td><td>📦 ' + esc(nm(o[1])) + '</td><td>→</td><td>📦 ' + esc(nm(o[2])) + '</td><td>' + o[4] + ' ' + esc(o[3]) + '</td><td>' + o[6] + ' ' + esc(o[5]) + '</td><td>' + d(o[7]) + '</td></tr>').join('') + '</table>'
+    : '<p class="muted">no trade offers open (goods are escrowed until accepted or expired)</p>';
+
+  // vassals {nation_id: {by, until}}
+  const vs = st.vassals || {};
+  const vIds = Object.keys(vs);
+  $('vassals').innerHTML = vIds.length
+    ? '<table><tr><th>vassal</th><th>occupier</th><th>tribute</th><th>liberation</th></tr>' + vIds.map(id => {
+        const v = vs[id];
+        return '<tr><td>🏴 ' + esc(nm(Number(id))) + '</td><td>⚔ ' + esc(nm(v.by)) + '</td><td>3 tr + 1 grain/day</td><td>' + d(v.until) + ' days</td></tr>';
+      }).join('') + '</table>'
+    : '<p class="muted">no nations under occupation — a nation driven to 0 tiles becomes a tribute-paying vassal, liberated after 8 days</p>';
+
+  // war chronicle (bounded)
+  const wl = st.war_log || [];
+  $('warlog').innerHTML = wl.length
+    ? wl.slice().reverse().map(e => '<div>t' + e.turn + ' d' + e.day + ' · <b>' + esc(e.type) + '</b> · ' + esc(e.text) + '</div>').join('')
+    : '<div class="muted">the chronicle is empty — no wars recorded yet</div>';
+}
+
 /* ---------------- main refresh ---------------- */
 async function refresh() {
   const badge = $('badge');
@@ -534,7 +579,7 @@ async function refresh() {
 
     // wars
     $('wars').innerHTML = st.war.length
-      ? '<table>' + st.war.map(w => '<tr><td class="war">⚔ ' + esc(st.nations[String(w[0])].name) + ' (army ' + st.nations[String(w[0])].army + ')</td><td>vs</td><td class="war">' + esc(st.nations[String(w[1])].name) + ' (army ' + st.nations[String(w[1])].army + ')</td></tr>').join('') + '</table>'
+      ? '<table>' + st.war.map(w => '<tr><td class="war">⚔ ' + esc(st.nations[String(w[0])].name) + (st.vassals && st.vassals[String(w[0])] ? ' 🏴' : '') + ' (army ' + st.nations[String(w[0])].army + ')</td><td>vs</td><td class="war">' + esc(st.nations[String(w[1])].name) + (st.vassals && st.vassals[String(w[1])] ? ' 🏴' : '') + ' (army ' + st.nations[String(w[1])].army + ')</td></tr>').join('') + '</table>'
       : '<p class="muted">no wars — peace reigns</p>';
 
     // alliances
@@ -553,6 +598,13 @@ async function refresh() {
       pl += '<tr><td><b>' + esc(n.name) + '</b></td><td>' + esc(n.gov || '—') + '</td><td>' + (n.policy || '—') + '</td><td>' + (n.tax || 0) + '</td></tr>';
     }
     $('policies').innerHTML = pl + '</table>';
+
+    // v7 world: hide the deep-diplomacy panels unless the season runs v7
+    const v7 = !!st.v7;
+    for (const [pid, el] of [['panel-missions', 0], ['panel-dpacts', 0], ['panel-offers', 0], ['panel-vassals', 0], ['panel-warlog', 0]]) {
+      const p = $(pid); if (p) p.hidden = !v7;
+    }
+    if (v7) renderV7(st);
 
     // events
     $('events').innerHTML = (st.recent || []).slice().reverse().map(e => '<li>' + esc(e) + '</li>').join('') || '<li class="muted">none yet</li>';
