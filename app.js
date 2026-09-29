@@ -540,6 +540,20 @@ function renderV7(st) {
     : '<div class="muted">the chronicle is empty — no wars recorded yet</div>';
 }
 
+/* ---------------- v9: heroes ---------------- */
+function renderHeroes(st) {
+  const hs = (st.heroes || []).slice();
+  if (!hs.length) { $('heroes').innerHTML = '<p class="muted">no heroes yet</p>'; return; }
+  const maxl = Math.max(...hs.map(h => h.loyalty), 1);
+  const rows = hs.map(h => {
+    const nat = h.nation >= 0 && st.nations[String(h.nation)] ? st.nations[String(h.nation)].name : (h.nation >= 0 ? '?' : 'mercenary');
+    const lcol = h.loyalty <= 20 ? 'bad' : (h.loyalty >= 70 ? 'ok' : '');
+    return '<tr><td>' + (h.alive ? '🛡' : '☠') + ' <b>' + esc(h.name) + '</b></td><td>' + esc(nat) + '</td><td>' + h.skill + '</td><td><span class="' + lcol + '">' + bar(h.loyalty, 100) + ' ' + h.loyalty + '</span></td><td class="muted">bribe{' + h.id + '} / ass{' + h.id + '}</td></tr>';
+  }).join('');
+  $('heroes').innerHTML = '<table><tr><th>hero</th><th>nation</th><th>skill</th><th>loyalty</th><th>actions</th></tr>' + rows + '</table>'
+    + '<p class="muted">loyalty drifts with the nation\u2019s tax (high tax erodes it, low tax builds it); at 0 the hero deserts to a rival; dead heroes are replaced after 5 days. Each alive hero adds +1 to its nation\u2019s army.</p>';
+}
+
 /* ---------------- main refresh ---------------- */
 async function refresh() {
   const badge = $('badge');
@@ -564,12 +578,14 @@ async function refresh() {
     $('hseed').textContent = st.seed;
     const total = 80;
     $('hturn').textContent = (st.turn + 1);
+    const hte = $('hturnend');
+    if (hte) hte.textContent = st.endless ? ' · endless' : ' / 80';
     if (turn.window) {
       $('hday').textContent = turn.window.day;
       $('hclose').textContent = fmtLeft(turn.window.closes_at);
     } else { $('hday').textContent = '—'; $('hclose').textContent = st.winner ? 'final' : '—'; }
     const tb = $('hturnbar');
-    if (tb && tb.firstElementChild) tb.firstElementChild.style.width = Math.min(100, Math.round(100 * (st.turn + 1) / total)) + '%';
+    if (tb && tb.firstElementChild) tb.firstElementChild.style.width = (st.endless ? 100 : Math.min(100, Math.round(100 * (st.turn + 1) / 80))) + '%';
 
     renderWorld(st);
 
@@ -665,6 +681,11 @@ async function refresh() {
     $('elections').innerHTML = st.elections.length
       ? 'elections scheduled at turns: <b>' + st.elections.join(', ') + '</b>' + (nextEl != null && nextEl > st.turn ? ' <span class="muted">— next in ' + (nextEl - st.turn) + ' turns</span>' : '')
       : 'no elections scheduled this season';
+
+    // v9 heroes
+    const ph = $('panel-heroes');
+    if (ph) ph.hidden = !st.v9;
+    if (st.v9) renderHeroes(st);
 
     loadHistory();
   } catch (e) {
