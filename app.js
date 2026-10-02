@@ -49,78 +49,56 @@ const NATION_THEME = [
 ];
 const themeOf = id => NATION_THEME[Number(id) % NATION_THEME.length];
 
-/* ---------------- the world (stylized globe, 12 sectors of capturable cards) --
-   Equirectangular globe: 12 named sectors (landmasses). A uniform card grid
-   is clipped onto the land: every card whose center falls in a sector belongs
-   to it. A nation's tiles == captured cards: it takes its home sector's cards
-   first, then neighbor sectors in distance order. Purely visual — the sealed
+/* ---------------- the world (real map, data from world.js) ----------------
+   world.js (build_world.py) provides window.WORLD = {land, cities}:
+     land:   [x0,y0,dx,dy,...] rings, equirectangular 1000x500 sheet (Natural Earth 110m)
+     cities: [lat,lon,pop,name] (GeoNames, pop>=20k, sorted pop desc, then geonames id)
+   Every real city is one capturable tile; the rest of the map is unclaimed.
+   A nation's tiles == captured cities: it takes its home capital first, then
+   the nearest unclaimed city, growing outward. Purely visual — the sealed
    state carries only tile counts; the map is derived. */
-const SECTORS = [
-  {name: 'Borealis',   d: 'M150,32 L480,28 L500,62 L340,76 L170,68 Z'},
-  {name: 'Nordhaven',  d: 'M55,84 L195,74 L225,120 L190,170 L90,180 L50,135 Z'},
-  {name: 'Westmark',   d: 'M110,190 L195,182 L215,225 L175,258 L115,245 Z'},
-  {name: 'Southland',  d: 'M160,270 L230,262 L250,320 L220,385 L175,392 L150,325 Z'},
-  {name: 'Iberica',    d: 'M268,96 L335,88 L350,130 L318,162 L272,150 Z'},
-  {name: 'Ostmark',    d: 'M352,80 L480,72 L500,115 L455,148 L368,140 L350,110 Z'},
-  {name: 'Afrika',     d: 'M298,185 L380,175 L408,240 L378,330 L325,352 L292,270 Z'},
-  {name: 'Levant',     d: 'M415,185 L470,178 L492,222 L462,258 L420,242 Z'},
-  {name: 'Indara',     d: 'M495,200 L555,192 L575,245 L545,292 L500,270 Z'},
-  {name: 'Serenia',    d: 'M515,110 L615,100 L628,165 L590,205 L535,185 L512,150 Z'},
-  {name: 'Australis',  d: 'M480,320 L575,308 L600,362 L558,405 L492,388 Z'},
-  {name: 'Polaris',    d: 'M150,415 L450,408 L468,442 L168,448 Z'},
-];
-function pathPts(d) {
-  const m = d.match(/-?\d+(\.\d+)?/g).map(Number);
-  const pts = [];
-  for (let i = 0; i < m.length; i += 2) pts.push([m[i], m[i + 1]]);
-  return pts;
+const WORLD = (typeof window !== 'undefined' && window.WORLD) ? window.WORLD : null;
+const WORLD_PX = 1000.0 / 360.0; /* px per degree (must match build_world.py) */
+function wproj(lat, lon) { return [(lon + 180.0) * WORLD_PX, (90.0 - lat) * WORLD_PX]; }
+const CITY_PX = WORLD ? WORLD.cities.map(c => { const p = wproj(c[0], c[1]); return [p[0], p[1], c[2], c[3]]; }) : [];
+/* fixed capital per nation id (first = highest-pop city with that name); cycles if more nations */
+const NATION_CAPITALS = ['Washington', 'Tokyo', 'Paris', 'Moscow', 'Beijing'];
+function findCity(name) { for (let i = 0; i < CITY_PX.length; i++) if (CITY_PX[i][3] === name) return i; return -1; }
+function landPath(ring) {
+  let x = ring[0], y = ring[1];
+  let d = 'M' + x.toFixed(1) + ',' + y.toFixed(1);
+  for (let i = 2; i < ring.length; i += 2) { x += ring[i]; y += ring[i + 1]; d += 'L' + x.toFixed(1) + ',' + y.toFixed(1); }
+  return d + 'Z';
 }
-function sectorCenter(s) {
-  const pts = pathPts(s.d);
-  return {x: Math.round(pts.reduce((a, p) => a + p[0], 0) / pts.length),
-          y: Math.round(pts.reduce((a, p) => a + p[1], 0) / pts.length)};
-}
-const SECTOR_CENTERS = SECTORS.map(sectorCenter);
-function pointInSector(x, y) {
-  let inside = -1;
-  for (let s = 0; s < SECTORS.length; s++) {
-    const pts = pathPts(SECTORS[s].d);
-    let hit = false;
-    for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
-      const xi = pts[i][0], yi = pts[i][1], xj = pts[j][0], yj = pts[j][1];
-      if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) hit = !hit;
+/* deterministic tile assignment: per nation (biggest first) greedy nearest-city growth from the capital */
+function assignTiles(st, ids) {
+  const FREE = 0xFFFF;
+  const taken = new Uint16Array(CITY_PX.length).fill(FREE);
+  const got = {};
+  const sorted = ids.slice().sort((a, b) => st.nations[b].tiles - st.nations[a].tiles || a - b);
+  for (const id of sorted) {
+    const need = st.nations[id].tiles;
+    const list = [];
+    let cx = MAP_W / 2, cy = MAP_H / 2;
+    if (need > 0) {
+      const home = findCity(NATION_CAPITALS[id % NATION_CAPITALS.length]);
+      if (home >= 0 && taken[home] === FREE) { taken[home] = id; list.push(home); cx = CITY_PX[home][0]; cy = CITY_PX[home][1]; }
     }
-    if (hit) { inside = s; break; }
+    while (list.length < need) {
+      let bi = -1, bd = Infinity;
+      for (let i = 0; i < CITY_PX.length; i++) {
+        if (taken[i] !== FREE) continue;
+        const dx = CITY_PX[i][0] - cx, dy = (CITY_PX[i][1] - cy) * 1.15; /* mild latitude stretch */
+        const d2 = dx * dx + dy * dy;
+        if (d2 < bd) { bd = d2; bi = i; }
+      }
+      if (bi < 0) break;
+      taken[bi] = id; list.push(bi);
+      cx = CITY_PX[bi][0]; cy = CITY_PX[bi][1];
+    }
+    got[id] = list;
   }
-  if (inside >= 0) return inside;
-  /* near-shore cards: attach to the closest sector if it's close enough */
-  let best = -1, bd = 45 * 45;
-  for (let s = 0; s < SECTORS.length; s++) {
-    const c = SECTOR_CENTERS[s];
-    const dd = (c.x - x) * (c.x - x) + (c.y - y) * (c.y - y);
-    if (dd < bd) { bd = dd; best = s; }
-  }
-  return best;
-}
-const CARD_W = 34, CARD_H = 32, GRID = [];
-for (let gx = 10; gx + CARD_W < 636; gx += CARD_W + 6)
-  for (let gy = 12; gy + CARD_H < 464; gy += CARD_H + 6)
-    GRID.push({x: gx, y: gy, cx: gx + CARD_W / 2, cy: gy + CARD_H / 2,
-               sector: pointInSector(gx + CARD_W / 2, gy + CARD_H / 2)});
-/* per-sector card indices (row-major) + capture order helpers */
-const SECTOR_CELLS = SECTORS.map(() => []);
-GRID.forEach((c, i) => { if (c.sector >= 0) SECTOR_CELLS[c.sector].push(i); });
-const _capOrderCache = {};
-function captureOrder(homeSector) {
-  if (_capOrderCache[homeSector]) return _capOrderCache[homeSector];
-  const h = SECTOR_CENTERS[homeSector];
-  const order = SECTORS.map((_, i) => i).sort((a, b) => {
-    const da = SECTOR_CENTERS[a], db = SECTOR_CENTERS[b];
-    return ((da.x - h.x) ** 2 + (da.y - h.y) ** 2) - ((db.x - h.x) ** 2 + (db.y - h.y) ** 2) || a - b;
-  });
-  const cells = [];
-  for (const s of order) cells.push(...SECTOR_CELLS[s]);
-  return (_capOrderCache[homeSector] = cells);
+  return got;
 }
 
 /* ---------------- map ---------------- */
@@ -132,12 +110,11 @@ function power(st, n) {
 
 /* zoom/pan state — survives refreshes (module-level); reset button clears it */
 const MAP_VIEW = {x: 0, y: 0, k: 1};
-const MAP_W = 640, MAP_H = 470; // viewBox size
-/* globe geometry: the 640x470 world sheet is scaled by S and centered on the sphere */
-const GX = 320, GY = 235, GR = 208, S = (2 * GR) / 640;
+const MAP_W = 1000, MAP_H = 500; // equirectangular sheet (world.js)
+const MAP_ZOOM_MAX = 8;
 const viewTransform = () => 'translate(' + MAP_VIEW.x + ' ' + MAP_VIEW.y + ') scale(' + MAP_VIEW.k + ')';
 function clampView() {
-  MAP_VIEW.k = Math.min(6, Math.max(1, MAP_VIEW.k));
+  MAP_VIEW.k = Math.min(MAP_ZOOM_MAX, Math.max(1, MAP_VIEW.k));
   MAP_VIEW.x = Math.min(0, Math.max(MAP_W * (1 - MAP_VIEW.k), MAP_VIEW.x));
   MAP_VIEW.y = Math.min(0, Math.max(MAP_H * (1 - MAP_VIEW.k), MAP_VIEW.y));
 }
@@ -148,7 +125,7 @@ function svgPoint(svg, evt) {
 }
 function zoomAt(svg, px, py, factor) {
   const k0 = MAP_VIEW.k;
-  const k1 = Math.min(6, Math.max(1, k0 * factor));
+  const k1 = Math.min(MAP_ZOOM_MAX, Math.max(1, k0 * factor));
   if (k1 === k0) return;
   const wx = (px - MAP_VIEW.x) / k0, wy = (py - MAP_VIEW.y) / k0;
   MAP_VIEW.k = k1;
@@ -161,174 +138,124 @@ function applyMapView(svg) {
   if (g) g.setAttribute('transform', viewTransform());
 }
 
+let MAP_SVG = null; /* persistent svg: static world built once, only #dynmap swaps per refresh */
+function buildStaticWorld() {
+  let g = '';
+  g += '<defs>';
+  g += '<radialGradient id="sea" cx="50%" cy="45%" r="80%"><stop offset="0%" stop-color="#16355e"/><stop offset="100%" stop-color="#0c1d36"/></radialGradient>';
+  g += '</defs>';
+  g += '<rect x="0" y="0" width="' + MAP_W + '" height="' + MAP_H + '" fill="url(#sea)"/>';
+  /* graticule every 30 degrees */
+  for (let gx = 0; gx <= MAP_W; gx += MAP_W / 12) g += '<line x1="' + gx.toFixed(1) + '" y1="0" x2="' + gx.toFixed(1) + '" y2="' + MAP_H + '" class="grat"/>';
+  for (let gy = 0; gy <= MAP_H; gy += MAP_H / 6) g += '<line x1="0" y1="' + gy.toFixed(1) + '" x2="' + MAP_W + '" y2="' + gy.toFixed(1) + '" class="grat"/>';
+  /* landmasses (Natural Earth 110m) */
+  if (WORLD) for (const ring of WORLD.land) g += '<path d="' + landPath(ring) + '" class="landmass"/>';
+  /* every real city = one tile (base layer; captured cities are drawn on top in #dynmap) */
+  for (let i = 0; i < CITY_PX.length; i++)
+    g += '<circle cx="' + CITY_PX[i][0].toFixed(1) + '" cy="' + CITY_PX[i][1].toFixed(1) + '" r="1.05" class="citydot"/>';
+  return g;
+}
+
 function renderMap(st) {
   const ids = Object.keys(st.nations).map(Number);
-  const tileOf = id => st.nations[id].tiles;
-  let svg = '<svg id="mapsvg" viewBox="-40 -30 ' + MAP_W + ' ' + MAP_H + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="map of the world">';
-  /* sea + decoration */
-  svg += '<defs>';
-  svg += '<radialGradient id="sea" cx="50%" cy="42%" r="75%"><stop offset="0%" stop-color="#16355e"/><stop offset="100%" stop-color="#0c1d36"/></radialGradient>';
-  svg += '<pattern id="grain" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="0.9" fill="rgba(255,255,255,0.10)"/><circle cx="15" cy="12" r="0.7" fill="rgba(255,255,255,0.07)"/></pattern>';
-  svg += '<pattern id="stars" width="140" height="120" patternUnits="userSpaceOnUse">'
-       + '<circle cx="12" cy="18" r="1.1" fill="rgba(255,255,255,0.55)"/>'
-       + '<circle cx="58" cy="44" r="0.8" fill="rgba(255,255,255,0.35)"/>'
-       + '<circle cx="102" cy="22" r="1.4" fill="rgba(255,255,255,0.7)"/>'
-       + '<circle cx="78" cy="86" r="0.9" fill="rgba(255,255,255,0.4)"/>'
-       + '<circle cx="30" cy="102" r="0.7" fill="rgba(255,255,255,0.3)"/>'
-       + '<circle cx="126" cy="70" r="1.0" fill="rgba(255,255,255,0.5)"/>'
-       + '</pattern>';
-  svg += '<clipPath id="gclip"><circle cx="' + GX + '" cy="' + GY + '" r="' + (GR - 1.5) + '"/></clipPath>';
-  svg += '<radialGradient id="vig" cx="42%" cy="38%" r="72%"><stop offset="0%" stop-color="rgba(2,6,16,0)"/><stop offset="72%" stop-color="rgba(2,6,16,0)"/><stop offset="100%" stop-color="rgba(2,6,16,0.6)"/></radialGradient>';
-  svg += '</defs>';
-  /* starfield backdrop (the globe floats in space) */
-  svg += '<rect x="-600" y="-450" width="1800" height="1400" fill="#04060d"/>';
-  svg += '<rect x="-600" y="-450" width="1800" height="1400" fill="url(#stars)"/>';
-  /* zoomable frame */
-  svg += '<g id="mapview" transform="' + viewTransform() + '">';
-  /* the globe: ocean sphere, clipped equirectangular world, wireframe, limb */
-  svg += '<circle cx="' + GX + '" cy="' + GY + '" r="' + GR + '" fill="url(#sea)"/>';
-  svg += '<g clip-path="url(#gclip)">';
-  svg += '<g transform="translate(' + (GX - S * 320).toFixed(2) + ' ' + (GY - S * 235).toFixed(2) + ') scale(' + S + ')">';
-  /* world graticule (equirectangular grid) */
-  for (let gy = 40; gy < 464; gy += 40) svg += '<line x1="0" y1="' + gy + '" x2="640" y2="' + gy + '" class="grat"/>';
-  for (let gx = 40; gx < 640; gx += 40) svg += '<line x1="' + gx + '" y1="0" x2="' + gx + '" y2="470" class="grat"/>';
-  /* landmasses (the 12 sectors) */
-  for (const s of SECTORS) svg += '<path d="' + s.d + '" class="sector"><title>' + esc(s.name) + '</title></path>';
-  /* sector names */
-  for (let s = 0; s < SECTORS.length; s++) {
-    const c = SECTOR_CENTERS[s];
-    svg += '<text x="' + c.x + '" y="' + (c.y + 14) + '" class="sname">' + esc(SECTORS[s].name) + '</text>';
-  }
-  /* card grid: a nation's tiles == captured cards (greedy, no overlap, deterministic) */
-  const taken = new Array(GRID.length).fill(-1);
-  const sortedIds = ids.slice().sort((a, b) => st.nations[b].tiles - st.nations[a].tiles || a - b);
-  const got = {};
-  for (const id of sortedIds) {
-    const order = captureOrder(id % SECTORS.length);
-    const gotCells = [];
-    for (const ci of order) {
-      if (taken[ci] < 0) {
-        taken[ci] = id; gotCells.push(ci);
-        if (gotCells.length >= st.nations[id].tiles) break;
-      }
-    }
-    got[id] = gotCells;
-  }
-  GRID.forEach((c, i) => {
-    if (c.sector < 0) return;
-    const o = taken[i];
-    if (o < 0) {
-      svg += '<rect x="' + c.x + '" y="' + c.y + '" width="' + CARD_W + '" height="' + CARD_H + '" rx="3" class="cardx"/>';
-      return;
-    }
-    const th = themeOf(o);
-    const sel = SELECTED_NATION === o;
-    svg += '<rect x="' + c.x + '" y="' + c.y + '" width="' + CARD_W + '" height="' + CARD_H + '" rx="3" class="cardx capcard' + (sel ? ' sel' : '') + '" fill="' + th.color + '" data-nation="' + o + '"'
-         + '><title>' + esc(st.nations[o].name) + ' — captured card in ' + esc(SECTORS[c.sector].name) + '</title></rect>';
-  });
-  /* diplomatic links (between home sectors) */
-  const centerOf = id => SECTOR_CENTERS[id % SECTORS.length];
-  for (const [a, b] of (st.alliances || [])) {
-    const A = centerOf(a), B = centerOf(b);
-    svg += '<line x1="' + A.x + '" y1="' + A.y + '" x2="' + B.x + '" y2="' + B.y + '" class="mlink ally"/>';
-  }
-  for (const [a, b] of (st.pacts || [])) {
-    const A = centerOf(a), B = centerOf(b);
-    svg += '<line x1="' + A.x + '" y1="' + A.y + '" x2="' + B.x + '" y2="' + B.y + '" class="mlink pact"/>';
-  }
-  for (const w of st.war) {
-    const A = centerOf(w[0]), B = centerOf(w[1]);
-    svg += '<line x1="' + A.x + '" y1="' + A.y + '" x2="' + B.x + '" y2="' + B.y + '" class="mlink war"/>';
-  }
-  /* capitals: pulsing dot on the nation's first captured card */
-  for (const id of ids) {
-    const home = got[id] || [];
-    if (!home.length) continue;
-    const c = GRID[home[0]];
-    svg += '<circle class="cap" cx="' + (c.x + CARD_W / 2) + '" cy="' + (c.y + CARD_H / 2) + '" r="4"><title>' + esc(st.nations[id].name) + ' — capital</title></circle>';
-  }
-  /* nation labels at home sectors */
-  for (const id of ids) {
-    const n = st.nations[id];
-    const c = SECTOR_CENTERS[id % SECTORS.length];
-    const th = themeOf(id);
-    svg += '<text x="' + c.x + '" y="' + (c.y - 14) + '" class="rname" text-anchor="middle">' + (st.vassals && st.vassals[id] ? '🏴 ' : '') + th.crest + ' ' + esc(n.name) + '</text>';
-    svg += '<text x="' + c.x + '" y="' + (c.y + 1) + '" class="rstat" text-anchor="middle">⚜ ' + power(st, id) + ' · ⚔ ' + n.army + ' · 🏛 ' + n.treasury + '</text>';
-    svg += '<text x="' + c.x + '" y="' + (c.y + 15) + '" class="rtiles" text-anchor="middle">▣ ' + n.tiles + ' cards · tech ' + n.tech + '</text>';
-  }
-  svg += '</g>'; /* end world */
-  svg += '</g>'; /* end clip */
-  /* orthographic wireframe: meridians (ellipses) + parallels (chords) */
-  for (const f of [Math.sin(Math.PI / 6), Math.sin(Math.PI / 3)])
-    svg += '<ellipse cx="' + GX + '" cy="' + GY + '" rx="' + (GR * f).toFixed(1) + '" ry="' + GR + '" class="grat3d"/>';
-  for (const f of [Math.sin(Math.PI / 6), Math.sin(Math.PI / 3)]) {
-    const dy = (GR * f).toFixed(1);
-    const half = (GR * Math.sqrt(Math.max(0, 1 - f * f))).toFixed(1);
-    svg += '<line x1="' + (GX - half) + '" y1="' + (GY - dy) + '" x2="' + (GX + half) + '" y2="' + (GY - dy) + '" class="grat3d"/>';
-    svg += '<line x1="' + (GX - half) + '" y1="' + (GY + dy) + '" x2="' + (GX + half) + '" y2="' + (GY + dy) + '" class="grat3d"/>';
-  }
-  /* limb shading + rim */
-  svg += '<circle cx="' + GX + '" cy="' + GY + '" r="' + GR + '" fill="url(#vig)" pointer-events="none"/>';
-  svg += '<circle cx="' + GX + '" cy="' + GY + '" r="' + GR + '" class="rim"/>';
-  /* compass rose + scale bar (outside the limb) */
-  svg += '<g transform="translate(596,428)" opacity="0.85"><circle r="20" fill="none" stroke="#d4a94e" stroke-width="1"/><circle r="2.4" fill="#d4a94e"/>'
-       + '<path d="M0,-17 L4,-3 L17,0 L4,3 L0,17 L-4,3 L-17,0 L-4,-3 Z" fill="#d4a94e"/>'
-       + '<text x="0" y="-25" class="rname" font-size="11" text-anchor="middle">N</text></g>';
-  /* scale bar (fixed, bottom-left, below the limb) */
-  svg += '<g transform="translate(16,456)"><line x1="0" y1="0" x2="80" y2="0" stroke="#8b949e" stroke-width="2"/><line x1="0" y1="-4" x2="0" y2="4" stroke="#8b949e" stroke-width="2"/><line x1="80" y1="-4" x2="80" y2="4" stroke="#8b949e" stroke-width="2"/><text x="40" y="-8" class="rtiles" text-anchor="middle">10 tiles</text></g>';
-  /* weather overlay (v6 world only): fixed frame, never intercepts input */
-  if (st.weather === 'drought') {
-    svg += '<rect x="-40" y="-30" width="' + MAP_W + '" height="' + MAP_H + '" fill="#e8a33d" opacity="0.09" pointer-events="none"/>';
-    svg += '<text x="586" y="6" font-size="26" text-anchor="end" pointer-events="none">🌵<title>drought: grain costs more, aqueducts idle</title></text>';
-  } else if (st.weather === 'storm') {
-    svg += '<rect class="storm-tint" x="-40" y="-30" width="' + MAP_W + '" height="' + MAP_H + '" fill="#0a1430" pointer-events="none"/>';
-    svg += '<text x="586" y="6" font-size="26" text-anchor="end" pointer-events="none">🌩<title>storm: prices drop, barracks idle</title></text>';
-  }
-  svg += '</svg>';
-  $('map').innerHTML = svg;
+  const got = assignTiles(st, ids);
+  const capOf = id => (got[id] && got[id].length ? CITY_PX[got[id][0]] : null);
 
-  /* interactivity: click selects (drag pans, wheel zooms) */
-  const sv = $('map').querySelector('svg');
-  let dragging = false, moved = 0, last = null, downTarget = null;
-  sv.addEventListener('wheel', e => {
-    e.preventDefault();
-    const p = svgPoint(sv, e);
-    zoomAt(sv, p.x, p.y, e.deltaY < 0 ? 1.18 : 1 / 1.18);
-  }, {passive: false});
-  sv.addEventListener('pointerdown', e => {
-    dragging = true; moved = 0; last = [e.clientX, e.clientY];
-    downTarget = e.target;
-    try { sv.setPointerCapture(e.pointerId); } catch (err) {}
-    sv.style.cursor = 'grabbing';
-  });
-  sv.addEventListener('pointermove', e => {
-    if (!dragging) return;
-    const dx = e.clientX - last[0], dy = e.clientY - last[1];
-    moved += Math.abs(dx) + Math.abs(dy);
-    last = [e.clientX, e.clientY];
-    const ctm = sv.getScreenCTM();
-    if (ctm) { MAP_VIEW.x += dx / ctm.a; MAP_VIEW.y += dy / ctm.d; }
-    clampView();
-    applyMapView(sv);
-  });
-  sv.addEventListener('pointerup', e => {
-    if (!dragging) return;
-    dragging = false;
-    sv.style.cursor = '';
-    if (moved < 5) {
-      const t = (downTarget && downTarget.closest) ? downTarget.closest('[data-nation]') : null;
-      if (t) {
-        const id = Number(t.getAttribute('data-nation'));
-        SELECTED_NATION = (SELECTED_NATION === id) ? null : id;
-        renderMap(LAST);
-      }
+  /* dynamic layer: captured cities, diplomatic links, capitals, labels, weather */
+  let dyn = '';
+  for (const id of ids) {
+    const th = themeOf(id);
+    const sel = SELECTED_NATION === id;
+    const nm = st.nations[id].name;
+    for (const ci of got[id]) {
+      const c = CITY_PX[ci];
+      dyn += '<circle cx="' + c[0].toFixed(1) + '" cy="' + c[1].toFixed(1) + '" r="' + (sel ? 3.4 : 2.5) + '" class="ccap' + (sel ? ' sel' : '') + '" fill="' + th.color + '" data-nation="' + id + '">'
+           + '<title>' + esc(nm) + ' — ' + esc(c[3]) + ' (' + c[2].toLocaleString('en-US') + ' pop)</title></circle>';
     }
-  });
-  /* zoom controls */
-  const bind = (elId, fn) => { const el = $(elId); if (el) el.onclick = () => fn(); };
-  bind('mzin', () => zoomAt(sv, -40 + MAP_W / 2, -30 + MAP_H / 2, 1.35));
-  bind('mzout', () => zoomAt(sv, -40 + MAP_W / 2, -30 + MAP_H / 2, 1 / 1.35));
-  bind('mzreset', () => { MAP_VIEW.x = 0; MAP_VIEW.y = 0; MAP_VIEW.k = 1; applyMapView(sv); });
+  }
+  const link = (A, B, cls) => { if (A && B) dyn += '<line x1="' + A[0].toFixed(1) + '" y1="' + A[1].toFixed(1) + '" x2="' + B[0].toFixed(1) + '" y2="' + B[1].toFixed(1) + '" class="mlink ' + cls + '"/>'; };
+  for (const p of (st.alliances || [])) link(capOf(p[0]), capOf(p[1]), 'ally');
+  for (const p of (st.pacts || [])) link(capOf(p[0]), capOf(p[1]), 'pact');
+  for (const w of st.war) link(capOf(w[0]), capOf(w[1]), 'war');
+  for (const id of ids) {
+    const c = capOf(id);
+    if (!c) continue;
+    const n = st.nations[id];
+    const th = themeOf(id);
+    dyn += '<circle class="cap" cx="' + c[0].toFixed(1) + '" cy="' + c[1].toFixed(1) + '" r="5"><title>' + esc(n.name) + ' — capital: ' + esc(c[3]) + '</title></circle>';
+    const flip = c[0] > MAP_W - 160;
+    const lx = (c[0] + (flip ? -12 : 12)).toFixed(1);
+    const anch = flip ? 'end' : 'start';
+    dyn += '<text x="' + lx + '" y="' + (c[1] - 10).toFixed(1) + '" class="rname" text-anchor="' + anch + '">' + (st.vassals && st.vassals[id] ? '🏴 ' : '') + th.crest + ' ' + esc(n.name) + '</text>';
+    dyn += '<text x="' + lx + '" y="' + (c[1] + 5).toFixed(1) + '" class="rstat" text-anchor="' + anch + '">⚜ ' + power(st, id) + ' · ⚔ ' + n.army + ' · 🏛 ' + n.treasury + '</text>';
+    dyn += '<text x="' + lx + '" y="' + (c[1] + 19).toFixed(1) + '" class="rtiles" text-anchor="' + anch + '">▣ ' + n.tiles + ' cities · tech ' + n.tech + '</text>';
+  }
+  /* weather overlay (v6 world only): full sheet, never intercepts input */
+  if (st.weather === 'drought') {
+    dyn += '<rect x="0" y="0" width="' + MAP_W + '" height="' + MAP_H + '" fill="#e8a33d" opacity="0.09" pointer-events="none"/>';
+    dyn += '<text x="' + (MAP_W - 14) + '" y="34" font-size="30" text-anchor="end" pointer-events="none">🌵<title>drought: grain costs more, aqueducts idle</title></text>';
+  } else if (st.weather === 'storm') {
+    dyn += '<rect class="storm-tint" x="0" y="0" width="' + MAP_W + '" height="' + MAP_H + '" fill="#0a1430" pointer-events="none"/>';
+    dyn += '<text x="' + (MAP_W - 14) + '" y="34" font-size="30" text-anchor="end" pointer-events="none">🌩<title>storm: prices drop, barracks idle</title></text>';
+  }
+
+  if (!MAP_SVG) {
+    let svg = '<svg id="mapsvg" viewBox="0 0 ' + MAP_W + ' ' + MAP_H + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="map of the world">';
+    svg += '<g id="mapview" transform="' + viewTransform() + '">';
+    svg += buildStaticWorld();
+    svg += '<g id="dynmap"></g>';
+    svg += '</g>';
+    /* compass rose + scale bar (fixed, outside the zoomable frame) */
+    svg += '<g transform="translate(964,470)" opacity="0.85"><circle r="16" fill="none" stroke="#d4a94e" stroke-width="1"/><circle r="2" fill="#d4a94e"/>'
+         + '<path d="M0,-13 L3,-2.5 L13,0 L3,2.5 L0,13 L-3,2.5 L-13,0 L-3,-2.5 Z" fill="#d4a94e"/>'
+         + '<text x="0" y="-20" class="rname" font-size="10" text-anchor="middle">N</text></g>';
+    svg += '<g transform="translate(16,482)"><line x1="0" y1="0" x2="100" y2="0" stroke="#8b949e" stroke-width="2"/><line x1="0" y1="-4" x2="0" y2="4" stroke="#8b949e" stroke-width="2"/><line x1="100" y1="-4" x2="100" y2="4" stroke="#8b949e" stroke-width="2"/><text x="50" y="-8" class="rtiles" text-anchor="middle">100px ≈ 4000 km</text></g>';
+    svg += '</svg>';
+    $('map').innerHTML = svg;
+    MAP_SVG = $('map').querySelector('svg');
+    /* interactivity: click selects (drag pans, wheel zooms) — bound once */
+    let dragging = false, moved = 0, last = null, downTarget = null;
+    MAP_SVG.addEventListener('wheel', e => {
+      e.preventDefault();
+      const p = svgPoint(MAP_SVG, e);
+      zoomAt(MAP_SVG, p.x, p.y, e.deltaY < 0 ? 1.18 : 1 / 1.18);
+    }, {passive: false});
+    MAP_SVG.addEventListener('pointerdown', e => {
+      dragging = true; moved = 0; last = [e.clientX, e.clientY];
+      downTarget = e.target;
+      try { MAP_SVG.setPointerCapture(e.pointerId); } catch (err) {}
+      MAP_SVG.style.cursor = 'grabbing';
+    });
+    MAP_SVG.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      const dx = e.clientX - last[0], dy = e.clientY - last[1];
+      moved += Math.abs(dx) + Math.abs(dy);
+      last = [e.clientX, e.clientY];
+      const ctm = MAP_SVG.getScreenCTM();
+      if (ctm) { MAP_VIEW.x += dx / ctm.a; MAP_VIEW.y += dy / ctm.d; }
+      clampView();
+      applyMapView(MAP_SVG);
+    });
+    MAP_SVG.addEventListener('pointerup', e => {
+      if (!dragging) return;
+      dragging = false;
+      MAP_SVG.style.cursor = '';
+      if (moved < 5) {
+        const t = (downTarget && downTarget.closest) ? downTarget.closest('[data-nation]') : null;
+        if (t) {
+          const id = Number(t.getAttribute('data-nation'));
+          SELECTED_NATION = (SELECTED_NATION === id) ? null : id;
+          renderMap(LAST);
+        }
+      }
+    });
+    const bind = (elId, fn) => { const el = $(elId); if (el) el.onclick = () => fn(); };
+    bind('mzin', () => zoomAt(MAP_SVG, MAP_W / 2, MAP_H / 2, 1.35));
+    bind('mzout', () => zoomAt(MAP_SVG, MAP_W / 2, MAP_H / 2, 1 / 1.35));
+    bind('mzreset', () => { MAP_VIEW.x = 0; MAP_VIEW.y = 0; MAP_VIEW.k = 1; applyMapView(MAP_SVG); });
+  }
+  MAP_SVG.querySelector('#dynmap').innerHTML = dyn;
+  applyMapView(MAP_SVG);
 
   renderNationCard(st);
 }
