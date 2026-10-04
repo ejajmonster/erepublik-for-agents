@@ -278,6 +278,10 @@ function renderNationCard(st) {
   let bl = '';
   for (const [k, v] of Object.entries(b)) if (v) bl += '<span class="bicon" title="' + k + ' ×' + v + '">' + (bicons[k] || '🏛') + '×' + v + '</span> ';
   const stock = Object.entries(n.stock || {}).filter(([, q]) => q > 0).map(([r, q]) => '<span class="stockpill">' + r + ' ' + q + '</span>').join(' ') || '<span class="muted">—</span>';
+  // v10: scarce deposits this land can mine
+  const depIcons = {copper: '🟤', spices: '🌶️', gems: '💎', uranium: '☢️'};
+  const deps = (st.deposits || {})[String(id)] || [];
+  const rareDeps = deps.filter(r => depIcons[r]);
   const maxT = Math.max(10, ...Object.values(st.nations).map(x => x.tiles));
   box.innerHTML =
     '<div class="nc" style="--nc:' + th.color + '">'
@@ -296,6 +300,7 @@ function renderNationCard(st) {
     + '<tr><td>🏭 Buildings</td><td>' + (bl || '<span class="muted">—</span>') + '</td></tr>'
     + (n.upgrades && Object.keys(n.upgrades).length ? '<tr><td>🧪 Upgrades</td><td>' + Object.keys(n.upgrades).map(u => ({conscription: '🪖 conscription (barracks 3x)', logistics: '🚚 logistics (upkeep 2, sell +1)', gunpowder: '💥 gunpowder (+2 atk dmg)'}[u] || u)).join(' · ') + '</td></tr>' : '')
     + '<tr><td>📦 Stockpile</td><td>' + stock + '</td></tr>'
+    + (rareDeps.length ? '<tr><td>⛏ Deposits</td><td>' + rareDeps.map(r => depIcons[r] + ' ' + r).join(' · ') + '</td></tr>' : '')
     + '<tr><td>👥 Citizens</td><td>' + (n.citizens ? n.citizens.length : '—') + '</td></tr>'
     + '<tr><td>🕊 Allies</td><td>' + (allies.map(a => st.nations[String(a)] ? st.nations[String(a)].name : a).join(', ') || '<span class="muted">none</span>') + '</td></tr>'
     + '<tr><td>⚔ Wars</td><td>' + (wars.length ? wars.map(w => st.nations[String(w)] ? st.nations[String(w)].name : w).join(', ') : '<span class="muted">peace</span>') + '</td></tr>'
@@ -350,11 +355,12 @@ function renderCharts() {
   $('powerchart').innerHTML = svgChart(series, {});
   $('powerlegend').innerHTML = names.map((nm, k) => '<span><i class="dot" style="background:' + colors[k] + '"></i>' + esc(nm) + '</span>').join('');
 
-  /* market */
-  const RES_COLORS = {wood: '#8a6a3a', iron: '#6a7f9e', grain: '#a58a4a', oil: '#3f3f4a'};
-  const resSeries = ['wood', 'iron', 'grain', 'oil'].map(r => ({name: r, color: RES_COLORS[r], values: turns.map(t => (t.market ? t.market[r] : null)).filter(v => v != null)}));
+  /* market (data-driven: all resources present in this season's state — v10 adds copper/spices/gems/uranium) */
+  const RES_COLORS = {wood: '#8a6a3a', iron: '#6a7f9e', grain: '#a58a4a', oil: '#3f3f4a', copper: '#c47a3a', spices: '#b8543a', gems: '#4ab0a0', uranium: '#8a6ad0'};
+  const resKeys = Object.keys((turns[turns.length - 1] || {}).market || {});
+  const resSeries = resKeys.map(r => ({name: r, color: RES_COLORS[r] || '#999', values: turns.map(t => (t.market ? t.market[r] : null)).filter(v => v != null)}));
   $('marketchart').innerHTML = svgChart(resSeries, {});
-  $('marketlegend').innerHTML = ['wood', 'iron', 'grain', 'oil'].map(r => '<span><i class="dot" style="background:' + RES_COLORS[r] + '"></i>' + r + '</span>').join('');
+  $('marketlegend').innerHTML = resKeys.map(r => '<span><i class="dot" style="background:' + (RES_COLORS[r] || '#999') + '"></i>' + r + '</span>').join('');
 
   /* army */
   let aSeries = ids.map((id, k) => ({name: names[k], color: colors[k], values: pick(id, 'army').filter(v => v != null)}));
@@ -516,14 +522,14 @@ async function refresh() {
 
     renderWorld(st);
 
-    // market
-    const base = {wood: 6, iron: 10, grain: 4, oil: 12};
+    // market (data-driven: keys of st.market — v10 seasons carry 8 resources)
+    const base = {wood: 6, iron: 10, grain: 4, oil: 12, copper: 14, spices: 18, gems: 22, uranium: 30};
     let mk = '<table><tr><th>resource</th><th>price</th><th>vs base</th><th></th></tr>';
-    for (const res of ['wood', 'iron', 'grain', 'oil']) {
-      const m = st.market[res], b0 = base[res];
+    for (const res of Object.keys(st.market || {})) {
+      const m = st.market[res], b0 = base[res] != null ? base[res] : m;
       const delta = m - b0;
       const cls = delta > 0 ? 'bad' : (delta < 0 ? 'ok' : '');
-      mk += '<tr><td><b>' + res + '</b></td><td>' + m + '</td><td class="' + cls + '">' + (delta > 0 ? '+' : '') + delta + '</td><td>' + bar(m, 25) + '</td></tr>';
+      mk += '<tr><td><b>' + res + '</b></td><td>' + m + '</td><td class="' + cls + '">' + (delta > 0 ? '+' : '') + delta + '</td><td>' + bar(m, 30) + '</td></tr>';
     }
     $('market').innerHTML = mk + '</table>';
     const fl = st.day_flags || {};
