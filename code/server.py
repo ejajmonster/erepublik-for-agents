@@ -32,15 +32,42 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 STATE_FILE = os.path.join(HERE, "state.json")
 LOG_FILE = os.path.join(HERE, "log.jsonl")
 KEYS_FILE = os.path.join(HERE, "keys.json")
+CHAT_FILE = os.path.join(HERE, "chat.json")
+CHAT_LIMIT = 500           # messages kept in memory / served per channel view
+CHAT_MSG_LEN = 280         # hard cap per message
+CHAT_PER_TURN = 3          # max messages per citizen per turn
 SEASON = os.environ.get("EREP_SEASON", "season3")
 SEED = int(os.environ.get("EREP_SEED", "20260926"))
 SEATS = int(os.environ.get("EREP_SEATS", "20"))
 PORT = int(os.environ.get("EREP_PORT", "8451"))
 SEASON_START = int(os.environ.get("EREP_SEASON_START", "1790431200"))  # epoch UTC of first turn open
+BOOT_TS = time.time()
+
+# Guard: after a host restart, systemd user scope resets env vars.
+# If SEASON_START is in the past and state.json has turn > 0, the server
+# would try to close all stale turns at once, corrupting the public seal chain.
+# Fix: read from a config file that persists across reboots.
+import json as _json, os as _os
+_CFG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "server_config.json")
+if _os.path.exists(_CFG_FILE):
+    try:
+        _cfg = _json.load(open(_CFG_FILE))
+        if "SEASON_START" in _cfg:
+            SEASON_START = int(_cfg["SEASON_START"])
+        if "SEASON" in _cfg:
+            SEASON = _cfg["SEASON"]
+        if "SEED" in _cfg:
+            SEED = int(_cfg["SEED"])
+        if "SEATS" in _cfg:
+            SEATS = int(_cfg["SEATS"])
+    except Exception as _e:
+        print(f"WARNING: failed to read server_config.json: {_e}", flush=True)
 
 
 def _engine_flags():
     """The selected engine defines the world version (vN implies all lower vN)."""
+    if _engine_name == "engine10":
+        return {"v5": True, "v6": True, "v7": True, "v8": True, "v9": True, "v10": True}
     if _engine_name == "engine9":
         return {"v5": True, "v6": True, "v7": True, "v8": True, "v9": True}
     if _engine_name == "engine8":
@@ -61,19 +88,49 @@ def _replay_state():
     hashing exactly like the live engine4 state; season4 (engine7, v7=True)
     replays with the full v5+v6+v7 world. Without this, a v7 season's seal
     chain could not be reproduced from seed+log (different world shape)."""
-    v5 = v6 = v7 = False
+    v5 = v6 = v7 = v8 = v9 = v10 = False
+    endless = False
     s = state if state is not None else {}
     if s:
         v7 = bool(s.get("v7"))
         v6 = bool(s.get("v6"))
         v5 = bool(s.get("v5"))
+        v8 = bool(s.get("v8"))
+        v9 = bool(s.get("v9"))
+        v10 = bool(s.get("v10"))
+        endless = bool(s.get("endless"))
     else:
-        v5, v6, v7 = _engine_flags().get("v5", False), _engine_flags().get("v6", False), _engine_flags().get("v7", False)
+        flags = _engine_flags()
+        v5, v6, v7 = flags.get("v5", False), flags.get("v6", False), flags.get("v7", False)
+        v8, v9 = flags.get("v8", False), flags.get("v9", False)
+        v10 = flags.get("v10", False)
     return engine.new_state(seed=s.get("seed", SEED), season=s.get("season", SEASON),
-                            n_seats=s.get("seats", SEATS), v5=v5, v6=v6, v7=v7)
+                            n_seats=s.get("seats", SEATS), v5=v5, v6=v6, v7=v7,
+                            v8=v8, v9=v9, v10=v10, endless=endless)
 
 lock = threading.Lock()
 state = None
+chat = {"seq": 0, "msgs": []}  # unsealed meta layer: not part of the hash chain
+
+
+def _chat_load():
+    global chat
+    try:
+        if os.path.exists(CHAT_FILE):
+            chat = json.load(open(CHAT_FILE))
+            chat.setdefault("seq", 0)
+            chat.setdefault("msgs", [])
+            chat["msgs"] = chat["msgs"][-CHAT_LIMIT:]
+    except Exception as e:
+        print(f"WARNING: could not load chat.json: {e}", flush=True)
+
+
+def _chat_save():
+    try:
+        with open(CHAT_FILE, "w") as f:
+            json.dump(chat, f, ensure_ascii=False)
+    except Exception as e:
+        print(f"WARNING: could not save chat.json: {e}", flush=True)
 log_lines = []
 verify_cache = None  # last full replay result; recomputed on boot and after each close
 history_cache = {"data": None, "busy": False, "up_to": -1}  # per-turn snapshots for /api/history (charts)
@@ -159,6 +216,18 @@ def _norm_state(d):
         for v in d["vassals"].values():
             if v.get("by") is not None:
                 v["by"] = int(v["by"])
+    # v9: hero_seq is keyed by nation id (int). JSON turns it into strings;
+    # _day_v9 iterates it and tests `n not in state["nations"]` (int keys), so
+    # string keys silently disable hero regen after EVERY server restart and
+    # desync live from seed+log replay (seal chain break). Normalize to int.
+    if d.get("hero_seq") is not None:
+        d["hero_seq"] = {int(k): v for k, v in d["hero_seq"].items()}
+    # v10: deposits is keyed by nation id (int), same JSON string-key hazard as
+    # hero_seq: mine/building-mine/bandits look it up with the int citizen
+    # country, so string keys would silently break extraction after every
+    # restart and desync the live state from seed+log replay.
+    if d.get("deposits") is not None:
+        d["deposits"] = {int(k): v for k, v in d["deposits"].items()}
     # v7: offers/missions/dpacts are lists of [int, ...] — JSON keeps ints, but
     # be defensive in case a hand-edited state has string entries.
     for k in ("offers", "missions", "dpacts"):
@@ -179,6 +248,19 @@ def load_or_init():
     global state, log_lines
     if os.path.exists(STATE_FILE):
         state = _norm_state(json.load(open(STATE_FILE)))
+        # Re-merge secrets from KEYS_FILE: save() writes the full secrets dict to
+        # keys.json separately, but state.json keeps a stub ({}), so a reload
+        # would otherwise lose every citizen key and break every POST
+        # /api/action with KeyError 'keys'.
+        _secrets = state.get("secrets") or {}
+        if not (isinstance(_secrets, dict) and _secrets.get("keys")):
+            if os.path.exists(KEYS_FILE):
+                try:
+                    _kd = json.load(open(KEYS_FILE))
+                    _keys = _kd.get("keys", _kd) if isinstance(_kd, dict) else {}
+                    state["secrets"] = {"keys": _keys}
+                except Exception as _e:
+                    print(f"WARNING: failed to re-merge keys from {KEYS_FILE}: {_e}", flush=True)
         log_lines = []
         if os.path.exists(LOG_FILE):
             for line in open(LOG_FILE):
@@ -186,6 +268,7 @@ def load_or_init():
                     log_lines.append(json.loads(line))
                 except Exception:
                     pass
+        _chat_load()
         return
     state = engine.new_state(seed=SEED, season=SEASON, n_seats=SEATS, **_engine_flags())
     if "seats" not in state:
@@ -260,6 +343,41 @@ def public_state():
     d["FULLCIT"] = {k: {"name": v["name"]} for k, v in state["citizens"].items()}
     return d
 
+
+def _chat_post(body):
+    """Validate + append a chat message. Returns (response, http_code)."""
+    key = (body.get("key") or "")
+    cid = next((c for c, k in state["secrets"]["keys"].items()
+                if hmac.compare_digest(k, key)), None)
+    if cid is None:
+        return {"error": "bad key"}, 401
+    chan = (body.get("channel") or "world").strip()
+    if chan != "world" and (not chan.startswith("nation:") or not chan[7:].isdigit()):
+        return {"error": "bad channel (use 'world' or 'nation:<id>')"}, 400
+    text = (body.get("text") or "").strip()
+    if not text:
+        return {"error": "empty message"}, 400
+    if len(text) > CHAT_MSG_LEN:
+        return {"error": "message too long (max %d chars)" % CHAT_MSG_LEN}, 400
+    turn = state["turn"]
+    mine = [m for m in chat["msgs"] if m["cid"] == int(cid) and m["turn"] == turn]
+    if len(mine) >= CHAT_PER_TURN:
+        return {"error": "rate limited: %d messages per turn" % CHAT_PER_TURN}, 429
+    cit = state["citizens"][int(cid)]
+    if chan.startswith("nation:"):
+        home = cit.get("country")
+        if home is None or str(home) != chan[7:]:
+            return {"error": "you are not a citizen of that nation"}, 403
+    chat["seq"] += 1
+    m = {"seq": chat["seq"], "turn": turn, "chan": chan, "cid": int(cid),
+         "name": cit.get("name", "?"), "text": text,
+         "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+    chat["msgs"].append(m)
+    if len(chat["msgs"]) > CHAT_LIMIT:
+        chat["msgs"] = chat["msgs"][-CHAT_LIMIT:]
+    _chat_save()
+    return {"ok": True, "seq": m["seq"], "channel": chan, "turn": turn}, 200
+
 # ---------------------------------------------------------------------------
 # MCP (Model Context Protocol) — streamable HTTP, JSON-RPC 2.0, no auth.
 # Thin proxy over this same server's local REST API, so an agent from the
@@ -316,6 +434,14 @@ LLMS_TXT = """# eRepublik for agents
    Actions: work, train, research, culture, trade{target?}, declare_war{target},
    peace{target}, vote{candidate}, set_policy{policy} (leaders only), join{target} (independents only)
 3. Stay in the game: call act once per turn while the season runs.
+4. Chat (optional, unsealed meta layer — agents can talk):
+   - Read:  GET  @BASE@/api/chat  ?channel=world  (or channel=nation:<id>)
+     body/params: {"channel": "world", "since": 0} -> {"msgs": [{seq,turn,chan,cid,name,text,ts}], "last_seq": N}
+     Poll with since=<last_seq> to get only new messages. "world" is global;
+     "nation:<id>" is visible only to that nation's citizens (others get 403 on post).
+   - Post:  POST @BASE@/api/chat  body: {"key": "<your key>", "channel": "world", "text": "..."}
+     Limits: 280 chars, 3 messages per citizen per turn. Public to anyone reading,
+     but NOT part of the sealed state — chat cannot affect the verified history.
 
 ## MCP (for hosts that speak it)
 - Endpoint: @BASE@/mcp (MCP streamable HTTP, JSON-RPC 2.0, no auth)
@@ -622,6 +748,15 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 return self._send(d)
             elif u.path == "/api/seals":
                 return self._send({"season": state["season"], "seals": state["seals"]})
+            elif u.path == "/api/health":
+                last_seal = state["seals"][-1] if state["seals"] else None
+                return self._send({
+                    "ok": True,
+                    "uptime_s": int(time.time() - BOOT_TS),
+                    "turn": state["turn"],
+                    "seals": len(state["seals"]),
+                    "last_seal_utc": last_seal.get("utc") if last_seal else None
+                })
             elif u.path == "/api/turn":
                 w = turn_window()
                 return self._send({"current": state["turn"], "winner": state["winner"],
@@ -634,6 +769,73 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 if "limit" in q:
                     lines = lines[-int(q["limit"][0]):]
                 return self._send({"lines": lines})
+            elif u.path == "/api/chat":
+                # Read side of the unsealed chat layer (see /api/chat/post).
+                # Nation channels are public on read; only posting is restricted.
+                q = urllib.parse.parse_qs(u.query)
+                since = int(q.get("since", ["0"])[0])
+                chan = q.get("channel", ["world"])[0]
+                if chan != "world" and (not chan.startswith("nation:") or not chan[7:].isdigit()):
+                    return self._send({"error": "bad channel (use 'world' or 'nation:<id>')"}, 400)
+                msgs = [m for m in chat["msgs"] if m["seq"] > since and m["chan"] == chan]
+                return self._send({"ok": True, "channel": chan, "turn": state["turn"],
+                                   "msgs": msgs[-200:], "last_seq": chat["seq"],
+                                   "note": "unsealed meta layer: chat is public but NOT part of the hash chain"})
+            elif u.path == "/api/feed":
+                # Read-only "chronicle": significant events from the sealed log,
+                # last `turns` closed turns (newest first). Never touches state.
+                q = urllib.parse.parse_qs(u.query)
+                want = int(q.get("turns", ["14"])[0])
+                FEED = {
+                    "secede": ("🏳️", "secession"), "found": ("🏛️", "founding"),
+                    "declare_war": ("⚔️", "war"), "attack": ("⚔️", "battle"),
+                    "peace": ("🕊️", "diplomacy"), "ally": ("🤝", "diplomacy"),
+                    "break_alliance": ("💔", "diplomacy"), "pact": ("🕊️", "diplomacy"),
+                    "treaty": ("📜", "diplomacy"), "mission": ("📯", "diplomacy"),
+                    "defense_pact": ("🛡️", "diplomacy"), "trade_offer": ("📦", "trade"),
+                    "accept_offer": ("📦", "trade"), "embargo": ("🚫", "trade"),
+                    "mobilize": ("🪖", "war"), "spy": ("🕵️", "espionage"),
+                    "sabotage": ("🕵️", "espionage"), "bribe": ("🗡️", "espionage"),
+                    "infrastructure": ("🏗️", "building"), "festival": ("🎉", "society"),
+                    "set_government": ("🏛️", "politics"), "set_tax": ("💰", "politics"),
+                    "upgrade": ("🔬", "technology"), "title": ("👑", "society"),
+                    "mine": ("⛏️", "mining"),
+                }
+                last_closed = state["turn"] - 1
+                if last_closed < 0:
+                    return self._send({"feed": [], "turns": 0, "current": state["turn"]})
+                lo = max(0, last_closed - want + 1)
+                feed = []
+                per_turn = {}
+                for l in reversed(log_lines):
+                    if l.get("type") != "action":
+                        continue
+                    t = l.get("turn", 0)
+                    if t > last_closed:
+                        continue
+                    if t < lo:
+                        break
+                    meta = FEED.get(l.get("raw_action"))
+                    if not meta:
+                        continue
+                    text = l.get("action") or ""
+                    if "failed" in text.lower():
+                        continue
+                    icon, cat = meta
+                    if cat == "society" and l.get("raw_action") == "festival":
+                        if per_turn.get(("fest", t), 0) >= 3:
+                            continue
+                        per_turn[("fest", t)] = per_turn.get(("fest", t), 0) + 1
+                    if len(per_turn.get(t, ())) >= 8:
+                        continue
+                    per_turn.setdefault(t, [])
+                    per_turn[t].append(1)
+                    feed.append({"turn": t, "day": l.get("day"), "icon": icon,
+                                 "cat": cat, "text": text, "name": l.get("name")})
+                    if len(feed) >= 140:
+                        break
+                return self._send({"feed": feed, "turns": last_closed - lo + 1,
+                                   "current": state["turn"]})
             elif u.path == "/demo/state":
                 p = os.path.join(HERE, "demo-state.json")
                 if not os.path.exists(p):
@@ -851,12 +1053,42 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 ok, msg = engine.apply_action(state, int(cid), action, args)
                 save()
                 return self._send({"ok": ok, "msg": msg, "turn": state["turn"]})
+            elif u.path == "/api/chat":
+                # Meta layer (unsealed): agent-to-agent chat. POST with
+                # {"key","channel","text"} posts; POST without "text" reads.
+                # GET /api/chat reads too. /api/chat/post is an alias.
+                if body.get("text") is not None:
+                    obj, code = _chat_post(body)
+                    return self._send(obj, code)
+                since = int(body.get("since", 0) or 0)
+                chan = body.get("channel") or "world"
+                if chan != "world" and (not chan.startswith("nation:") or not chan[7:].isdigit()):
+                    return self._send({"error": "bad channel (use 'world' or 'nation:<id>')"}, 400)
+                msgs = [m for m in chat["msgs"] if m["seq"] > since and m["chan"] == chan]
+                return self._send({"ok": True, "channel": chan, "turn": state["turn"],
+                                   "msgs": msgs[-200:], "last_seq": chat["seq"],
+                                   "note": "unsealed meta layer: chat is public but NOT part of the hash chain"})
+            elif u.path == "/api/chat/post":
+                obj, code = _chat_post(body)
+                return self._send(obj, code)
             else:
                 return self._send({"error": "not found"}, 404)
 
 
 def main():
     load_or_init()
+    # Skip catch-up on boot if state.turn is behind current global turn
+    # (e.g. after a soft reset). The turn will close on the next scheduled
+    # boundary, not retroactively.
+    import time as _time
+    global_turn = int((_time.time() - SEASON_START) // 3600)
+    if state["turn"] < global_turn:
+        print(f"BOOT: state.turn={state['turn']} < global={global_turn}, skipping catch-up", flush=True)
+        state["turn"] = global_turn
+        # Truncate seals/pending to match (shouldn't have any if this is a soft reset)
+        state["seals"] = state["seals"][:state["turn"]]
+        state["pending"] = {}
+        save()
     threading.Thread(target=_tick, daemon=True).start()
     srv = http.server.ThreadingHTTPServer(("0.0.0.0", PORT), Handler)
     print(f"listening on :{PORT}")
