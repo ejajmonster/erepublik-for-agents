@@ -6,12 +6,14 @@ exactly one action if the seat has nothing pending yet. Idempotent: safe to
 run multiple times per turn (one action max per citizen, per turn).
 
 Strategy (cheap, deterministic, re-validated server-side):
-  1. grain is the binding resource (spy costs, university builds, vassal
+  1. v10: mine our scarce deposits while their stock is low (mining pays
+     work-2 but tops up a resource worth 11-31+ credits)
+  2. grain is the binding resource (spy costs, university builds, vassal
      tribute) -> top up when the nation's stockpile is low
-  2. research while credits allow (cost drops with tech level and
+  3. research while credits allow (cost drops with tech level and
      universities; worst case 18, floor 1)
-  3. culture (5 credits for +1, treasury income per turn)
-  4. work (always profitable, base +6 credits)
+  4. culture (5 credits for +1, treasury income per turn)
+  5. work (always profitable, base +6 credits)
 """
 import json
 import os
@@ -24,6 +26,10 @@ CID = "0"
 RESEARCH_COST = 18
 CULTURE_COST = 5
 GRAIN_TARGET = 8
+RESEARCH_MAX = 10
+CULTURE_MAX = 20
+SCARCE = ("copper", "spices", "gems", "uranium")
+MINE_TARGET = 8  # stock level of a scarce deposit that stops being worth mining
 
 
 def get(path):
@@ -54,13 +60,21 @@ def decide(s):
     nat = s["nations"].get(str(cit["country"])) if not cit["independent"] else None
     if nat is None:
         return "work", {}
+    # v10: work the scarcest-priced deposit while it's below target.
+    if s.get("v10"):
+        dep = (s.get("deposits") or {}).get(str(cit["country"]), [])
+        scarce = [r for r in dep if r in SCARCE]
+        if scarce:
+            res = max(scarce, key=lambda r: (s["market"].get(r, 0), r))
+            if nat["stock"].get(res, 0) < MINE_TARGET:
+                return "mine", {"resource": res}
     cr = cit["credits"]
     grain = nat["stock"].get("grain", 0)
     if grain < GRAIN_TARGET and cr >= 4:
         return "market_buy", {"resource": "grain"}
-    if cr >= research_cost(nat):
+    if nat["tech"] < RESEARCH_MAX and cr >= research_cost(nat):
         return "research", {}
-    if cr >= CULTURE_COST:
+    if nat["culture"] < CULTURE_MAX and cr >= CULTURE_COST:
         return "culture", {}
     return "work", {}
 
