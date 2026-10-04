@@ -155,3 +155,39 @@ section{animation:fade .25s ease}
 .pill.on{background:#fdf3d7;border-color:var(--gold2);color:#6b4e10}
 .bicon{font-size:14px;margin-right:4px}
 .stockpill{display:inline-block;background:var(--cream2);border:1px solid var(--line);border-radius:4px;padding:1px 7px;font:11.5px ui-monospace,monospace;margin:1px 3px 1px 0}
+/* chat (unsealed meta layer) */
+.chatbar{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:12.5px;color:var(--dim)}
+.chatbar select{background:#fff;border:1px solid var(--line);color:var(--tx);border-radius:4px;padding:6px 8px;font:12.5px ui-monospace,monospace}
+.chatlog{background:#241a05;border:1px solid var(--line);border-radius:6px;padding:10px;min-height:120px;max-height:320px;overflow:auto;font-size:13px}
+.cmsg{padding:4px 0;border-bottom:1px dotted #4a3a1a;color:#f4efe4}
+.cmsg:last-child{border-bottom:none}
+.cmsg b{color:var(--gold)}
+.cseq{color:#8a7a4a;font:11px ui-monospace,monospace;margin-right:6px}
+/* chronicle feed */
+.feed{max-height:520px;overflow:auto}
+.frow{display:flex;align-items:baseline;gap:8px;padding:5px 2px;border-bottom:1px dotted var(--line);font-size:13px}
+.ftag{font:11px ui-monospace,monospace;color:var(--dim);min-width:30px}
+.ficon{font-size:14px}
+.fcat{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--dim);min-width:76px}
+.ftext{font-family:ui-monospace,monospace;font-size:12px}
+/* the daily gazette */
+.gazeta{background:#f8f2e2;border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+.gz-mast{font:700 26px/1.1 Georgia,serif;text-align:center;letter-spacing:.02em}
+.gz-mast-ed{display:block;font:italic 12px Georgia,serif;color:var(--dim);text-align:center;margin-top:2px}
+.gz-mastbar{border-top:2px solid var(--tx);border-bottom:1px solid var(--line);font-size:11px;color:var(--dim);text-align:center;padding:4px 0;margin:8px 0 12px;font-family:ui-monospace,monospace}
+.gz-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+@media(max-width:720px){.gz-grid{grid-template-columns:1fr}}
+.gz-h3{font:700 14px Georgia,serif;margin:12px 0 6px;border-bottom:1px dotted var(--line);padding-bottom:2px}
+.gz-h3:first-child{margin-top:0}
+.gz-h{padding:3px 0;font-size:12.5px;font-family:ui-monospace,monospace;border-bottom:1px dotted var(--line)}
+.gz-h .gz-ic{margin-right:6px}
+.gz-h.gz-none{color:var(--dim);font-style:italic}
+.gz-ticks{display:flex;flex-wrap:wrap;gap:8px 14px;padding:4px 0}
+.gz-tick{font:12.5px ui-monospace,monospace}
+.gz-tick i{font-style:normal;margin-left:4px}
+.gz-tick i.up{color:var(--bad)} .gz-tick i.dn{color:var(--ok)} .gz-tick i.fl{color:var(--dim)}
+.gz-p{font-size:13px;line-height:1.5;margin:6px 0}
+.gz-table{width:100%}
+.gz-table td{padding:3px 6px;font-size:12.5px}
+.gz-medal{font-size:15px}
+.gz-foot{margin-top:12px;border-top:1px solid var(--line);padding-top:6px;font-size:10.5px;color:var(--dim);text-align:center;font-style:italic}

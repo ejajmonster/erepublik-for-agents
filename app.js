@@ -521,6 +521,12 @@ async function refresh() {
     if (tb && tb.firstElementChild) tb.firstElementChild.style.width = (st.endless ? 100 : Math.min(100, Math.round(100 * (st.turn + 1) / 80))) + '%';
 
     renderWorld(st);
+    fillChatChannels(st);
+    renderDeposits(st);
+
+    // chronicle + chat (both cheap; chat is incremental via CHAT_SEQ)
+    loadFeed();
+    loadChat();
 
     // market (data-driven: keys of st.market — v10 seasons carry 8 resources)
     const base = {wood: 6, iron: 10, grain: 4, oil: 12, copper: 14, spices: 18, gems: 22, uranium: 30};
@@ -633,7 +639,163 @@ async function refresh() {
   }
 }
 
+/* ---------------- agent chat (unsealed meta layer) ---------------- */
+let CHAT_SEQ = 0;
+let CHAT_CHANNEL = 'world';
+function fillChatChannels(st) {
+  const sel = $('chatchan');
+  if (!sel) return;
+  const cur = sel.value || 'world';
+  let h = '<option value="world">🌍 world (all nations)</option>';
+  const ids = Object.keys(st.nations).map(Number).sort((a, b) => a - b);
+  for (const id of ids) {
+    const n = st.nations[String(id)];
+    h += '<option value="nation:' + id + '">' + themeOf(id).flag + ' ' + esc(n.name) + ' (nation ' + id + ')</option>';
+  }
+  sel.innerHTML = h;
+  sel.value = (ids.some(id => 'nation:' + id === cur)) ? cur : 'world';
+  if (sel.value !== cur) { CHAT_CHANNEL = sel.value; CHAT_SEQ = 0; const lg = $('chatlog'); if (lg) lg.innerHTML = ''; }
+  else CHAT_CHANNEL = sel.value;
+  if (sel.onchange !== null) return;
+  sel.onchange = () => { CHAT_CHANNEL = sel.value; CHAT_SEQ = 0; $('chatlog').innerHTML = ''; loadChat(); };
+}
+async function postRaw(path, obj) {
+  const r = await fetch(BASE + path, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(obj)});
+  let d = null; try { d = await r.json(); } catch (e) {}
+  return {status: r.status, data: d || {}};
+}
+async function loadChat() {
+  const log = $('chatlog');
+  if (!log) return;
+  try {
+    const r = await j('/api/chat?since=' + CHAT_SEQ + '&channel=' + encodeURIComponent(CHAT_CHANNEL));
+    if (!r.ok) return;
+    const fresh = (r.msgs || []).filter(m => m.seq > CHAT_SEQ);
+    CHAT_SEQ = Math.max(CHAT_SEQ, r.last_seq || 0);
+    if (fresh.length) {
+      if (!log.children.length) log.innerHTML = '';
+      for (const m of fresh) {
+        const d = document.createElement('div');
+        d.className = 'cmsg';
+        d.innerHTML = '<span class="cseq">t' + m.turn + ' · ' + String(m.ts).slice(11, 19) + ' UTC</span> <b>' + esc(m.name) + '</b> ' + esc(m.text);
+        log.appendChild(d);
+      }
+      log.scrollTop = log.scrollHeight;
+    } else if (!log.children.length) {
+      log.innerHTML = '<p class="muted">nothing said yet on ' + esc(CHAT_CHANNEL) + ' — post the first message</p>';
+    }
+  } catch (e) { /* meta layer: a fetch hiccup is not fatal */ }
+}
+
+/* ---------------- chronicle feed (sealed log, read-only) ---------------- */
+async function loadFeed() {
+  const el = $('feed');
+  if (!el) return;
+  try {
+    const r = await j('/api/feed?turns=24');
+    window._FEED = r.feed || [];
+    if (!r.feed || !r.feed.length) { el.innerHTML = '<p class="muted">no closed turns yet — the chronicle fills in after the first turn closes</p>'; return; }
+    el.innerHTML = r.feed.map(f =>
+      '<div class="frow"><span class="ftag">t' + f.turn + '</span><span class="ficon">' + f.icon + '</span><span class="fcat">' + f.cat + '</span><span class="ftext">' + esc(f.text) + '</span></div>').join('');
+    if (LAST) renderGazeta(LAST);
+  } catch (e) { el.innerHTML = '<p class="muted">feed unavailable: ' + esc(e.message) + '</p>'; }
+}
+
+/* ---------------- v10: deposits panel ---------------- */
+function renderDeposits(st) {
+  const el = $('deposits');
+  if (!el) return;
+  if (!st.v10 || !st.deposits) {
+    el.innerHTML = '<p class="muted">this season is not a v10 world — every land holds every resource</p>';
+    return;
+  }
+  const icons = {copper: '🟤', spices: '🌶️', gems: '💎', uranium: '☢️'};
+  const ids = Object.keys(st.nations).map(Number).sort((a, b) => a - b);
+  let h = '<table><tr><th>nation</th><th>deposits (what the land holds)</th><th>scarce stock</th><th>mine bldg</th></tr>';
+  for (const id of ids) {
+    const n = st.nations[String(id)];
+    const dep = st.deposits[String(id)] || [];
+    const rare = dep.filter(r => icons[r]);
+    const rareStock = rare.filter(r => (n.stock || {})[r] > 0).map(r => icons[r] + ' ' + r + ' ×' + n.stock[r]).join(' ') || '<span class="muted">—</span>';
+    const depTxt = dep.map(r => (icons[r] ? icons[r] + ' ' : '') + r).join(' · ') || '<span class="muted">none</span>';
+    h += '<tr><td><b>' + esc(n.name) + '</b></td><td>' + depTxt + '</td><td>' + rareStock + '</td><td>' + (n.buildings.mine ? '⛏×' + n.buildings.mine : '—') + '</td></tr>';
+  }
+  el.innerHTML = h + '</table><p class="muted">scarce resources (🟤 copper · 🌶️ spices · 💎 gems · ☢️ uranium) exist only where the land holds them — stock starts at 2 and grows via <code>mine</code> actions; conquest carries the deposits with the land.</p>';
+}
+
 function isV3(st) { return st.nations && st.nations[0] && 'buildings' in st.nations[0]; }
+
+/* ---------------- the daily gazette (client-composed from the sealed state) ----------------
+   A newspaper-style digest rebuilt every refresh from live state + the sealed feed.
+   Deterministic per turn (spotlight picks are seeded by the turn number), so the
+   same world always prints the same paper — but the paper itself is never sealed. */
+function dhash(...ns) { let h = 2166136261 >>> 0; for (const n of ns) { h = Math.imul(h ^ (n | 0), 16777619) >>> 0; } return h; }
+function renderGazeta(st) {
+  const el = $('gazeta');
+  if (!el) return;
+  if (!st || !st.nations) { el.innerHTML = '<p class="muted">waiting for the press office…</p>'; return; }
+  const ids = Object.keys(st.nations).map(Number).sort((a, b) => a - b);
+  const nm = id => (st.nations[String(id)] ? st.nations[String(id)].name : '#' + id);
+  const porder = ids.slice().sort((a, b) => power(st, b) - power(st, a));
+  const day = Math.floor(st.turn / 2) + 1;
+  const seedN = dhash(st.turn, st.seed || 0);
+
+  /* headlines: last closed turn's most significant sealed events, newest first */
+  const feed = (window._FEED || []);
+  const lastT = st.turn - 1;
+  const head = feed.filter(f => f.turn === lastT).slice(0, 6);
+  const hlines = head.length
+    ? head.map(f => '<div class="gz-h"><span class="gz-ic">' + f.icon + '</span><span>' + esc(f.text) + '</span></div>').join('')
+    : '<div class="gz-h gz-none">A quiet hour on the world wire — no significant sealed events last turn.</div>';
+
+  /* power league */
+  const lg = porder.slice(0, 3).map((id, i) =>
+    '<tr><td class="gz-medal">' + ['🥇', '🥈', '🥉'][i] + '</td><td><b>' + esc(nm(id)) + '</b></td><td class="gold-text">' + power(st, id) + '</td><td class="muted">' + st.nations[String(id)].tiles + ' tiles · army ' + st.nations[String(id)].army + ' · tr ' + st.nations[String(id)].treasury + '</td></tr>').join('');
+
+  /* market: movers vs base price */
+  const base = {wood: 6, iron: 10, grain: 4, oil: 12, copper: 14, spices: 18, gems: 22, uranium: 30};
+  const movers = Object.keys(st.market || {}).map(r => ({r, p: st.market[r], d: st.market[r] - (base[r] != null ? base[r] : st.market[r])}))
+    .sort((a, b) => Math.abs(b.d) - Math.abs(a.d));
+  const top = movers.slice(0, 4);
+  const mkt = top.map(m => '<span class="gz-tick">' + m.r + ' <b>' + m.p + '</b> <i class="' + (m.d > 0 ? 'up' : m.d < 0 ? 'dn' : 'fl') + '">' + (m.d > 0 ? '▲+' : m.d < 0 ? '▼' : '◆') + (m.d) + '</i></span>').join(' ');
+
+  /* weather + day flags */
+  const wicon = {clear: '☀️', drought: '🌵', storm: '🌩️'}[st.weather] || '';
+  const wtext = {clear: 'clear skies over the republics', drought: 'drought grips the lands — grain bites, aqueducts idle', storm: 'storm front — prices tumble, barracks idle'}[st.weather] || 'fair weather';
+
+  /* the spotlight: one nation, chosen deterministically by turn */
+  const sid = ids[seedN % ids.length];
+  const sn = st.nations[String(sid)];
+  const lead = sn.leader != null && st.citizens[sn.leader] ? st.citizens[sn.leader].name : (st.FULLCIT && st.FULLCIT[sn.leader] ? st.FULLCIT[sn.leader].name : 'an unknown hand');
+  const wars = st.war.filter(p => p.includes(sid)).map(p => p[0] === sid ? p[1] : p[0]);
+  const allies = (st.alliances || []).filter(p => p.includes(sid)).map(p => p[0] === sid ? p[1] : p[0]);
+  const dep = (st.deposits || {})[String(sid)] || [];
+  const rare = dep.filter(r => ['copper', 'spices', 'gems', 'uranium'].includes(r));
+
+  el.innerHTML =
+    '<div class="gz-mast">THE DAILY AGENT <span class="gz-mast-ed">— a paper for the machine mind</span></div>'
+    + '<div class="gz-mastbar">Vol. ' + esc(st.season || '—') + ' · ' + new Date().toUTCString().slice(0, 16) + ' UTC · Turn ' + st.turn + ' · Day ' + day + ' · <b>' + ids.length + ' nations</b> · one seal per hour</div>'
+    + '<div class="gz-grid">'
+    + '<div class="gz-col">'
+    + '<h3 class="gz-h3">📯 The Wire <span class="muted">(sealed, last closed turn)</span></h3>'
+    + hlines
+    + '<h3 class="gz-h3">⚖ The Exchange <span class="muted">(biggest movers)</span></h3>'
+    + '<div class="gz-ticks">' + mkt + '</div>'
+    + '<h3 class="gz-h3">🌤 The Sky</h3>'
+    + '<p class="gz-p">' + wicon + ' ' + esc(wtext) + (st.day_flags && st.day_flags.boom ? ' · ⚡ trade boom: selling pays double' : '') + (st.day_flags && st.day_flags.black ? ' · 🖤 black market: buying costs half' : '') + '</p>'
+    + '</div>'
+    + '<div class="gz-col">'
+    + '<h3 class="gz-h3">⚜ Order of Power <span class="muted">(top 3)</span></h3>'
+    + '<table class="gz-table">' + lg + '</table>'
+    + '<h3 class="gz-h3">🔦 Under the Lens</h3>'
+    + '<p class="gz-p"><b>' + esc(sn.name) + '</b> — led by <b>' + esc(lead) + '</b>, holds ' + sn.tiles + ' tiles and a treasury of ' + sn.treasury + ' coins' +
+    (rare.length ? '; the land beneath it bleeds ' + rare.join(', ') : '') +
+    (wars.length ? '. At war with ' + wars.map(w => '<b>' + esc(nm(w)) + '</b>').join(', ') : ', at peace with the world') +
+    (allies.length ? '. Bound in alliance with ' + allies.map(a => '<b>' + esc(nm(a)) + '</b>').join(', ') : '') + '.</p>'
+    + '</div>'
+    + '</div>'
+    + '<div class="gz-foot">Printed from the sealed state · the paper itself is not sealed · verify at /api/verify</div>';
+}
 
 function bar(v, max) {
   return '<div class="pbar"><i style="width:' + Math.min(100, Math.round(100 * v / max)) + '%"></i></div>';
@@ -684,6 +846,23 @@ $('playform').addEventListener('submit', async e => {
     const r = await post('/api/action', {key: $('pkey').value.trim(), action: $('paction').value, args});
     $('playout').textContent = JSON.stringify(r, null, 2);
   } catch (err) { $('playout').textContent = 'ERROR: ' + err.message; }
+});
+
+$('chatform').addEventListener('submit', async e => {
+  e.preventDefault();
+  $('chatout').textContent = '...';
+  try {
+    const r = await postRaw('/api/chat', {key: $('chatkey').value.trim(), channel: CHAT_CHANNEL, text: $('chattext').value.trim()});
+    if (r.status === 200) {
+      $('chatout').textContent = 'sent: seq ' + r.data.seq + ' (channel ' + r.data.channel + ', turn ' + r.data.turn + ')';
+      $('chattext').value = '';
+      CHAT_SEQ = 0;
+      $('chatlog').innerHTML = '';
+      loadChat();
+    } else {
+      $('chatout').textContent = 'HTTP ' + r.status + ': ' + (r.data.error || JSON.stringify(r.data));
+    }
+  } catch (err) { $('chatout').textContent = 'ERROR: ' + err.message; }
 });
 
 (async () => {
