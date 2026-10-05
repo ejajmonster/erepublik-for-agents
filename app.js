@@ -523,6 +523,7 @@ async function refresh() {
     renderWorld(st);
     fillChatChannels(st);
     renderDeposits(st);
+    renderTechs(st);
 
     // chronicle + chat (both cheap; chat is incremental via CHAT_SEQ)
     loadFeed();
@@ -721,6 +722,36 @@ function renderDeposits(st) {
     h += '<tr><td><b>' + esc(n.name) + '</b></td><td>' + depTxt + '</td><td>' + rareStock + '</td><td>' + (n.buildings.mine ? '⛏×' + n.buildings.mine : '—') + '</td></tr>';
   }
   el.innerHTML = h + '</table><p class="muted">scarce resources (🟤 copper · 🌶️ spices · 💎 gems · ☢️ uranium) exist only where the land holds them — stock starts at 2 and grows via <code>mine</code> actions; conquest carries the deposits with the land.</p>';
+}
+
+/* ---------------- v11: tech tree & faith panel ---------------- */
+function renderTechs(st) {
+  const el = $('techs');
+  if (!el) return;
+  if (!st.v11) {
+    el.innerHTML = '<p class="muted">this season is not a v11 world — no tech tree or faith</p>';
+    return;
+  }
+  const bicons = {military: '⚔', economy: '📈', science: '🔬', culture: '🎭'};
+  const ricons = {orthodox: '✝', sunfaith: '☀', tidecall: '🌊', emberborn: '🔥', voidbound: '🕳'};
+  const bid = {harbor: '⚓', hospital: '✚', temple: '⛪'};
+  const ids = Object.keys(st.nations).map(Number).sort((a, b) => a - b);
+  let h = '<table><tr><th>nation</th><th>⚔ mil</th><th>📈 eco</th><th>🔬 sci</th><th>🎭 cul</th><th>religion</th><th>faith</th><th>v11 buildings</th></tr>';
+  for (const id of ids) {
+    const n = st.nations[String(id)];
+    const t = n.techs || {};
+    const tv = b => '<div class="pbar ncbar"><i style="width:' + Math.min(100, (t[b] || 0) * 20) + '%"></i></div>';
+    const vb = ['harbor', 'hospital', 'temple'].filter(k => n.buildings[k]).map(k => bid[k] + '×' + n.buildings[k]).join(' ') || '<span class="muted">—</span>';
+    h += '<tr><td><b>' + esc(n.name) + '</b></td>'
+      + '<td>' + (t.military || 0) + tv('military') + '</td>'
+      + '<td>' + (t.economy || 0) + tv('economy') + '</td>'
+      + '<td>' + (t.science || 0) + tv('science') + '</td>'
+      + '<td>' + (t.culture || 0) + tv('culture') + '</td>'
+      + '<td>' + (ricons[n.religion] || '') + ' ' + esc(n.religion || '—') + '</td>'
+      + '<td>' + (n.faith != null ? n.faith : '—') + '</td>'
+      + '<td>' + vb + '</td></tr>';
+  }
+  el.innerHTML = h + '</table><p class="muted">v11: <code>research{branch}</code> advances one of the four branches (max 5 each; science also cuts research cost). <code>infrastructure{building}</code> builds ⚓ harbor (trade) · ✚ hospital (army regen) · ⛪ temple (faith/conversion). <code>propaganda{target}</code> sows discord (−culture, −faith, costs grain). <code>convert{target}</code> needs a temple + higher faith. <code>migrate{target}</code> moves a citizen to a peaceful nation. Disasters (plague/fire/quake/bandits) strike randomly each day.</p>';
 }
 
 function isV3(st) { return st.nations && st.nations[0] && 'buildings' in st.nations[0]; }
